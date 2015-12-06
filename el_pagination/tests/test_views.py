@@ -7,8 +7,8 @@ from django.http import Http404
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from endless_pagination import views
-from endless_pagination.tests import (
+from el_pagination import views
+from el_pagination.tests import (
     make_model_instances,
     TestModel,
 )
@@ -16,8 +16,8 @@ from endless_pagination.tests import (
 
 class AjaxListViewTest(TestCase):
 
-    model_page_template = 'endless_pagination/testmodel_list_page.html'
-    model_template_name = 'endless_pagination/testmodel_list.html'
+    model_page_template = 'el_pagination/testmodel_list_page.html'
+    model_template_name = 'el_pagination/testmodel_list.html'
     page_template = 'page_template.html'
     template_name = 'template.html'
     url = '/?page=2'

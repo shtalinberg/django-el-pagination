@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from endless_pagination import utils
-from endless_pagination.settings import PAGE_LABEL
-from endless_pagination.exceptions import PaginationError
+from el_pagination import utils
+from el_pagination.settings import PAGE_LABEL
+from el_pagination.exceptions import PaginationError
 
 
 class GetDataFromContextTest(TestCase):

@@ -1,4 +1,4 @@
-{% load endless %}
+{% load el_pagination_tags %}
 
 {% lazy_paginate 3 articles using "articles-page" %}
 {% for article in articles %}

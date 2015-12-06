@@ -16,12 +16,12 @@ DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
 DEBUG = TEMPLATE_DEBUG = True
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
-    'endless_pagination',
+    'el_pagination',
     PROJECT_NAME,
 )
-LANGUAGE_CODE = os.getenv('ENDLESS_PAGINATION_LANGUAGE_CODE', 'en-us')
+LANGUAGE_CODE = os.getenv('EL_PAGINATION_LANGUAGE_CODE', 'en-us')
 ROOT_URLCONF = PROJECT_NAME + '.urls'
-SECRET_KEY = os.getenv('ENDLESS_PAGINATION_SECRET_KEY', 'secret')
+SECRET_KEY = os.getenv('EL_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
@@ -36,6 +36,6 @@ TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
 NOSE_ARGS = (
     '--verbosity=2',
     '--with-coverage',
-    '--cover-package=endless_pagination',
+    '--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

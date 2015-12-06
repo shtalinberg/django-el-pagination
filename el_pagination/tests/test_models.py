@@ -6,12 +6,12 @@ from contextlib import contextmanager
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from endless_pagination import (
+from el_pagination import (
     models,
     settings,
     utils,
 )
-from endless_pagination.paginators import DefaultPaginator
+from el_pagination.paginators import DefaultPaginator
 
 
 @contextmanager
@@ -60,7 +60,7 @@ class LocalSettingsTest(TestCase):
 
 
 def page_list_callable_arrows(number, num_pages):
-    """Wrap ``endless_pagination.utils.get_page_numbers``.
+    """Wrap ``el_pagination.utils.get_page_numbers``.
 
     Set first / last page arrows to True.
     """
@@ -202,7 +202,7 @@ class PageListTest(TestCase):
         # Ensure the page list is correctly rendered when using first / last
         # page arrows.
         page_list_callable = (
-            'endless_pagination.tests.test_models.page_list_callable_arrows')
+            'el_pagination.tests.test_models.page_list_callable_arrows')
         with local_settings(PAGE_LIST_CALLABLE=page_list_callable):
             rendered = utils.text(self.pages)
         self.assertEqual(7, rendered.count('<a href'))
@@ -259,7 +259,7 @@ class PageListTest(TestCase):
         # The option ``settings.PAGE_LIST_CALLABLE`` can be provided as a
         # dotted path, e.g.: 'path.to.my.callable'.
         self.check_page_list_callable(
-            'endless_pagination.tests.test_models.page_list_callable_dummy')
+            'el_pagination.tests.test_models.page_list_callable_dummy')
 
     def test_whitespace_in_path(self):
         # Ensure white spaces in paths are correctly handled.

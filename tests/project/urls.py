@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.conf.urls.defaults import patterns, url
 from django.views.generic import TemplateView
 
-from endless_pagination.decorators import (
+from el_pagination.decorators import (
     page_template,
     page_templates,
 )

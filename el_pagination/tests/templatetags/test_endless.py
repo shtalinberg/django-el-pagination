@@ -14,13 +14,13 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.utils import unittest
 
-from endless_pagination.exceptions import PaginationError
-from endless_pagination.models import PageList
-from endless_pagination.settings import (
+from el_pagination.exceptions import PaginationError
+from el_pagination.models import PageList
+from el_pagination.settings import (
     PAGE_LABEL,
     PER_PAGE,
 )
-from endless_pagination.tests import make_model_instances
+from el_pagination.tests import make_model_instances
 
 
 skip_if_old_etree = unittest.skipIf(
@@ -41,7 +41,7 @@ class TemplateTagsTestMixin(object):
 
         Return the generated HTML and the modified context.
         """
-        template = Template('{% load endless %}' + contents)
+        template = Template('{% load el_pagination_tags %}' + contents)
         context_data = kwargs.copy() if kwargs else {'objects': range(47)}
         context_data['request'] = request
         context = Context(context_data)

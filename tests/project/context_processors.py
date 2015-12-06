@@ -6,7 +6,7 @@ import platform
 import django
 from django.core.urlresolvers import reverse
 
-import endless_pagination
+import el_pagination
 
 
 VOICES = (
@@ -40,6 +40,6 @@ def versions(request):
     values = (
         ('Python', platform.python_version()),
         ('Django', django.get_version()),
-        ('Endless Pagination', endless_pagination.get_version()),
+        ('EL Pagination', el_pagination.get_version()),
     )
     return {'versions': values}

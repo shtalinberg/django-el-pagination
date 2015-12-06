@@ -1,3 +1,6 @@
+This app forked from https://github.com/frankban/django-endless-pagination
+for better sup
+
 Django Endless Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
 like multiple or lazy pagination.

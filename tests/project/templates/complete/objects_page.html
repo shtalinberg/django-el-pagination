@@ -1,4 +1,4 @@
-{% load endless %}
+{% load el_pagination_tags %}
 
 {% paginate 3 objects starting from page -1 using "objects-page" %}
 {% for object in objects %}

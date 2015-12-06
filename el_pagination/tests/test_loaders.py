@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from endless_pagination import loaders
+from el_pagination import loaders
 
 
 test_object = 'test object'

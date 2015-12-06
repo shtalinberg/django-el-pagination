@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from endless_pagination import decorators
+from el_pagination import decorators
 
 
 class DecoratorsTestMixin(object):

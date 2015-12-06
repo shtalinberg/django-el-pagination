@@ -3,17 +3,21 @@
 from __future__ import unicode_literals
 from contextlib import contextmanager
 import os
+import time
 
 from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import LiveServerTestCase
 from django.utils import unittest
 from selenium.common import exceptions
+from selenium import webdriver
+from selenium.webdriver import DesiredCapabilities
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver import Firefox
 from selenium.webdriver.support import ui
-from xvfbwrapper.xvfbwrapper import Xvfb
+from xvfbwrapper import Xvfb
 
-from endless_pagination.utils import PYTHON3
+from el_pagination.utils import PYTHON3
 
 
 SHOW_BROWSER = os.getenv('SHOW_BROWSER', False)
@@ -62,6 +66,37 @@ class SeleniumTestCase(LiveServerTestCase):
 
     def setUp(self):
         self.url = self.live_server_url + reverse(self.view_name)
+        """
+        self.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
+        if self.browser == 'firefox':
+            self.selenium = webdriver.Firefox()
+        elif self.browser == 'htmlunit':
+            self.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
+        elif self.browser == 'iphone':
+            command_executor = "http://127.0.0.1:3001/wd/hub"
+            self.selenium = webdriver.Remote(command_executor=command_executor,
+                desired_capabilities=DesiredCapabilities.IPHONE)
+        elif self.browser == 'safari':
+            self.selenium = webdriver.Remote(desired_capabilities={
+                "browserName": "safari", "version": "",
+                "platform": "MAC", "javascriptEnabled": True})
+        else:
+            self.selenium = webdriver.Chrome()
+        """
+        # Give the browser a little time; Firefox sometimes throws
+        # random errors if you hit it too soon
+        time.sleep(1)
+
+
+    @classmethod
+    def setUpClass(cls):
+        super(SeleniumTestCase, cls).setUpClass()
+        cls.selenium = WebDriver()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super(SeleniumTestCase, cls).tearDownClass()
 
     def get(self, url=None, data=None, **kwargs):
         """Load a web page in the current browser session.

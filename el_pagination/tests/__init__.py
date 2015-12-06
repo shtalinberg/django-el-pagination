@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.core.management import call_command
 from django.db import models
 
-from endless_pagination import utils
+from el_pagination import utils
 
 
 def make_model_instances(number):

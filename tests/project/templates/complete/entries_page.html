@@ -1,4 +1,4 @@
-{% load endless %}
+{% load el_pagination_tags %}
 
 {% lazy_paginate 1,3 entries using "entries-page" %}
 {% for entry in entries %}

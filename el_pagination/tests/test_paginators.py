@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 
-from endless_pagination import paginators
+from el_pagination import paginators
 
 
 class PaginatorTestMixin(object):
