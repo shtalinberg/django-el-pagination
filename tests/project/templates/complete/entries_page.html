@@ -1,0 +1,10 @@
+{% load endless %}
+
+{% lazy_paginate 1,3 entries using "entries-page" %}
+{% for entry in entries %}
+  <div class="well entry">
+    <h4>{{ entry.title }}</h4>
+    {{ entry.contents }}
+  </div>
+{% endfor %}
+{% show_more %}

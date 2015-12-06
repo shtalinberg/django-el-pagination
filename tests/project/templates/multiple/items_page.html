@@ -1,0 +1,12 @@
+{% load endless %}
+
+{% paginate 3 items using "items-page" %}
+{% for item in items %}
+  <div class="well item">
+    <h4>{{ item.title }}</h4>
+    {{ item.contents }}
+  </div>
+{% endfor %}
+<div class="pagination pagination-centered">
+  <div>{% show_pages %}</div>
+</div>

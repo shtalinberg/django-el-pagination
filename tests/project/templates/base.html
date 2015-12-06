@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <title>{% block title %}Testing project{% endblock %} - Django Endless Pagination</title>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}pagination.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <dl class="dl-horizontal pull-right">
+        {% for name, value in versions %}
+            <dt class="muted">
+              {{ name }}
+            </dt>
+            <dd><span class="label label-info">v{{ value }}</span></dd>
+        {% endfor %}
+      </dl>
+      <div class="page-header">
+        <h1>Django Endless Pagination <small>Testing Project</small></h1>
+      </div>
+      <div class="navbar">
+        <div class="navbar-inner">
+          {% load url from future %}
+          <a class="brand" href="{% url "home" %}">Home</a>
+          <ul class="nav">
+            {% for voice in navbar %}
+              <li{% if voice.is_active %} class="active"{% endif %}>
+                <a href="{{ voice.path }}">{{ voice.label }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+    {% block js %}
+      <script src="http://code.jquery.com/jquery-latest.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/bootstrap.min.js"></script>
+      <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+    {% endblock %}
+  </body>
+</html>

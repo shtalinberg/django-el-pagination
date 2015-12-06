@@ -1,0 +1,12 @@
+{% load endless %}
+
+{% paginate 5 objects %}
+{% for object in objects %}
+  <div class="well object">
+    <h4>{{ object.title }}</h4>
+    {{ object.contents }}
+  </div>
+{% endfor %}
+<div class="pagination pagination-centered">
+  <div>{% show_pages %}</div>
+</div>

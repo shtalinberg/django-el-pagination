@@ -1,0 +1,10 @@
+{% load endless %}
+
+{% lazy_paginate 3 articles using "articles-page" %}
+{% for article in articles %}
+  <div class="well article">
+    <h4>{{ article.title }}</h4>
+    {{ article.contents }}
+  </div>
+{% endfor %}
+{% show_more "More results" %}

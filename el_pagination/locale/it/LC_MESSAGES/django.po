@@ -1,0 +1,21 @@
+# Django Endless Pagination Locale
+# Copyright (C) 2009-2013 Francesco Banconi
+# This file is distributed under the same license as the django-endless-pagination package.
+# Francesco Banconi <francesco.banconi@gmail.com>, 2009.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-22 19:21+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Francesco Banconi <francesco.banconi@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/endless/show_more.html:4
+msgid "more"
+msgstr "mostra altri"

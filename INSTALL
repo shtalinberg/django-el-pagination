@@ -1,0 +1,7 @@
+To install django-el-pagination, run the following command
+inside this directory:
+
+    make install
+
+Or if you'd prefer you can simply place the included ``el_pagination``
+package on your Python path.

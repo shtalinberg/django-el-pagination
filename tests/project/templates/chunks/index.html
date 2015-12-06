@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="objects span5">
+    {% include "chunks/objects_page.html" %}
+  </div>
+  <div class="items span5">
+    {% include "chunks/items_page.html" %}
+  </div>
+  <div class="span2">
+    <strong>Objects</strong> are paginated on scroll using 3 pages chunks.
+    <hr>
+    <strong>Items</strong> are paginated on scroll using 4 pages chunks.
+  </div>
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+    $('.objects').endlessPaginate({
+      paginateOnScroll: true,
+      paginateOnScrollChunkSize: 3
+    });
+    $('.items').endlessPaginate({
+      paginateOnScroll: true,
+      paginateOnScrollChunkSize: 4
+    });
+  </script>
+{% endblock %}

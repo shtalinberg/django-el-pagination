@@ -1,0 +1,18 @@
+{% load endless %}
+
+{% paginate 3 objects %}
+{% for object in objects %}
+  <div class="well object">
+    <h4>{{ object.title }}</h4>
+    {{ object.contents }}
+  </div>
+{% endfor %}
+{% get_pages %}
+<div>
+    Objects <strong>{{ pages.current_start_index }}</strong> ...
+    <strong>{{ pages.current_end_index }}</strong>
+    of <strong>{{ pages.total_count }}</strong>
+</div>
+<div class="pagination pagination-centered">
+  <div>{{ pages }}</div>
+</div>

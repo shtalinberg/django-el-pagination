@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="objects" class="span5">
+    {% include "complete/objects_page.html" %}
+  </div>
+  <div id="items" class="span5">
+    {% include "complete/items_page.html" %}
+  </div>
+  <div class="span2">
+    This complete example shows several pagination styles.
+    <hr>
+    <strong>Objects</strong> are paginated using Digg-style, defaulting to the
+    last page, with no Ajax involved.
+    <hr>
+    <strong>Items</strong> are paginated using Digg-style with Ajax support.
+  </div>
+  <div id="entries" class="span5">
+    {% include "complete/entries_page.html" %}
+  </div>
+  <div id="articles" class="span5">
+    {% include "complete/articles_page.html" %}
+  </div>
+  <div class="span2">
+    <strong>Entries</strong> are paginated using Twitter-style with Ajax
+    enabled. The first page contains just one entry. Subsequent pages
+    contain three entries.
+    <hr>
+    <strong>Articles</strong> are paginated using Twitter-style. The subsequent
+    pages are loaded on scroll.
+  </div>
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+    // Paginate items.
+    $('#items').endlessPaginate({pageSelector: '#items'});
+    // Paginate entries.
+    $('#entries').endlessPaginate();
+    // Paginate articles.
+    $('#articles').endlessPaginate({paginateOnScroll: true});
+  </script>
+{% endblock %}

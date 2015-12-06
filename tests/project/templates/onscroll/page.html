@@ -1,0 +1,10 @@
+{% load endless %}
+
+{% paginate 10 objects %}
+{% for object in objects %}
+  <div class="well object">
+    <h4>{{ object.title }}</h4>
+    {{ object.contents }}
+  </div>
+{% endfor %}
+{% show_more "More results" %}

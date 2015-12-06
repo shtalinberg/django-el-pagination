@@ -1,0 +1,13 @@
+{% load endless %}
+
+{% paginate 3 objects using "objects-page" %}
+{% for object in objects %}
+  <div class="well object">
+    <h4>{{ object.title }}</h4>
+    {{ object.contents }}
+  </div>
+{% endfor %}
+<div class="pagination pagination-centered">
+  {% get_pages as all_pages %}
+  <div>{{ all_pages }}</div>
+</div>
