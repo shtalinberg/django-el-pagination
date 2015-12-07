@@ -70,9 +70,14 @@ development environment::
 
     $ make help
 
+
 Thanks for contributing, and have fun!
 
-Before register our package with PyPI, it is important to test if the package actually works. 
+
+Pipy testing before bump new vervion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before register our package with PyPI, it is important to test if the package actually works.
 
 pip install -e git+https://shtalinberg@github.com/shtalinberg/django-el-pagination#egg=django-el-pagination
-
+pip install -e git+https://shtalinberg@github.com/shtalinberg/django-el-pagination@develop#egg=django-el-pagination
