@@ -332,6 +332,11 @@ link is displayed after page 5 is loaded, then after page 10, then after page
         </script>
     {% endblock %}
 
+Each time a chunk size is complete, the class ``endless_chunk_complete`` is added to the *show more* link,
+so you still have a way to distinguish between the implicit
+click done by the scroll event and a real click on the button.
+
+
 .. _javascript-migrate:
 
 Migrate from version 1.1 to 2.1

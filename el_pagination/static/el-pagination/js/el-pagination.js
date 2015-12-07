@@ -86,6 +86,8 @@
                         var chunckSize = settings.paginateOnScrollChunkSize;
                         if (!chunckSize || loadedPages % chunckSize) {
                             element.find(settings.moreSelector).click();
+                        } else {
+                            element.find(settings.moreSelector).addClass('endles_chunk_complete');
                         }
                     }
                 });
