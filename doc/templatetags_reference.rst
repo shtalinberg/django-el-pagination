@@ -186,6 +186,12 @@ of page links. You can use *pages* in different ways:
 
     {{ pages|length }}
 
+- display numbers of objects in per page:
+
+.. code-block:: html+django
+
+    {{ pages.per_page_number }}
+
 - check if the page list contains more than one page:
 
 .. code-block:: html+django

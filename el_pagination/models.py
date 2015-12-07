@@ -238,3 +238,7 @@ class PageList(utils.UnicodeMixin):
     def paginated(self):
         """Return True if this page list contains more than one page."""
         return len(self) > 1
+
+    def per_page_number(self):
+        """Return the numbers of objects are normally display in per page."""
+        return self._page.paginator.per_page
