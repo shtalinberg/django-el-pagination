@@ -1,6 +1,13 @@
 (function ($) {
     'use strict';
 
+    // Fix JS String.trim() function is unavailable in IE<9 #45
+    if (typeof(String.prototype.trim) === "undefined") {
+         String.prototype.trim = function() {
+             return String(this).replace(/^\s+|\s+$/g, '');
+         };
+    }
+
     $.fn.endlessPaginate = function(options) {
         var defaults = {
             // Twitter-style pagination container selector.
