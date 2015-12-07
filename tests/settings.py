@@ -2,6 +2,7 @@
 
 import os
 
+from django import VERSION
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 
@@ -30,7 +31,21 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     PROJECT_NAME + '.context_processors.navbar',
     PROJECT_NAME + '.context_processors.versions',
 )
-TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
+
+
+if VERSION >= (1, 8):
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(PROJECT, 'templates'),],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                # ... some options here ...
+            },
+        },
+    ]
+else:
+    TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
 
 # Testing.
 NOSE_ARGS = (
