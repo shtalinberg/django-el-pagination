@@ -13,6 +13,9 @@ I am planning:
  - Add 2-5 contributors to help support the application
  Pull requests are welcome.
 
+!!!!! I use git flow. Please, change code and submit all pull requests into branch `develop`
+
+
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
 like multiple or lazy pagination.
