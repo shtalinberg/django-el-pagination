@@ -1,12 +1,29 @@
 Changelog
 =========
 
-Version 2.1
-~~~~~~~~~~~
+Version 2.1.0
+~~~~~~~~~~~~~
+
+New name app: django-el-pagination
 
 **New feature**: Django 1.8 and 1.9 support.
+New app Django EL(Endless) Pagination now supports Django from 1.4.x to 1.9
 
-Django EL(Endless) Pagination now supports Django from 1.4.x to 1.9
+new jQuery plugin that can be found in
+``static/el-pagination/js/el-pagination.js``.
+
+Support get the numbers of objects are normally display in per page  
+
+Usage:
+
+.. code-block:: html+django
+
+	{{ pages.per_page_number }}
+
+add a class on chunk complete
+
+Each time a chunk size is complete, the class ``endless_chunk_complete`` is added to the *show more* link,
+
 
 Version 2.0
 ~~~~~~~~~~~

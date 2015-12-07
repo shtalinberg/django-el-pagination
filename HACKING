@@ -41,7 +41,7 @@ tests, define the environment variable SKIP_SELENIUM, e.g.::
     $ make test SKIP_SELENIUM=1
 
 Integration tests are excluded by default when using Python 3. The test suite
-requires Python >= 2.6.1.
+requires Python >= 2.6.6.
 
 Run the tests and lint/pep8 checks::
 
@@ -70,4 +70,14 @@ development environment::
 
     $ make help
 
+
 Thanks for contributing, and have fun!
+
+
+Pipy testing before bump new vervion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before register our package with PyPI, it is important to test if the package actually works.
+
+pip install -e git+https://shtalinberg@github.com/shtalinberg/django-el-pagination#egg=django-el-pagination
+pip install -e git+https://shtalinberg@github.com/shtalinberg/django-el-pagination@develop#egg=django-el-pagination

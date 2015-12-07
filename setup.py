@@ -7,6 +7,9 @@ ROOT = os.path.abspath(os.path.dirname(__file__))
 VENV = os.path.join(ROOT, '.venv')
 VENV_LINK = os.path.join(VENV, 'local')
 
+install_requires = [
+    'django>=1.4.0',
+]
 
 project = __import__(PROJECT_NAME)
 
@@ -59,10 +62,10 @@ with VenvLinkDeleted():
         keywords='django endless pagination ajax',
         packages=[
             PROJECT_NAME,
-            '{0}.templatetags'.format(PROJECT_NAME + '_tags'),
+            '{0}.templatetags'.format(PROJECT_NAME),
             '{0}.tests'.format(PROJECT_NAME),
             '{0}.tests.integration'.format(PROJECT_NAME),
-            '{0}.tests.templatetags'.format(PROJECT_NAME + '_tags'),
+            '{0}.tests.templatetags'.format(PROJECT_NAME),
         ],
         package_data={PROJECT_NAME: data_files},
         classifiers=[
@@ -77,4 +80,5 @@ with VenvLinkDeleted():
             'Topic :: Utilities',
         ],
         zip_safe=False,
+        install_requires=install_requires,
     )

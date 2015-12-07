@@ -29,7 +29,7 @@ In the view
 If you need to get the current page number in the view, you can use an utility
 function called ``get_page_number_from_request``, e.g.::
 
-    from endless_pagination import utils
+    from el_pagination import utils
 
     page = utils.get_page_number_from_request(request)
 

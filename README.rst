@@ -9,9 +9,14 @@ I will try to provide support of this application
 I am planning:
  - review the current pull requests from original repository
  - review the issues of original repository
- - create start version 2.1 with fixed critical bugs for today (for example Django 1.9 )
+ - create start version 2.1.0 with fixed critical bugs for today (for example Django 1.9 )
  - Add 2-5 contributors to help support the application
  Pull requests are welcome.
+
+!WARNING! 
+I use git flow. 
+Please, change code and submit all pull requests into branch `develop`
+
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
@@ -29,4 +34,5 @@ To file **bugs and requests**, please use
 https://github.com/shtalinberg/django-el-pagination/issues.
 
 The **source code** for this app is hosted at
-http://github.com/shtalinberg/django-el-pagination.
+https://github.com/shtalinberg/django-el-pagination.
+

@@ -3,10 +3,10 @@
 from __future__ import unicode_literals
 
 
-AUTHOR = 'Francesco Banconi'
+AUTHOR = 'Oleksandr Shtalinberg and Francesco Banconi'
 APP = 'Django EL(Endless) Pagination'
 TITLE = APP + ' Documentation'
-VERSION = '2.1'
+VERSION = '2.1.0'
 
 
 # Add any Sphinx extension module names here, as strings. They can be
