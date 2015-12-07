@@ -53,7 +53,7 @@ with VenvLinkDeleted():
         version=project.get_version(),
         description=project.__doc__,
         long_description=read('README.rst'),
-        author='Francesco Banconi',
+        author='Oleksandr Shtalinberg',
         author_email='O.Shtalinberg@gmail.com',
         url='http://github.com/shtalinberg/django-el-pagination',
         keywords='django endless pagination ajax',
@@ -76,4 +76,5 @@ with VenvLinkDeleted():
             'Programming Language :: Python :: 3',
             'Topic :: Utilities',
         ],
+        zip_safe=False,
     )
