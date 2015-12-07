@@ -101,7 +101,7 @@ Adding Ajax
 The view is exactly the same as the one used in
 :ref:`Twitter-style Pagination<twitter-page-template>`::
 
-    from endless_pagination.decorators import page_template
+    from el_pagination.decorators import page_template
 
     @page_template('myapp/entry_index_page.html')  # just add this decorator
     def entry_index(

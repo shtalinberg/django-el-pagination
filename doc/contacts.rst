@@ -13,6 +13,10 @@ https://github.com/shtalinberg/django-el-pagination/issues.
 Contacts
 ~~~~~~~~
 
+Oleksandr Shtalinberg
+
+- Email: ``o.shtalinberg at gmail.com``
+
 Francesco Banconi
 
 - Email: ``frankban at gmail.com``
