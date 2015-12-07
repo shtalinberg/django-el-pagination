@@ -92,7 +92,7 @@ is easily achievable by using an included decorator.
 
 *views.py* becomes::
 
-    from endless_pagination.decorators import page_template
+    from el_pagination.decorators import page_template
 
     @page_template('myapp/entry_index_page.html')  # just add this decorator
     def entry_index(
@@ -105,7 +105,7 @@ is easily achievable by using an included decorator.
         return render_to_response(
             template, context, context_instance=RequestContext(request))
 
-This way, *endless-pagination* can be included in **generic views** too.
+This way, *el_pagination* can be included in **generic views** too.
 
 See :doc:`generic_views` if you use Django >= 1.3 and you want to replicate
 the same behavior using a class-based generic view.
@@ -136,7 +136,7 @@ jQuery plugin ``endless-pagination.js`` included in the distribution under
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -193,7 +193,7 @@ pixel). For example, if you want the pagination on scroll to be activated when
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
@@ -219,7 +219,7 @@ just use the *paginateOnScrollChunkSize* option:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,

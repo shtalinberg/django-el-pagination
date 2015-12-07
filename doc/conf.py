@@ -1,12 +1,12 @@
-"""Django Endless Pagination documentation build configuration file."""
+"""Django EL(Endless) Pagination documentation build configuration file."""
 
 from __future__ import unicode_literals
 
 
 AUTHOR = 'Francesco Banconi'
-APP = 'Django Endless Pagination'
+APP = 'Django EL(Endless) Pagination'
 TITLE = APP + ' Documentation'
-VERSION = '2.0'
+VERSION = '2.1'
 
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -46,13 +46,13 @@ html_theme = 'default'
 html_static_path = ['_static']
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'DjangoEndlessPaginationdoc'
+htmlhelp_basename = 'DjangoELPaginationdoc'
 
 # Grouping the document tree into LaTeX files. List of tuples (source start
 # file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [(
-    'index', 'DjangoEndlessPagination.tex', TITLE, AUTHOR, 'manual')]
+    'index', 'DjangoELPagination.tex', TITLE, AUTHOR, 'manual')]
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [('index', 'djangoendlesspagination', TITLE, [AUTHOR], 1)]
+man_pages = [('index', 'djangoelpagination', TITLE, [AUTHOR], 1)]

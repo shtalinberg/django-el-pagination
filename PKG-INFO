@@ -1,34 +1,31 @@
 Metadata-Version: 1.1
-Name: django-endless-pagination
-Version: 2.0
+Name: django-el-pagination
+Version: 2.1
 Summary: Django pagination tools supporting Ajax, multiple and lazy pagination,
 Twitter-style and Digg-style pagination.
 
-Home-page: http://github.com/frankban/django-endless-pagination
+Home-page: http://github.com/shtalinberg/django-el-pagination
 Author: Francesco Banconi
 Author-email: francesco.banconi@gmail.com
 License: UNKNOWN
 Description: Django Endless Pagination can be used to provide Twitter-style or
         Digg-style pagination, with optional Ajax support and other features
         like multiple or lazy pagination.
-        
+
         The initial idea, which has guided the development of this application,
         is to allow pagination of web contents in `very few steps
         <http://django-endless-pagination.readthedocs.org/en/latest/start.html>`_.
-        
+
         **Documentation** is `avaliable online
         <http://django-endless-pagination.readthedocs.org/>`_, or in the docs
         directory of the project.
-        
+
         To file **bugs and requests**, please use
-        https://github.com/frankban/django-endless-pagination/issues.
-        
+        https://github.com/shtalinberg/django-el-pagination/issues.
+
         The **source code** for this app is hosted at
-        https://github.com/frankban/django-endless-pagination.
-        
-        The **Mercurial repository** of this project is hosted at
-        https://bitbucket.org/frankban/django-endless-pagination.
-        
+        https://github.com/shtalinberg/django-el-pagination.
+
 Keywords: django pagination ajax
 Platform: UNKNOWN
 Classifier: Development Status :: 5 - Production/Stable

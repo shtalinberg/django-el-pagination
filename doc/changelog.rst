@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 2.1
+~~~~~~~~~~~
+
+**New feature**: Django 1.8 and 1.9 support.
+
+Django EL(Endless) Pagination now supports Django from 1.4.x to 1.9
+
 Version 2.0
 ~~~~~~~~~~~
 

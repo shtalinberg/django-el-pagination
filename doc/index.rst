@@ -1,16 +1,13 @@
-=========================
-Django Endless Pagination
-=========================
+=============================
+Django EL(Endless) Pagination
+=============================
 
 This application provides Twitter- and Digg-style pagination, with multiple
 and lazy pagination and optional Ajax support. It is devoted to implementing
 web pagination in very few steps.
 
 The **source code** for this app is hosted at
-https://github.com/frankban/django-endless-pagination.
-
-The **Mercurial repository** of this project is hosted at
-https://bitbucket.org/frankban/django-endless-pagination.
+https://github.com/shtalinberg/django-el-pagination.
 
 :doc:`start` is easy!
 

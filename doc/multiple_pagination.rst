@@ -17,7 +17,7 @@ in a page:
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -35,7 +35,7 @@ in a page:
 The ``using`` argument of the :ref:`templatetags-paginate` template tag allows
 you to choose the name of the querystring key used to track the page number.
 If not specified the system falls back to
-``settings.ENDLESS_PAGINATION_PAGE_LABEL``.
+``settings.EL_PAGINATION_PAGE_LABEL``.
 
 In the example above, the url *http://example.com?page=2&other_entries_page=3*
 requests the second page of *entries* and the third page of *other_entries*.
@@ -77,7 +77,7 @@ seen in :ref:`Digg-style pagination and Ajax<digg-ajax>`.
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -88,7 +88,7 @@ jQuery plugin.
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -100,7 +100,7 @@ jQuery plugin.
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate other_entries using other_entries_page %}
     {% for entry in other_entries %}
@@ -176,7 +176,7 @@ selectors, e.g.:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$('#entries').endlessPaginate();</script>
     {% endblock %}
 

@@ -10,7 +10,7 @@ important for :doc:`twitter_pagination` and
 Activating Ajax support
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Ajax support is activated linking jQuery and the ``endless-pagination.js`` file
+Ajax support is activated linking jQuery and the ``el-pagination.js`` file
 included in this app. It is then possible to use the *$.endlessPaginate()*
 jQuery plugin to enable Ajax pagination, e.g.:
 
@@ -24,7 +24,7 @@ jQuery plugin to enable Ajax pagination, e.g.:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -55,7 +55,7 @@ you can use the **pagination on scroll** feature: just set the
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate({paginateOnScroll: true});</script>
     {% endblock %}
 
@@ -76,7 +76,7 @@ to be activated when 20 pixels remain to the end of the page:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
@@ -108,7 +108,7 @@ link, e.g.:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 onClick: function() {
@@ -143,7 +143,7 @@ To wrap it up, here is an example showing the callbacks' signatures:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
         <script>
             $.endlessPaginate({
                 onClick: function(context) {
@@ -185,7 +185,7 @@ in the page. But assuming you are using :doc:`multiple_pagination`, e.g.:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -198,7 +198,7 @@ selectors, e.g.:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$('#entries').endlessPaginate();</script>
     {% endblock %}
 
@@ -232,7 +232,7 @@ the behavior of each pagination. E.g. if you need to register a callback for
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $('#entries').endlessPaginate({
                 onCompleted: function(data) {
@@ -275,7 +275,7 @@ have a Digg-style pagination like the following:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $('#entries').endlessPaginate();
         </script>
@@ -298,7 +298,7 @@ and does not involve adding another class to the container:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $('#entries').endlessPaginate({
                 pageSelector: '#entries'
@@ -323,7 +323,7 @@ link is displayed after page 5 is loaded, then after page 10, then after page
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
@@ -334,7 +334,7 @@ link is displayed after page 5 is loaded, then after page 10, then after page
 
 .. _javascript-migrate:
 
-Migrate from version 1.1 to 2.0
+Migrate from version 1.1 to 2.1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Django Endless Pagination v2.0 introduces changes in how Ajax pagination
@@ -375,7 +375,7 @@ Now:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -406,7 +406,7 @@ Now:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({paginateOnScroll: true});
         </script>
@@ -442,7 +442,7 @@ Now:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
@@ -482,7 +482,7 @@ Now:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$('not:(.endless_page_skip)').endlessPaginate();</script>
     {% endblock %}
 

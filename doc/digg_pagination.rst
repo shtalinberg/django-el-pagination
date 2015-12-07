@@ -6,7 +6,7 @@ pagination is not needed, all you have to do is modifying the template, e.g.:
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -28,7 +28,7 @@ template tag, e.g.:
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -51,7 +51,7 @@ number of entries:
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -77,7 +77,7 @@ the results are actually paginated:
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -132,7 +132,7 @@ class named *endless_page_template*.
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -140,7 +140,7 @@ class named *endless_page_template*.
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}
@@ -165,7 +165,7 @@ by customizing the *pageSelector* option of *$.endlessPaginate()*, e.g.:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate({pageSelector: 'div#entries'});</script>
     {% endblock %}
 

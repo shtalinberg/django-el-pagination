@@ -6,7 +6,7 @@ Requirements
 
 ======  ====================
 Python  >= 2.6 (or Python 3)
-Django  >= 1.3
+Django  >= 1.4
 jQuery  >= 1.7
 ======  ====================
 
@@ -15,17 +15,13 @@ Installation
 
 The Git repository can be cloned with this command::
 
-    git clone https://github.com/frankban/django-endless-pagination.git
+    git clone https://github.com/shtalinberg/django-el-pagination.git
 
-If you like Mercurial, you can clone the application with this command::
-
-    hg clone https://bitbucket.org/frankban/django-endless-pagination
-
-The ``endless_pagination`` package, included in the distribution, should be
+The ``el_pagination`` package, included in the distribution, should be
 placed on the ``PYTHONPATH``.
 
-Otherwise you can just ``easy_install -Z django-endless-pagination``
-or ``pip install django-endless-pagination``.
+Otherwise you can just ``easy_install -Z django-el-pagination``
+or ``pip install django-el-pagination``.
 
 Settings
 ~~~~~~~~
@@ -37,7 +33,7 @@ Add the request context processor to your *settings.py*, e.g.::
         'django.core.context_processors.request',
     )
 
-Add ``'endless_pagination'`` to the ``INSTALLED_APPS`` to your *settings.py*.
+Add ``'el_pagination'`` to the ``INSTALLED_APPS`` to your *settings.py*.
 
 See the :doc:`customization` section for other settings.
 
@@ -56,7 +52,7 @@ you can use Digg-style pagination to display objects just by adding:
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% paginate entries %}
     {% for entry in entries %}

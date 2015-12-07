@@ -16,7 +16,7 @@ In order to switch to lazy pagination you have to use the
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% lazy_paginate entries %}
     {% for entry in entries %}

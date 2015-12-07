@@ -7,6 +7,6 @@ include MANIFEST.in
 include README.rst
 recursive-include doc *
 recursive-include tests *
-recursive-include endless_pagination/static *
-recursive-include endless_pagination/locale *
-recursive-include endless_pagination/templates *
+recursive-include el_pagination/static *
+recursive-include el_pagination/locale *
+recursive-include el_pagination/templates *

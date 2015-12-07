@@ -11,7 +11,7 @@ list of objects (usually a queryset).
 AjaxListView reference
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. py:module:: endless_pagination.views
+.. py:module:: el_pagination.views
 
 .. py:class:: AjaxListView(django.views.generic.ListView)
 
@@ -40,7 +40,7 @@ AjaxListView reference
         from django.conf.urls.defaults import *
         from books.models import Publisher
 
-        from endless_pagination.views import AjaxListView
+        from el_pagination.views import AjaxListView
 
         urlpatterns = patterns('',
             (r'^publishers/$', AjaxListView.as_view(model=Publisher)),
@@ -52,7 +52,7 @@ AjaxListView reference
     .. py:attribute:: key
 
         the querystring key used for the current pagination
-        (default: *settings.ENDLESS_PAGINATION_PAGE_LABEL*)
+        (default: *settings.EL_PAGINATION_PAGE_LABEL*)
 
     .. py:attribute:: page_template
 

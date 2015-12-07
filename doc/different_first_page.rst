@@ -10,7 +10,7 @@ images). To achieve this, use the :ref:`templatetags-paginate` or
 
 .. code-block:: html+django
 
-    {% load endless %}
+    {% load el_pagination_tags %}
 
     {% lazy_paginate 4,20 entries %}
     {% for entry in entries %}
