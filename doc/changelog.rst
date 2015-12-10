@@ -39,7 +39,7 @@ support for Python 2.5. See :doc:`start` for the new list of requirements.
 
 This version introduces a re-designed Ajax support for pagination. Ajax can
 now be enabled using a brand new jQuery plugin that can be found in
-``static/endless_pagination/js/endless-pagination.js``.
+``static/el-pagination/js/el-pagination.js``.
 
 Usage:
 
@@ -48,7 +48,7 @@ Usage:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
