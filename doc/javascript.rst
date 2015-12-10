@@ -346,9 +346,9 @@ Django Endless Pagination v2.0 introduces changes in how Ajax pagination
 is handled by JavaScript. These changes are discussed in this document and in
 the :doc:`changelog`.
 
-The JavaScript code now lives in a file named ``endless-pagination.js``.
+The JavaScript code now lives in a file named ``el-pagination.js``.
 For backward compatibility, the application still includes the two JavaScript
-files ``endless.js`` and ``endless_on_scroll.js``. However, please consider
+files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js``. However, please consider
 migrating as soon as possible: the old JavaScript files are deprecated, are
 no longer maintained, and don't provide the new JavaScript features.
 
@@ -367,7 +367,7 @@ Before:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
     {% endblock %}
 
 Now:
@@ -397,8 +397,8 @@ Before:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless_on_scroll.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
     {% endblock %}
 
 Now:
@@ -430,8 +430,8 @@ Before:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless_on_scroll.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
         <script>
             var endless_on_scroll_margin = 20;
         </script>
@@ -472,7 +472,7 @@ Before:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
     {% endblock %}
 
 Now:
