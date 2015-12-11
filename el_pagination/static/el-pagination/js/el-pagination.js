@@ -77,7 +77,7 @@
             // On scroll pagination.
             if (settings.paginateOnScroll) {
                 var win = $(window),
-                var doc = $(document);
+                    doc = $(document);
                 doc.scroll(function(){
                     if (doc.height() - win.height() -
                         win.scrollTop() <= settings.paginateOnScrollMargin) {
