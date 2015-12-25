@@ -1,6 +1,19 @@
 Changelog
 =========
 
+
+Version 2.1.1
+~~~~~~~~~~~~~
+
+Bug-fix release
+
+**Fix**: page_template decorator doesn't change template of ajax call
+
+----
+
+**Fix**: Fix syntax error in declaring variable in javascript
+
+
 Version 2.1.0
 ~~~~~~~~~~~~~
 
@@ -12,7 +25,7 @@ New app Django EL(Endless) Pagination now supports Django from 1.4.x to 1.9
 new jQuery plugin that can be found in
 ``static/el-pagination/js/el-pagination.js``.
 
-Support get the numbers of objects are normally display in per page  
+Support get the numbers of objects are normally display in per page
 
 Usage:
 
