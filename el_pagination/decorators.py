@@ -8,6 +8,7 @@ from el_pagination.settings import (
     TEMPLATE_VARNAME,
 )
 
+QS_KEY = 'querystring_key'
 
 def page_template(template, key=PAGE_LABEL):
     """Return a view dynamically switching template if the request is Ajax.
@@ -28,9 +29,8 @@ def page_template(template, key=PAGE_LABEL):
             extra_context = kwargs.setdefault('extra_context', {})
             extra_context['page_template'] = template
             # Switch the template when the request is Ajax.
-            key = 'querystring_key'
-            querystring_key = request.GET.get(key,
-                request.POST.get(key, PAGE_LABEL))
+            querystring_key = request.GET.get(QS_KEY,
+                request.POST.get(QS_KEY, PAGE_LABEL))
             if request.is_ajax() and querystring_key == key:
                 kwargs[TEMPLATE_VARNAME] = template
             return view(request, *args, **kwargs)
@@ -78,9 +78,8 @@ def page_templates(mapping):
             # Trust the developer: he wrote ``context.update(extra_context)``
             # in his view.
             extra_context = kwargs.setdefault('extra_context', {})
-            key = 'querystring_key'
-            querystring_key = request.GET.get(key,
-                request.POST.get(key, PAGE_LABEL))
+            querystring_key = request.GET.get(QS_KEY,
+                request.POST.get(QS_KEY, PAGE_LABEL))
             template = _get_template(querystring_key, mapping)
             extra_context['page_template'] = template
             # Switch the template when the request is Ajax.

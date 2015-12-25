@@ -115,8 +115,8 @@ Paginating objects
 
 All that's left is changing the page template and loading the
 :doc:`endless templatetags<templatetags_reference>`, the jQuery library and the
-jQuery plugin ``endless-pagination.js`` included in the distribution under
-``/static/endless_pagination/js/``.
+jQuery plugin ``el-pagination.js`` included in the distribution under
+``/static/el-pagination/js/``.
 
 *myapp/entry_index.html* becomes:
 
@@ -128,7 +128,7 @@ jQuery plugin ``endless-pagination.js`` included in the distribution under
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -173,7 +173,7 @@ feature: just set the *paginateOnScroll* option of *$.endlessPaginate()* to
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate({paginateOnScroll: true});</script>
     {% endblock %}
 
@@ -234,17 +234,17 @@ Before version 2.0
 Django Endless Pagination v2.0 introduces a redesigned Ajax support for
 pagination. As seen above, Ajax can now be enabled using a brand new jQuery
 plugin that can be found in
-``static/endless_pagination/js/endless-pagination.js``.
+``static/el-pagination/js/el-pagination.js``.
 
 For backward compatibility, the application still includes the two JavaScript
-files ``endless.js`` and ``endless_on_scroll.js`` that were used before, so
+files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js`` that were used before, so
 that it is still possible to use code like this:
 
 .. code-block:: html+django
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     {# Deprecated. #}
-    <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
 
 To enable pagination on scroll, the code was the following:
 
@@ -252,8 +252,8 @@ To enable pagination on scroll, the code was the following:
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     {# Deprecated. #}
-    <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
-    <script src="{{ STATIC_URL }}endless_pagination/js/endless_on_scroll.js"></script>
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
 
 However, please consider :ref:`migrating<javascript-migrate>` as soon as
 possible: the old JavaScript files are deprecated, are no longer maintained,
