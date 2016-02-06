@@ -23,31 +23,44 @@ AjaxListView reference
 
     For instance, assume you have this code (taken from Django docs)::
 
-        from django.conf.urls.defaults import *
+        from django.conf.urls import url
         from django.views.generic import ListView
         from books.models import Publisher
 
+        urlpatterns = [
+            url(r'^publishers/$', ListView.as_view(model=Publisher)),
+        ]
+
+    NOTE: Django < 1.8 use this rule for urlpatterns::
+    
+        from django.conf.urls.defaults import *
+        from django.views.generic import ListView
+        from books.models import Publisher        
+        
         urlpatterns = patterns('',
             (r'^publishers/$', ListView.as_view(model=Publisher)),
         )
-
+    
     You want to Ajax paginate publishers, so, as seen, you need to switch
     the template if the request is Ajax and put the page template
     into the context as a variable named *page_template*.
 
     This is straightforward, you only need to replace the view class, e.g.::
 
-        from django.conf.urls.defaults import *
+        from django.conf.urls import *
         from books.models import Publisher
 
         from el_pagination.views import AjaxListView
 
+        urlpatterns = [
+            url(r'^publishers/$', AjaxListView.as_view(model=Publisher)),
+        ]
+    
+    NOTE: With Django < 1.8 use this rule for urlpatterns::
+
         urlpatterns = patterns('',
             (r'^publishers/$', AjaxListView.as_view(model=Publisher)),
         )
-
-    NOTE: Django >= 1.3 is required to use this view.
-
 
     .. py:attribute:: key
 
