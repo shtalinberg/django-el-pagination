@@ -87,7 +87,7 @@
                         if (!chunckSize || loadedPages % chunckSize) {
                             element.find(settings.moreSelector).click();
                         } else {
-                            element.find(settings.moreSelector).addClass('endles_chunk_complete');
+                            element.find(settings.moreSelector).addClass('endless_chunk_complete');
                         }
                     }
                 });
