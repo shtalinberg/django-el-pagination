@@ -70,8 +70,8 @@ class DefaultPaginator(BasePaginator):
             if self.count == 0 and not self.allow_empty_first_page:
                 self._num_pages = 0
             else:
+                hits = max(0, self.count - self.orphans - self.first_page)
                 try:
-                    hits = max(0, self.count - self.orphans - self.first_page)
                     self._num_pages = int(ceil(hits / float(self.per_page))) + 1
                 except ZeroDivisionError:
                     self._num_pages = 0  # fallback to a safe value
