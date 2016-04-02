@@ -1,22 +1,27 @@
 
+=============================
 Django EL(Endless) Pagination
------------------------------
+=============================
+.. image:: https://img.shields.io/pypi/dm/django-el-pagination.svg
+    :target:  https://pypi.python.org/pypi/django-el-pagination/
+
+.. image:: https://img.shields.io/pypi/v/django-el-pagination.svg
+    :target:  https://pypi.python.org/pypi/django-el-pagination/
 
 This app **django-el-pagination**
 created from django-endless-pagination==2.0 (https://github.com/frankban/django-endless-pagination)
 
 I will try to provide support of this application
-I am planning:
+Now ready:
  - review the current pull requests from original repository
  - review the issues of original repository
- - create start version 2.1.0 with fixed critical bugs for today (for example Django 1.9 )
- - Add 2-5 contributors to help support the application
+ - create start version 2.1.0 with fixed critical bugs for today (for example Django 1.9.x )
+
  Pull requests are welcome.
 
-!WARNING! 
-I use git flow. 
+!WARNING!
+I use git flow.
 Please, change code and submit all pull requests into branch `develop`
-
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
