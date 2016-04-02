@@ -71,7 +71,10 @@ class DefaultPaginator(BasePaginator):
                 self._num_pages = 0
             else:
                 hits = max(0, self.count - self.orphans - self.first_page)
-                self._num_pages = int(ceil(hits / float(self.per_page))) + 1
+                try:
+                    self._num_pages = int(ceil(hits / float(self.per_page))) + 1
+                except ZeroDivisionError:
+                    self._num_pages = 0  # fallback to a safe value
         return self._num_pages
     num_pages = property(_get_num_pages)
 
