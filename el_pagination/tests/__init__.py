@@ -22,4 +22,4 @@ class TestModel(models.Model, utils.UnicodeMixin):
         return 'TestModel: {0}'.format(self.id)
 
 
-call_command('syncdb', verbosity=0)
+call_command('migrate', verbosity=0)
