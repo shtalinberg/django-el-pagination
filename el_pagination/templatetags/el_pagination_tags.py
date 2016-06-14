@@ -514,6 +514,7 @@ class GetPagesNode(template.Node):
             data['querystring_key'],
             default_number=data['default_number'],
             override_path=data['override_path'],
+            context=context
         )
         return ''
 
@@ -566,6 +567,7 @@ class ShowPagesNode(template.Node):
             data['querystring_key'],
             default_number=data['default_number'],
             override_path=data['override_path'],
+            context=context
         )
         return utils.text(pages)
 

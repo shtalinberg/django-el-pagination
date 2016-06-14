@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.template import (
     loader,
-    RequestContext,
+    Context,
 )
 from django.utils.encoding import iri_to_uri
 
@@ -36,11 +36,13 @@ class ELPage(utils.UnicodeMixin):
 
     def __init__(
             self, request, number, current_number, total_number,
-            querystring_key, label=None, default_number=1, override_path=None):
+            querystring_key, label=None, default_number=1, override_path=None,
+            context=None):
         self._request = request
         self.number = number
         self.label = utils.text(number) if label is None else label
         self.querystring_key = querystring_key
+        self.context = context or {}
 
         self.is_current = number == current_number
         self.is_first = number == 1
@@ -54,18 +56,19 @@ class ELPage(utils.UnicodeMixin):
 
     def __unicode__(self):
         """Render the page as a link."""
-        context = {
+        context = Context({
             'add_nofollow': settings.ADD_NOFOLLOW,
             'page': self,
             'querystring_key': self.querystring_key,
-        }
+        })
+        context.update(self.context)
         if self.is_current:
             template_name = 'el_pagination/current_link.html'
         else:
             template_name = 'el_pagination/page_link.html'
         template = _template_cache.setdefault(
             template_name, loader.get_template(template_name))
-        return template.render(RequestContext(self._request, context))
+        return template.render(context)
 
 
 class PageList(utils.UnicodeMixin):
@@ -73,9 +76,10 @@ class PageList(utils.UnicodeMixin):
 
     def __init__(
             self, request, page, querystring_key,
-            default_number=None, override_path=None):
+            default_number=None, override_path=None, context=None):
         self._request = request
         self._page = page
+        self.context = context or {}
         if default_number is None:
             self._default_number = 1
         else:
@@ -97,6 +101,7 @@ class PageList(utils.UnicodeMixin):
             label=label,
             default_number=self._default_number,
             override_path=self._override_path,
+            context=self.context
         )
 
     def __getitem__(self, value):
@@ -169,8 +174,10 @@ class PageList(utils.UnicodeMixin):
                     pages.append(self.last_as_arrow())
                 else:
                     pages.append(self[item])
-            context = RequestContext(self._request, {'pages': pages})
-            return loader.render_to_string('el_pagination/show_pages.html', context)
+            context = Context({'pages': pages})
+            context.update(self.context)
+            return loader.render_to_string('el_pagination/show_pages.html',
+                                           context)
         return ''
 
     def current(self):
