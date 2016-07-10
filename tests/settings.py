@@ -3,7 +3,8 @@
 import os
 
 from django import VERSION
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+if VERSION < (1, 8):
+    from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 
 PROJECT_NAME = 'project'
@@ -26,12 +27,6 @@ SECRET_KEY = os.getenv('EL_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
-TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.request',
-    PROJECT_NAME + '.context_processors.navbar',
-    PROJECT_NAME + '.context_processors.versions',
-)
-
 
 if VERSION >= (1, 8):
     TEMPLATES = [
@@ -45,6 +40,11 @@ if VERSION >= (1, 8):
         },
     ]
 else:
+    TEMPLATE_CONTEXT_PROCESSORS += (
+        'django.core.context_processors.request',
+        PROJECT_NAME + '.context_processors.navbar',
+        PROJECT_NAME + '.context_processors.versions',
+    )
     TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
 
 # Testing.
