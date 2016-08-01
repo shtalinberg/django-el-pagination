@@ -2,7 +2,7 @@
 # Dependencies are installed by the ``make`` command.
 
 coverage==3.6
-django==1.8.13
+django
 django-nose==1.4.2
 flake8==2.5.0
 ipdb==0.8.1
