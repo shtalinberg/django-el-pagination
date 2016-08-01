@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 3.0.0
+~~~~~~~~~~~~~
+
+Dropped support for django<1.8.0
+add Travic CI
+
 
 Version 2.1.1
 ~~~~~~~~~~~~~
