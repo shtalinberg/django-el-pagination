@@ -18,7 +18,7 @@ install:
   - pip install -r tests/requirements.pip
 
 script:
-  - tox -e $TOX_ENV
+  - tox
 
 after_success:
   - coverage combine
