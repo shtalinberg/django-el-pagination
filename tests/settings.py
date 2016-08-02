@@ -14,6 +14,7 @@ DEBUG = TEMPLATE_DEBUG = True
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'el_pagination',
+    'nose',
     'django_nose',
     PROJECT_NAME,
 )
@@ -38,7 +39,7 @@ TEMPLATES = [
 # Testing.
 NOSE_ARGS = (
     '--verbosity=2',
-    '--with-coverage',
-    '--cover-package=el_pagination',
+    #'--with-coverage',
+    #'--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

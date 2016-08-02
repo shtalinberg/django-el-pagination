@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import TemplateView
 
 from el_pagination.decorators import (
@@ -14,7 +14,7 @@ from project.views import generic
 
 
 # Avoid lint errors for the following Django idiom: flake8: noqa.
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$',
         TemplateView.as_view(template_name="home.html"),
         name='home'),
@@ -58,4 +58,4 @@ urlpatterns = patterns('',
         page_template('callbacks/page.html')(generic),
         {'template': 'callbacks/index.html'},
         name='callbacks'),
-)
+]

@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 from contextlib import contextmanager
 import os
 import time
+import unittest
 
 from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import LiveServerTestCase
-from django.utils import unittest
 from selenium.common import exceptions
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
