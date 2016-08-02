@@ -2,11 +2,6 @@
 
 import os
 
-from django import VERSION
-if VERSION < (1, 8):
-    from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-
-
 PROJECT_NAME = 'project'
 
 # Base paths.
@@ -19,6 +14,7 @@ DEBUG = TEMPLATE_DEBUG = True
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'el_pagination',
+    'django_nose',
     PROJECT_NAME,
 )
 LANGUAGE_CODE = os.getenv('EL_PAGINATION_LANGUAGE_CODE', 'en-us')
@@ -28,24 +24,16 @@ SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
 
-if VERSION >= (1, 8):
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [os.path.join(PROJECT, 'templates'),],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                # ... some options here ...
-            },
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(PROJECT, 'templates'), ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            # ... some options here ...
         },
-    ]
-else:
-    TEMPLATE_CONTEXT_PROCESSORS += (
-        'django.core.context_processors.request',
-        PROJECT_NAME + '.context_processors.navbar',
-        PROJECT_NAME + '.context_processors.versions',
-    )
-    TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
+    },
+]
 
 # Testing.
 NOSE_ARGS = (
