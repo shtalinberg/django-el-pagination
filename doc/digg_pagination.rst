@@ -53,11 +53,11 @@ number of entries:
 
     {% load el_pagination_tags %}
 
-    {% paginate entries %}
+    {% paginate entries %}{% get_pages %}
     {% for entry in entries %}
         {# your code to show the entry #}
     {% endfor %}
-    {% get_pages %}
+
     Showing entries
     {{ pages.current_start_index }}-{{ pages.current_end_index }} of
     {{ pages.total_count }}.
