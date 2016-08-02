@@ -2,30 +2,30 @@
 =============================
 Django EL(Endless) Pagination
 =============================
-.. image:: https://img.shields.io/pypi/dm/django-el-pagination.svg
-    :target:  https://pypi.python.org/pypi/django-el-pagination/
+.. image:: https://travis-ci.org/shtalinberg/django-el-pagination.svg?branch=master
+    :target: https://travis-ci.org/shtalinberg/django-el-pagination
 
 .. image:: https://img.shields.io/pypi/v/django-el-pagination.svg
     :target:  https://pypi.python.org/pypi/django-el-pagination/
 
-This app **django-el-pagination**
-created from django-endless-pagination==2.0 (https://github.com/frankban/django-endless-pagination)
+.. image:: https://img.shields.io/pypi/l/django-el-pagination.svg
 
-I will try to provide support of this application
-Now ready:
- - review the current pull requests from original repository
- - review the issues of original repository
- - create start version 2.1.0 with fixed critical bugs for today (for example Django 1.9.x )
+.. image:: https://img.shields.io/pypi/pyversions/django-el-pagination.svg
 
- Pull requests are welcome.
+.. image:: https://img.shields.io/badge/django-1.8%20or%20newer-green.svg
 
-!WARNING!
-I use git flow.
-Please, change code and submit all pull requests into branch `develop`
+.. image:: https://img.shields.io/pypi/dm/django-el-pagination.svg
+    :target:  https://pypi.python.org/pypi/django-el-pagination/
+
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
 like multiple or lazy pagination.
+
+This app **django-el-pagination**
+created from django-endless-pagination==2.0 (https://github.com/frankban/django-endless-pagination)
+From version 3.0.0 support Django<1.8 will be dropped.
+For support Django<1.8 use django-endless-pagination==2.x.x
 
 The initial idea, which has guided the development of this application,
 is to allow pagination of web contents in `very few steps
@@ -40,4 +40,9 @@ https://github.com/shtalinberg/django-el-pagination/issues.
 
 The **source code** for this app is hosted at
 https://github.com/shtalinberg/django-el-pagination.
+
+ Pull requests are welcome.
+!WARNING!
+I use git flow.
+Please, change code and submit all pull requests into branch `develop`
 
