@@ -19,6 +19,6 @@ install:
 script:
   - tox
 
-after_success:
-  - coverage combine
-  - codecov
+#after_success:
+#  - coverage combine
+#  - codecov

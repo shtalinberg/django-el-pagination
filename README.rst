@@ -2,13 +2,11 @@
 =============================
 Django EL(Endless) Pagination
 =============================
-.. image:: https://travis-ci.org/shtalinberg/django-el-pagination.svg?branch=master
+.. image:: https://travis-ci.org/shtalinberg/django-el-pagination.svg?branch=develop
     :target: https://travis-ci.org/shtalinberg/django-el-pagination
 
 .. image:: https://img.shields.io/pypi/v/django-el-pagination.svg
     :target:  https://pypi.python.org/pypi/django-el-pagination/
-
-.. image:: https://img.shields.io/pypi/l/django-el-pagination.svg
 
 .. image:: https://img.shields.io/pypi/pyversions/django-el-pagination.svg
 
