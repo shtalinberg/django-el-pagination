@@ -15,7 +15,7 @@ matrix:
     - env: TOXENV=py34-djdev
 install:
   - pip install tox codecov coverage
-  - pip install -r tests/requirements.pip
+#  - pip install -r tests/requirements.pip
 
 script:
   - tox
