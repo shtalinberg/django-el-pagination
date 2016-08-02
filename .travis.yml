@@ -24,7 +24,7 @@ matrix:
     - env: TOXENV=py34-djdev
 install:
 #  - pip install tox
-  - pip install -q Django==$DJANGO_VERSION
+  - pip install -q Django=$DJANGO_VERSION
   - pip install -r tests/requirements.pip
   - python setup.py -q install
 
