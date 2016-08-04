@@ -9,33 +9,33 @@ You can customize the application using ``settings.py``.
 ================================================= =========== ==============================================
 Name                                              Default     Description
 ================================================= =========== ==============================================
-``EL_PAGINATION_PER_PAGE``                   10          How many objects are normally displayed
+``EL_PAGINATION_PER_PAGE``                        10          How many objects are normally displayed
                                                               in a page (overwriteable by templatetag).
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_PAGE_LABEL``                 'page'      The querystring key of the page number
+``EL_PAGINATION_PAGE_LABEL``                      'page'      The querystring key of the page number
                                                               (e.g. ``http://example.com?page=2``).
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_ORPHANS``                    0           See Django *Paginator* definition of orphans.
+``EL_PAGINATION_ORPHANS``                         0           See Django *Paginator* definition of orphans.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_LOADING``                    'loading'   If you use the default ``show_more`` template,
+``EL_PAGINATION_LOADING``                         'loading'   If you use the default ``show_more`` template,
                                                               here you can customize the content of the
                                                               loader hidden element. HTML is safe here,
                                                               e.g. you can show your pretty animated GIF
-                                                              ``EL_PAGINATION_LOADING = """<img src="/static/img/loader.gif" alt="loading" />"""``.
+                                                              ``EL_PAGINATION_LOADING = """<img src="/static/img/loader .gif" alt="loading" />"""``.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_PREVIOUS_LABEL``             '<'         Default label for the *previous* page link.
+``EL_PAGINATION_PREVIOUS_LABEL``                  '<'         Default label for the *previous* page link.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_NEXT_LABEL``                 '>'         Default label for the *next* page link.
+``EL_PAGINATION_NEXT_LABEL``                      '>'         Default label for the *next* page link.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_FIRST_LABEL``                '<<'        Default label for the *first* page link.
+``EL_PAGINATION_FIRST_LABEL``                     '<<'        Default label for the *first* page link.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_LAST_LABEL``                 '>>'        Default label for the *last* page link.
+``EL_PAGINATION_LAST_LABEL``                      '>>'        Default label for the *last* page link.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_ADD_NOFOLLOW``               *False*     Set to *True* if your SEO alchemist
+``EL_PAGINATION_ADD_NOFOLLOW``                    *False*     Set to *True* if your SEO alchemist
                                                               wants search engines not to follow
                                                               pagination links.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_PAGE_LIST_CALLABLE``         *None*      Callable (or dotted path to a callable) that
+``EL_PAGINATION_PAGE_LIST_CALLABLE``              *None*      Callable (or dotted path to a callable) that
                                                               returns pages to be displayed.
                                                               If *None*, a default callable is used;
                                                               that produces :doc:`digg_pagination`.
@@ -48,19 +48,19 @@ Name                                              Default     Description
                                                               See :doc:`templatetags_reference` for
                                                               information about writing custom callables.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_DEFAULT_CALLABLE_EXTREMES``  3           Deafult number of *extremes* displayed when
+``EL_PAGINATION_DEFAULT_CALLABLE_EXTREMES``       3           Default number of *extremes* displayed when
                                                               :doc:`digg_pagination` is used with the
                                                               default callable.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_DEFAULT_CALLABLE_AROUNDS``   2           Deafult number of *arounds* displayed when
+``EL_PAGINATION_DEFAULT_CALLABLE_AROUNDS``        2           Default number of *arounds* displayed when
                                                               :doc:`digg_pagination` is used with the
                                                               default callable.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_DEFAULT_CALLABLE_ARROWS``    *False*     Whether or not the first and last pages arrows
+``EL_PAGINATION_DEFAULT_CALLABLE_ARROWS``         *False*     Whether or not the first and last pages arrows
                                                               are displayed when :doc:`digg_pagination` is
                                                               used with the default callable.
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_TEMPLATE_VARNAME``           'template'  Template variable name used by the
+``EL_PAGINATION_TEMPLATE_VARNAME``                'template'  Template variable name used by the
                                                               ``page_template`` decorator. You can change
                                                               this value if you are going to decorate
                                                               generic views using a different variable name
