@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html>{% load static from staticfiles %}
 <html>
   <head>
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
     <title>{% block title %}Testing project{% endblock %} - Django Endless Pagination</title>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}pagination.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static "pagination.css" %}" rel="stylesheet">
   </head>
   <body>
     <div class="container">
@@ -36,9 +36,9 @@
       </div>
     </div>
     {% block js %}
-      <script src="http://code.jquery.com/jquery-latest.js"></script>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/bootstrap.min.js"></script>
-      <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+      <script src="{% static "el-pagination/js/el-pagination.js" %}"></script>
     {% endblock %}
   </body>
 </html>

@@ -43,6 +43,7 @@ class ELPage(utils.UnicodeMixin):
         self.label = utils.text(number) if label is None else label
         self.querystring_key = querystring_key
         self.context = context or {}
+        self.context['request'] = request
 
         self.is_current = number == current_number
         self.is_first = number == 1
@@ -80,6 +81,7 @@ class PageList(utils.UnicodeMixin):
         self._request = request
         self._page = page
         self.context = context or {}
+        self.context['request'] = request
         if default_number is None:
             self._default_number = 1
         else:
@@ -174,7 +176,8 @@ class PageList(utils.UnicodeMixin):
                     pages.append(self.last_as_arrow())
                 else:
                     pages.append(self[item])
-            context = Context({'pages': pages})
+            context = Context({
+                'pages': pages})
             context.update(self.context)
             return loader.render_to_string('el_pagination/show_pages.html',
                                            context)

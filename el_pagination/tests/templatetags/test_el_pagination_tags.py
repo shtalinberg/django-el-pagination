@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import string
 import sys
 import xml.etree.ElementTree as etree
+import unittest
 
 from django.template import (
     Context,
@@ -12,7 +13,6 @@ from django.template import (
 )
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils import unittest
 
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList

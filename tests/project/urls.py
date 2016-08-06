@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import url
 from django.views.generic import TemplateView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from el_pagination.decorators import (
     page_template,
@@ -59,3 +60,6 @@ urlpatterns = [
         {'template': 'callbacks/index.html'},
         name='callbacks'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+

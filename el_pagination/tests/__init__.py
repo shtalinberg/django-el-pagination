@@ -21,5 +21,5 @@ class TestModel(models.Model, utils.UnicodeMixin):
     def __unicode__(self):
         return 'TestModel: {0}'.format(self.id)
 
-
+call_command('makemigrations', verbosity=0)
 call_command('migrate', verbosity=0)
