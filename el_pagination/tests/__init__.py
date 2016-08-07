@@ -25,5 +25,18 @@ class TestModel(models.Model):
     def __str__(self):
         return 'TestModel: {0}'.format(self.id)
 
+
+@python_2_unicode_compatible
+class TestTagModel(models.Model):
+    """A model used in tests."""
+
+    class Meta:
+        app_label = 'el_pagination'
+
+
+    def __str__(self):
+        return 'TestTagModel: {0}'.format(self.id)
+
+
 call_command('makemigrations', verbosity=0)
 call_command('migrate', verbosity=0)
