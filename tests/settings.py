@@ -4,6 +4,9 @@ import os
 
 DEBUG  = True
 
+os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = "localhost:8000-8010,8080,9200-9300"
+DJANGO_LIVE_TEST_SERVER_ADDRESS = "localhost:8000-8010,8080,9200-9300"
+
 PROJECT_NAME = 'project'
 # Base paths.
 ROOT = os.path.abspath(os.path.dirname(__file__))

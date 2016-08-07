@@ -32,12 +32,12 @@ skip_if_old_etree = unittest.skipIf(
 def make_model_instances(number):
     """Make a ``number`` of test model instances and return a queryset."""
     for _ in range(number):
-        TestModel.objects.create()
-    return TestModel.objects.all()
+        TestTagModel.objects.create()
+    return TestTagModel.objects.all()
 
 
 @python_2_unicode_compatible
-class TestModel(models.Model):
+class TestTagModel(models.Model):
     """A model used in tests."""
 
     class Meta:
@@ -45,7 +45,8 @@ class TestModel(models.Model):
 
 
     def __str__(self):
-        return 'TestModel: {0}'.format(self.id)
+        return 'TestTagModel: {0}'.format(self.id)
+
 
 class TemplateTagsTestMixin(object):
     """Base test mixin for template tags."""
