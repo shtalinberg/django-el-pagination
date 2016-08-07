@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 """Settings file for the Django project used for tests."""
 
 import os
@@ -7,7 +10,7 @@ DEBUG = True
 DJANGO_LIVE_TEST_SERVER_ADDRESS = os.getenv('DJANGO_LIVE_TEST_SERVER_ADDRESS',
     "localhost:8000-8010,8080,9200-9300")
 
-# Disable 1.9 arguments '--parallel',
+# Disable 1.9 arguments '--parallel'
 DJANGO_TEST_PROCESSES = os.getenv('DJANGO_TEST_PROCESSES', 1)  # try exclude  “Address already in use” at “setUpClass”
 PROJECT_NAME = 'project'
 
