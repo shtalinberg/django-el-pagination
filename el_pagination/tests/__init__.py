@@ -4,8 +4,7 @@ from __future__ import unicode_literals
 
 from django.core.management import call_command
 from django.db import models
-
-from el_pagination import utils
+from django.utils.encoding import python_2_unicode_compatible
 
 
 def make_model_instances(number):
@@ -15,10 +14,15 @@ def make_model_instances(number):
     return TestModel.objects.all()
 
 
-class TestModel(models.Model, utils.UnicodeMixin):
+@python_2_unicode_compatible
+class TestModel(models.Model):
     """A model used in tests."""
 
-    def __unicode__(self):
+    class Meta:
+        app_label = 'el_pagination'
+
+
+    def __str__(self):
         return 'TestModel: {0}'.format(self.id)
 
 call_command('makemigrations', verbosity=0)

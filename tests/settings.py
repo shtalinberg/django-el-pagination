@@ -61,6 +61,7 @@ NOSE_ARGS = (
     '--verbosity=2',
     '--stop',
     '-s', # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
+    ''
     #'--nomigrations',
     #'--with-coverage',
     #'--cover-package=el_pagination',
@@ -68,12 +69,12 @@ NOSE_ARGS = (
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # disabled migrations only when tests are running from 1.7
-class DisableMigrations(object):
+# class DisableMigrations(object):
 
-    def __contains__(self, item):
-        return True
+#     def __contains__(self, item):
+#         return True
 
-    def __getitem__(self, item):
-        return "notmigrations"
+#     def __getitem__(self, item):
+#         return "notmigrations"
 
-MIGRATION_MODULES = DisableMigrations()
+# MIGRATION_MODULES = DisableMigrations()

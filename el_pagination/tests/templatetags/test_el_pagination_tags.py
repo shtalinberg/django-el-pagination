@@ -6,6 +6,7 @@ import sys
 import xml.etree.ElementTree as etree
 import unittest
 
+from django.db import models
 from django.template import (
     Context,
     Template,
@@ -13,6 +14,7 @@ from django.template import (
 )
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.utils.encoding import python_2_unicode_compatible
 
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList
@@ -26,6 +28,24 @@ from el_pagination.tests import make_model_instances
 skip_if_old_etree = unittest.skipIf(
     sys.version_info < (2, 7), 'XPath not supported by this Python version.')
 
+
+def make_model_instances(number):
+    """Make a ``number`` of test model instances and return a queryset."""
+    for _ in range(number):
+        TestModel.objects.create()
+    return TestModel.objects.all()
+
+
+@python_2_unicode_compatible
+class TestModel(models.Model):
+    """A model used in tests."""
+
+    class Meta:
+        app_label = 'el_pagination'
+
+
+    def __str__(self):
+        return 'TestModel: {0}'.format(self.id)
 
 class TemplateTagsTestMixin(object):
     """Base test mixin for template tags."""
