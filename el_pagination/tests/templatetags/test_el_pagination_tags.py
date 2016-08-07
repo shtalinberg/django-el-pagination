@@ -13,7 +13,6 @@ from django.template import (
 )
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.encoding import python_2_unicode_compatible
 
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList
@@ -21,19 +20,10 @@ from el_pagination.settings import (
     PAGE_LABEL,
     PER_PAGE,
 )
-from el_pagination.tests import make_model_instances
-
+from project.models import make_model_instances
 
 skip_if_old_etree = unittest.skipIf(
     sys.version_info < (2, 7), 'XPath not supported by this Python version.')
-
-
-def make_model_instances(number):
-    """Make a ``number`` of test model instances and return a queryset."""
-    from el_pagination.tests import TestTagModel
-    for _ in range(number):
-        TestTagModel.objects.create()
-    return TestTagModel.objects.all()
 
 
 class TemplateTagsTestMixin(object):

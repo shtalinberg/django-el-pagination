@@ -2,33 +2,13 @@
 
 from __future__ import unicode_literals
 
-from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.encoding import python_2_unicode_compatible
 
 from el_pagination import views
-
-
-def make_model_instances(number):
-    """Make a ``number`` of test model instances and return a queryset."""
-    for _ in range(number):
-        TestModel.objects.create()
-    return TestModel.objects.all()
-
-
-@python_2_unicode_compatible
-class TestModel(models.Model):
-    """A model used in tests."""
-
-    class Meta:
-        app_label = 'el_pagination'
-
-
-    def __str__(self):
-        return 'TestModel: {0}'.format(self.id)
+from project.models import make_model_instances, TestModel
 
 
 class AjaxListViewTest(TestCase):
