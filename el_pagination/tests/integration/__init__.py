@@ -79,10 +79,9 @@ class SeleniumTestCase(StaticLiveServerTestCase):
             cls.xvfb = Xvfb(width=1280, height=720)
             cls.xvfb.start()
 
-        super(SeleniumTestCase, cls).setUpClass()
-
         # Create a Selenium browser instance.
         cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
+        # start browser
         if cls.browser == 'firefox':
             cls.selenium = webdriver.Firefox()
         elif cls.browser == 'htmlunit':
@@ -100,6 +99,8 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         cls.selenium.maximize_window()
         cls.wait = ui.WebDriverWait(cls.selenium, 10)
         cls.selenium.implicitly_wait(3)
+
+        super(SeleniumTestCase, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):

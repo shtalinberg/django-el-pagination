@@ -6,7 +6,6 @@ import sys
 import xml.etree.ElementTree as etree
 import unittest
 
-from django.db import models
 from django.template import (
     Context,
     Template,
@@ -31,21 +30,10 @@ skip_if_old_etree = unittest.skipIf(
 
 def make_model_instances(number):
     """Make a ``number`` of test model instances and return a queryset."""
+    from el_pagination.tests import TestTagModel
     for _ in range(number):
         TestTagModel.objects.create()
     return TestTagModel.objects.all()
-
-
-@python_2_unicode_compatible
-class TestTagModel(models.Model):
-    """A model used in tests."""
-
-    class Meta:
-        app_label = 'el_pagination'
-
-
-    def __str__(self):
-        return 'TestTagModel: {0}'.format(self.id)
 
 
 class TemplateTagsTestMixin(object):
@@ -312,7 +300,7 @@ class PaginateTest(PaginateTestMixin, TestCase):
         # In this case, the argument is provided as context variable.
         template = '{% $tagname 10 objects starting from page mypage %}'
         _, context = self.render(
-            self.request(), template, objects=range(47), mypage=-2)
+            self.request(), template, objects=range(47), mypage= -2)
         self.assertRangeEqual(range(30, 40), context['objects'])
 
     def test_starting_from_negative_page_out_of_range(self):

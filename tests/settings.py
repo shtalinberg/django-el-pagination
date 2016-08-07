@@ -2,12 +2,13 @@
 
 import os
 
-DEBUG  = True
+DEBUG = True
 
-os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = "localhost:8000-8010,8080,9200-9300"
-DJANGO_LIVE_TEST_SERVER_ADDRESS = "localhost:8000-8010,8080,9200-9300"
-
+DJANGO_LIVE_TEST_SERVER_ADDRESS = os.getenv('DJANGO_LIVE_TEST_SERVER_ADDRESS',
+    "localhost:8000-8010,8080,9200-9300")
+DJANGO_TEST_PROCESSES = os.getenv('DJANGO_TEST_PROCESSES', 1)
 PROJECT_NAME = 'project'
+
 # Base paths.
 ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT = os.path.join(ROOT, PROJECT_NAME)
@@ -36,7 +37,6 @@ STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 TEMPLATES = [
@@ -63,21 +63,9 @@ TEMPLATES = [
 NOSE_ARGS = (
     '--verbosity=2',
     '--stop',
-    '-s', # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
-    ''
-    #'--nomigrations',
-    #'--with-coverage',
-    #'--cover-package=el_pagination',
+    '-s',  # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
+    # '--nomigrations',
+    # '--with-coverage',
+    # '--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-# disabled migrations only when tests are running from 1.7
-# class DisableMigrations(object):
-
-#     def __contains__(self, item):
-#         return True
-
-#     def __getitem__(self, item):
-#         return "notmigrations"
-
-# MIGRATION_MODULES = DisableMigrations()
