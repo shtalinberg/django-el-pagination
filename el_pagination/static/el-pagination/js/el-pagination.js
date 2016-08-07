@@ -1,5 +1,6 @@
+'use strict';
+
 (function ($) {
-    'use strict';
 
     // Fix JS String.trim() function is unavailable in IE<9 #45
     if (typeof(String.prototype.trim) === "undefined") {

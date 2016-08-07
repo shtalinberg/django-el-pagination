@@ -60,6 +60,7 @@ TEMPLATES = [
 NOSE_ARGS = (
     '--verbosity=2',
     '--stop',
+    '-s', # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
     #'--nomigrations',
     #'--with-coverage',
     #'--cover-package=el_pagination',

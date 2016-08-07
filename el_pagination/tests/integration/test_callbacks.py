@@ -19,6 +19,10 @@ class CallbacksTest(SeleniumTestCase):
         for key, value in notifications.items():
             self.assertEqual(value, find(key).text)
 
+    def test_can_navigate_site(self):
+        self.selenium.get(self.live_server_url) # use the live server url
+        assert 'Testing project - Django Endless Pagination' in self.selenium.title
+
     def test_on_click(self):
         # Ensure the onClick callback is correctly called.
         self.get()
