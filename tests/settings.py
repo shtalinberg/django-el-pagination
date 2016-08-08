@@ -8,7 +8,7 @@ import os
 DEBUG = True
 
 # Disable 1.9 arguments '--parallel' and try exclude  “Address already in use” at “setUpClass”
-os.environ['DJANGO_TEST_PROCESSES'] = 1
+os.environ['DJANGO_TEST_PROCESSES'] = "1"
 os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = "localhost:8000-8010,8080,9200-9300" 
 
 PROJECT_NAME = 'project'
