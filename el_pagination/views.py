@@ -167,7 +167,7 @@ class AjaxListView(AjaxMultipleObjectTemplateResponseMixin, BaseListView):
 
         from books.models import Publisher
 
-        from endless_pagination.views import AjaxListView
+        from el_pagination.views import AjaxListView
 
         urlpatterns = patterns('',
             (r'^publishers/$', AjaxListView.as_view(model=Publisher)),
