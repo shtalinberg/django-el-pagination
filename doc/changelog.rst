@@ -1,6 +1,21 @@
 Changelog
 =========
 
+Version 3.0.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 1.10 support.
+New app Django EL(Endless) Pagination now supports Django from 1.8.x to 1.10
+
+----
+
+**New feature**: Travic CI support
+add tox and Travic CI config
+
+----
+
+**Documentation**: general clean up.
+
 
 Version 2.1.1
 ~~~~~~~~~~~~~

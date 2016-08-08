@@ -41,6 +41,7 @@ class BasePaginator(Paginator):
     """
 
     def __init__(self, object_list, per_page, **kwargs):
+        self._num_pages = None
         if 'first_page' in kwargs:
             self.first_page = kwargs.pop('first_page')
         else:

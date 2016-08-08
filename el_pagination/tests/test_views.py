@@ -8,10 +8,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 
 from el_pagination import views
-from el_pagination.tests import (
-    make_model_instances,
-    TestModel,
-)
+from project.models import make_model_instances, TestModel
 
 
 class AjaxListViewTest(TestCase):

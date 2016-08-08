@@ -4,11 +4,12 @@ from __future__ import unicode_literals
 from contextlib import contextmanager
 import os
 import time
+import unittest
 
 from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import LiveServerTestCase
-from django.utils import unittest
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.common import exceptions
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
@@ -38,7 +39,9 @@ def setup_package():
             vdisplay.start()
         # Create a Selenium browser instance.
         selenium = SeleniumTestCase.selenium = Firefox()
+        selenium.maximize_window()
         SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
+        SeleniumTestCase.selenium.implicitly_wait(3)
 
 
 def teardown_package():
@@ -57,7 +60,7 @@ def teardown_package():
 @unittest.skipIf(
     SKIP_SELENIUM,
     'excluding integration tests: environment variable SKIP_SELENIUM is set.')
-class SeleniumTestCase(LiveServerTestCase):
+class SeleniumTestCase(StaticLiveServerTestCase):
     """Base test class for integration tests."""
 
     PREVIOUS = '<'
@@ -66,37 +69,49 @@ class SeleniumTestCase(LiveServerTestCase):
 
     def setUp(self):
         self.url = self.live_server_url + reverse(self.view_name)
-        """
-        self.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
-        if self.browser == 'firefox':
-            self.selenium = webdriver.Firefox()
-        elif self.browser == 'htmlunit':
-            self.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
-        elif self.browser == 'iphone':
-            command_executor = "http://127.0.0.1:3001/wd/hub"
-            self.selenium = webdriver.Remote(command_executor=command_executor,
-                desired_capabilities=DesiredCapabilities.IPHONE)
-        elif self.browser == 'safari':
-            self.selenium = webdriver.Remote(desired_capabilities={
-                "browserName": "safari", "version": "",
-                "platform": "MAC", "javascriptEnabled": True})
-        else:
-            self.selenium = webdriver.Chrome()
-        """
+
         # Give the browser a little time; Firefox sometimes throws
         # random errors if you hit it too soon
-        time.sleep(1)
+        # time.sleep(1)
 
+#     @classmethod
+#     def setUpClass(cls):
+#         if not SHOW_BROWSER:
+#             # start display
+#             cls.xvfb = Xvfb(width=1280, height=720)
+#             cls.xvfb.start()
 
-    @classmethod
-    def setUpClass(cls):
-        super(SeleniumTestCase, cls).setUpClass()
-        cls.selenium = WebDriver()
+#         # Create a Selenium browser instance.
+#         cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
+#         # start browser
+#         if cls.browser == 'firefox':
+#             cls.selenium = webdriver.Firefox()
+#         elif cls.browser == 'htmlunit':
+#             cls.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
+#         elif cls.browser == 'iphone':
+#             command_executor = "http://127.0.0.1:3001/wd/hub"
+#             cls.selenium = webdriver.Remote(command_executor=command_executor,
+#                 desired_capabilities=DesiredCapabilities.IPHONE)
+#         elif cls.browser == 'safari':
+#             cls.selenium = webdriver.Remote(desired_capabilities={
+#                 "browserName": "safari", "version": "",
+#                 "platform": "MAC", "javascriptEnabled": True})
+#         else:
+#             cls.selenium = webdriver.Chrome()
+#         cls.selenium.maximize_window()
+#         cls.wait = ui.WebDriverWait(cls.selenium, 10)
+#         cls.selenium.implicitly_wait(3)
+#
+#         super(SeleniumTestCase, cls).setUpClass()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super(SeleniumTestCase, cls).tearDownClass()
+#     @classmethod
+#     def tearDownClass(cls):
+#         # stop browser
+#         cls.selenium.quit()
+#         super(SeleniumTestCase, cls).tearDownClass()
+#         if not SHOW_BROWSER:
+#             # stop display
+#             cls.xvfb.stop()
 
     def get(self, url=None, data=None, **kwargs):
         """Load a web page in the current browser session.
@@ -106,20 +121,33 @@ class SeleniumTestCase(LiveServerTestCase):
         """
         if url is None:
             url = self.url
+
         querydict = QueryDict('', mutable=True)
         if data is not None:
             querydict.update(data)
         querydict.update(kwargs)
         path = '{0}?{1}'.format(url, querydict.urlencode())
+
+        # the following javascript scrolls down the entire page body.  Since Twitter
+        # uses "inifinite scrolling", more content will be added to the bottom of the
+        # DOM as you scroll... since it is in the loop, it will scroll down up to 100
+        # times.
+        # for _ in range(100):
+        #     self.selenium.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+        # print all of the page source that was loaded
+        # print self.selenium.page_source.encode("utf-8")
         return self.selenium.get(path)
 
     def wait_ajax(self):
         """Wait for the document to be ready."""
+        time.sleep(10)
         def document_ready(driver):
             script = """
                 return (
                     document.readyState === 'complete' &&
-                    jQuery.active === 0
+                    jQuery.active === 0 &&
+                    typeof jQuery != 'undefined'
                 );
             """
             return driver.execute_script(script)

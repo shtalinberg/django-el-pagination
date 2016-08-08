@@ -2,21 +2,32 @@ Twitter-style Pagination
 ========================
 
 Assuming the developer wants Twitter-style pagination of
-entries of a blog post, in *views.py* we have::
+entries of a blog post, in *views.py* we have class-based::
 
-    def entry_index(request, template='myapp/entry_index.html'):
+    from el_pagination.views import AjaxListView
+
+    class EntryListView(AjaxListView)
+        context_object_name = "entry_list"
+        template_name = "myapp/entry_list.html"
+		
+        def get_queryset(self):
+            return Entry.objects.all()
+    	    
+or fuction-based::
+    
+    def entry_index(request, template='myapp/entry_list.html'):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
         }
         return render_to_response(
             template, context, context_instance=RequestContext(request))
 
-In *myapp/entry_index.html*:
+In *myapp/entry_list.html*:
 
 .. code-block:: html+django
-
+	
     <h2>Entries:</h2>
-    {% for entry in entries %}
+    {% for entry in entry_list %}
         {# your code to show the entry #}
     {% endfor %}
 
@@ -32,14 +43,25 @@ entries, and use it to render the context if the request is Ajax.
 The main template will include the extracted part, so it is convenient
 to put the page template name in the context.
 
-*views.py* becomes::
+*views.py* class-based becomes::
 
-    def entry_index(
-            request,
-            template='myapp/entry_index.html',
-            page_template='myapp/entry_index_page.html'):
+    from el_pagination.views import AjaxListView
+
+    class EntryListView(AjaxListView)
+        context_object_name = "entry_list"
+        template_name = "myapp/entry_list.html"
+        page_template='myapp/entry_list_page.html'
+		
+        def get_queryset(self):
+            return Entry.objects.all()		
+
+or fuction-based::
+
+    def entry_list(request,
+        template='myapp/entry_list.html',
+        page_template='myapp/entry_list_page.html'):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
             'page_template': page_template,
         }
         if request.is_ajax():
@@ -48,20 +70,20 @@ to put the page template name in the context.
             template, context, context_instance=RequestContext(request))
 
 See :ref:`below<twitter-page-template>` how to obtain the same result
-**just decorating the view** (in a way compatible with generic views too).
+**just decorating the view**.
 
-*myapp/entry_index.html* becomes:
+*myapp/entry_list.html* becomes:
 
 .. code-block:: html+django
 
     <h2>Entries:</h2>
     {% include page_template %}
 
-*myapp/entry_index_page.html* becomes:
+*myapp/entry_list_page.html* becomes:
 
 .. code-block:: html+django
 
-    {% for entry in entries %}
+    {% for entry in entry_list %}
         {# your code to show the entry #}
     {% endfor %}
 
@@ -77,10 +99,10 @@ with extra context injection:
 
 *views.py*::
 
-    def entry_index(
-            request, template='myapp/entry_index.html', extra_context=None):
+    def entry_index(request, 
+            template='myapp/entry_list.html', extra_context=None):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
         }
         if extra_context is not None:
             context.update(extra_context)
@@ -94,21 +116,17 @@ is easily achievable by using an included decorator.
 
     from el_pagination.decorators import page_template
 
-    @page_template('myapp/entry_index_page.html')  # just add this decorator
-    def entry_index(
-            request, template='myapp/entry_index.html', extra_context=None):
+    @page_template('myapp/entry_list_page.html')  # just add this decorator
+    def entry_list(request, 
+            template='myapp/entry_list.html', extra_context=None):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
         }
         if extra_context is not None:
             context.update(extra_context)
         return render_to_response(
             template, context, context_instance=RequestContext(request))
 
-This way, *el_pagination* can be included in **generic views** too.
-
-See :doc:`generic_views` if you use Django >= 1.3 and you want to replicate
-the same behavior using a class-based generic view.
 
 Paginating objects
 ~~~~~~~~~~~~~~~~~~
@@ -118,7 +136,7 @@ All that's left is changing the page template and loading the
 jQuery plugin ``el-pagination.js`` included in the distribution under
 ``/static/el-pagination/js/``.
 
-*myapp/entry_index.html* becomes:
+*myapp/entry_list.html* becomes:
 
 .. code-block:: html+django
 
@@ -132,14 +150,14 @@ jQuery plugin ``el-pagination.js`` included in the distribution under
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
-*myapp/entry_index_page.html* becomes:
+*myapp/entry_list_page.html* becomes:
 
 .. code-block:: html+django
 
     {% load el_pagination_tags %}
 
-    {% paginate entries %}
-    {% for entry in entries %}
+    {% paginate entry_list %}
+    {% for entry in entry_list %}
         {# your code to show the entry #}
     {% endfor %}
     {% show_more %}

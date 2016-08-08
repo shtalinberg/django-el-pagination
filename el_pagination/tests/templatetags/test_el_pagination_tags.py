@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import string
 import sys
 import xml.etree.ElementTree as etree
+import unittest
 
 from django.template import (
     Context,
@@ -12,7 +13,6 @@ from django.template import (
 )
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils import unittest
 
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList
@@ -20,8 +20,7 @@ from el_pagination.settings import (
     PAGE_LABEL,
     PER_PAGE,
 )
-from el_pagination.tests import make_model_instances
-
+from project.models import make_model_instances
 
 skip_if_old_etree = unittest.skipIf(
     sys.version_info < (2, 7), 'XPath not supported by this Python version.')
@@ -291,7 +290,7 @@ class PaginateTest(PaginateTestMixin, TestCase):
         # In this case, the argument is provided as context variable.
         template = '{% $tagname 10 objects starting from page mypage %}'
         _, context = self.render(
-            self.request(), template, objects=range(47), mypage=-2)
+            self.request(), template, objects=range(47), mypage= -2)
         self.assertRangeEqual(range(30, 40), context['objects'])
 
     def test_starting_from_negative_page_out_of_range(self):

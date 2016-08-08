@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 
 from el_pagination import (
-    models,
+    models as el_models,
     settings,
     utils,
 )
@@ -79,7 +79,7 @@ class PageListTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get(
             self.get_path_for_page(self.current_number))
-        self.pages = models.PageList(
+        self.pages = el_models.PageList(
             self.request, self.paginator.page(self.current_number),
             self.page_label)
 
@@ -117,7 +117,7 @@ class PageListTest(TestCase):
         # Ensure the *paginated* method returns True if the page list contains
         # more than one page, False otherwise.
         page = DefaultPaginator(range(10), 10).page(1)
-        pages = models.PageList(self.request, page, self.page_label)
+        pages = el_models.PageList(self.request, page, self.page_label)
         self.assertFalse(pages.paginated())
         self.assertTrue(self.pages.paginated())
 
@@ -212,12 +212,12 @@ class PageListTest(TestCase):
     def test_page_list_render_just_one_page(self):
         # Ensure nothing is rendered if the page list contains only one page.
         page = DefaultPaginator(range(10), 10).page(1)
-        pages = models.PageList(self.request, page, self.page_label)
+        pages = el_models.PageList(self.request, page, self.page_label)
         self.assertEqual('', utils.text(pages))
 
     def test_different_default_number(self):
         # Ensure the page path is generated based on the default number.
-        pages = models.PageList(
+        pages = el_models.PageList(
             self.request, self.paginator.page(2), self.page_label,
             default_number=2)
         self.assertEqual('/', pages.current().path)
@@ -240,14 +240,14 @@ class PageListTest(TestCase):
 
     def test_no_previous(self):
         # An empty string is returned if the previous page cannot be found.
-        pages = models.PageList(
+        pages = el_models.PageList(
             self.request, self.paginator.page(1), self.page_label)
         self.assertEqual('', pages.previous())
 
     def test_no_next(self):
         # An empty string is returned if the next page cannot be found.
         num_pages = self.paginator.num_pages
-        pages = models.PageList(
+        pages = el_models.PageList(
             self.request, self.paginator.page(num_pages), self.page_label)
         self.assertEqual('', pages.next())
 
@@ -265,7 +265,7 @@ class PageListTest(TestCase):
         # Ensure white spaces in paths are correctly handled.
         path = '/a path/containing spaces/'
         request = self.factory.get(path)
-        next = models.PageList(
+        next = el_models.PageList(
             request, self.paginator.page(self.current_number),
             self.page_label).next()
         self.assertEqual(path.replace(' ', '%20') + next.url, next.path)
