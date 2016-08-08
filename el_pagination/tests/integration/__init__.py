@@ -37,10 +37,16 @@ def setup_package():
             # Perform all graphical operations in memory.
             vdisplay = SeleniumTestCase.vdisplay = Xvfb(width=1280, height=720)
             vdisplay.start()
+        # Create a Selenium browser instance.
+        selenium = SeleniumTestCase.selenium = Firefox()
+        SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
+        SeleniumTestCase.selenium.maximize_window()
+        SeleniumTestCase.selenium.implicitly_wait(3)
 
 def teardown_package():
     """Quit the Selenium driver."""
     if tests_are_run:
+        SeleniumTestCase.selenium.quit()
         if not SHOW_BROWSER:
             SeleniumTestCase.vdisplay.stop()
 
@@ -67,41 +73,41 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         # random errors if you hit it too soon
         # time.sleep(1)
 
-    @classmethod
-    def setUpClass(cls):
+#     @classmethod
+#     def setUpClass(cls):
 #         if not SHOW_BROWSER:
 #             # start display
 #             cls.xvfb = Xvfb(width=1280, height=720)
 #             cls.xvfb.start()
 
-        # Create a Selenium browser instance.
-        cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
-        # start browser
-        if cls.browser == 'firefox':
-            cls.selenium = webdriver.Firefox()
-        elif cls.browser == 'htmlunit':
-            cls.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
-        elif cls.browser == 'iphone':
-            command_executor = "http://127.0.0.1:3001/wd/hub"
-            cls.selenium = webdriver.Remote(command_executor=command_executor,
-                desired_capabilities=DesiredCapabilities.IPHONE)
-        elif cls.browser == 'safari':
-            cls.selenium = webdriver.Remote(desired_capabilities={
-                "browserName": "safari", "version": "",
-                "platform": "MAC", "javascriptEnabled": True})
-        else:
-            cls.selenium = webdriver.Chrome()
-        cls.selenium.maximize_window()
-        cls.wait = ui.WebDriverWait(cls.selenium, 10)
-        cls.selenium.implicitly_wait(3)
+#         # Create a Selenium browser instance.
+#         cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
+#         # start browser
+#         if cls.browser == 'firefox':
+#             cls.selenium = webdriver.Firefox()
+#         elif cls.browser == 'htmlunit':
+#             cls.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
+#         elif cls.browser == 'iphone':
+#             command_executor = "http://127.0.0.1:3001/wd/hub"
+#             cls.selenium = webdriver.Remote(command_executor=command_executor,
+#                 desired_capabilities=DesiredCapabilities.IPHONE)
+#         elif cls.browser == 'safari':
+#             cls.selenium = webdriver.Remote(desired_capabilities={
+#                 "browserName": "safari", "version": "",
+#                 "platform": "MAC", "javascriptEnabled": True})
+#         else:
+#             cls.selenium = webdriver.Chrome()
+#         cls.selenium.maximize_window()
+#         cls.wait = ui.WebDriverWait(cls.selenium, 10)
+#         cls.selenium.implicitly_wait(3)
+#
+#         super(SeleniumTestCase, cls).setUpClass()
 
-        super(SeleniumTestCase, cls).setUpClass()
-
-    @classmethod
-    def tearDownClass(cls):
-        # stop browser
-        cls.selenium.quit()
-        super(SeleniumTestCase, cls).tearDownClass()
+#     @classmethod
+#     def tearDownClass(cls):
+#         # stop browser
+#         cls.selenium.quit()
+#         super(SeleniumTestCase, cls).tearDownClass()
 #         if not SHOW_BROWSER:
 #             # stop display
 #             cls.xvfb.stop()
