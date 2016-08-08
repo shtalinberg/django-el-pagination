@@ -28,26 +28,21 @@ SKIP_SELENIUM = os.getenv('SKIP_SELENIUM', False)
 tests_are_run = not (PYTHON3 or SKIP_SELENIUM)
 
 
-# def setup_package():
-#     """Set up the Selenium driver once for all tests."""
-#     # Just skipping *setup_package* and *teardown_package* generates an
-#     # uncaught exception under Python 2.6.
-#     if tests_are_run:
-#         if not SHOW_BROWSER:
-#             # Perform all graphical operations in memory.
-#             vdisplay = SeleniumTestCase.vdisplay = Xvfb(width=1280, height=720)
-#             vdisplay.start()
-#         # Create a Selenium browser instance.
-#         selenium = SeleniumTestCase.selenium = Firefox()
-#         SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
-#
-#
-# def teardown_package():
-#     """Quit the Selenium driver."""
-#     if tests_are_run:
-#         SeleniumTestCase.selenium.quit()
-#         if not SHOW_BROWSER:
-#             SeleniumTestCase.vdisplay.stop()
+def setup_package():
+    """Set up the Selenium driver once for all tests."""
+    # Just skipping *setup_package* and *teardown_package* generates an
+    # uncaught exception under Python 2.6.
+    if tests_are_run:
+        if not SHOW_BROWSER:
+            # Perform all graphical operations in memory.
+            vdisplay = SeleniumTestCase.vdisplay = Xvfb(width=1280, height=720)
+            vdisplay.start()
+
+def teardown_package():
+    """Quit the Selenium driver."""
+    if tests_are_run:
+        if not SHOW_BROWSER:
+            SeleniumTestCase.vdisplay.stop()
 
 
 # FIXME: do not exclude integration tests on Python3 once Selenium is updated
@@ -74,10 +69,10 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        if not SHOW_BROWSER:
-            # start display
-            cls.xvfb = Xvfb(width=1280, height=720)
-            cls.xvfb.start()
+#         if not SHOW_BROWSER:
+#             # start display
+#             cls.xvfb = Xvfb(width=1280, height=720)
+#             cls.xvfb.start()
 
         # Create a Selenium browser instance.
         cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
@@ -107,9 +102,9 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         # stop browser
         cls.selenium.quit()
         super(SeleniumTestCase, cls).tearDownClass()
-        if not SHOW_BROWSER:
-            # stop display
-            cls.xvfb.stop()
+#         if not SHOW_BROWSER:
+#             # stop display
+#             cls.xvfb.stop()
 
     def get(self, url=None, data=None, **kwargs):
         """Load a web page in the current browser session.
