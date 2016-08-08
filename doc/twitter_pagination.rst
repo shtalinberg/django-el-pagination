@@ -3,15 +3,15 @@ Twitter-style Pagination
 
 Assuming the developer wants Twitter-style pagination of
 entries of a blog post, in *views.py* we have class-based::
-	
-	from el_pagination.views import AjaxListView
 
-    class EntryListView(ListView)
-		context_object_name = "entry_list"
-		template_name = "myapp/entry_list.html"
+    from el_pagination.views import AjaxListView
+
+    class EntryListView(AjaxListView)
+        context_object_name = "entry_list"
+        template_name = "myapp/entry_list.html"
 		
-		def get_queryset(self):
-			return Entry.objects.all()
+        def get_queryset(self):
+            return Entry.objects.all()
     	    
 or fuction-based::
     
@@ -45,21 +45,21 @@ to put the page template name in the context.
 
 *views.py* class-based becomes::
 
-	from el_pagination.views import AjaxListView
+    from el_pagination.views import AjaxListView
 
     class EntryListView(AjaxListView)
-		context_object_name = "entry_list"
-		template_name = "myapp/entry_list.html"
-		page_template='myapp/entry_list_page.html'
+        context_object_name = "entry_list"
+        template_name = "myapp/entry_list.html"
+        page_template='myapp/entry_list_page.html'
 		
-		def get_queryset(self):
-			return Entry.objects.all()		
+        def get_queryset(self):
+            return Entry.objects.all()		
 
 or fuction-based::
 
     def entry_list(request,
-            template='myapp/entry_list.html',
-            page_template='myapp/entry_list_page.html'):
+        template='myapp/entry_list.html',
+        page_template='myapp/entry_list_page.html'):
         context = {
             'entry_list': Entry.objects.all(),
             'page_template': page_template,
@@ -99,8 +99,8 @@ with extra context injection:
 
 *views.py*::
 
-    def entry_index(
-            request, template='myapp/entry_list.html', extra_context=None):
+    def entry_index(request, 
+            template='myapp/entry_list.html', extra_context=None):
         context = {
             'entry_list': Entry.objects.all(),
         }
@@ -117,8 +117,8 @@ is easily achievable by using an included decorator.
     from el_pagination.decorators import page_template
 
     @page_template('myapp/entry_list_page.html')  # just add this decorator
-    def entry_list(
-            request, template='myapp/entry_list.html', extra_context=None):
+    def entry_list(request, 
+            template='myapp/entry_list.html', extra_context=None):
         context = {
             'entry_list': Entry.objects.all(),
         }

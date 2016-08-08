@@ -19,7 +19,7 @@ AjaxListView reference
     recreate the behaviour of the *page_template* decorator.
 
     For instance, assume you have this code (taken from Django docs)::
-
+	
         from django.conf.urls import url
         from django.views.generic import ListView
         from books.models import Publisher
@@ -27,6 +27,7 @@ AjaxListView reference
         urlpatterns = [
             url(r'^publishers/$', ListView.as_view(model=Publisher)),
         ]
+    
     
     You want to Ajax paginate publishers, so, as seen, you need to switch
     the template if the request is Ajax and put the page template
@@ -42,6 +43,7 @@ AjaxListView reference
         urlpatterns = [
             url(r'^publishers/$', AjaxListView.as_view(model=Publisher)),
         ]
+
 
     .. py:attribute:: key
 
@@ -68,7 +70,7 @@ AjaxListView reference
         and *self.page_template_suffix*.
 
         For instance, if the list is a queryset of *blog.Entry*,
-        the template will be *blog/entry_list_page.html*.
+        the template will be *myapp/publisher_list_page.html*.
 
     .. py:method:: get_template_names(self)
 
@@ -78,3 +80,37 @@ AjaxListView reference
 
         Only called if *page_template* is not given as a kwarg of
         *self.as_view*.
+        
+
+Generic view example
+~~~~~~~~~~~~~~~~~~~~
+If the developer wants pagination of publishers, in *views.py* we have code class-based::
+
+    from django.views.generic import ListView
+
+    class EntryListView(ListView)
+        model = Publisher
+        template_name = "myapp/publisher_list.html"
+        context_object_name = "publisher_list"
+				    
+or fuction-based::
+	
+    def entry_index(request, template='myapp/publisher_list.html'):
+        context = {
+            'publisher_list': Entry.objects.all(),
+        }
+        return render_to_response(
+            template, context, context_instance=RequestContext(request))
+
+In *myapp/publisher_list.html*:
+
+.. code-block:: html+django
+
+	<h2>Entries:</h2>
+	{% for entry in publisher_list %}
+	    {# your code to show the entry #}
+	{% endfor %}
+
+This is just a basic example. To continue exploring more AjaxListView examples, 
+have a look at :doc:`twitter_pagination`
+        
