@@ -43,6 +43,7 @@ def setup_package():
         SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
         SeleniumTestCase.selenium.implicitly_wait(3)
 
+
 def teardown_package():
     """Quit the Selenium driver."""
     if tests_are_run:
