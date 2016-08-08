@@ -80,7 +80,7 @@ to be activated when 20 pixels remain to the end of the page:
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
-                paginateOnScrollMargin: 20
+                paginateOnScrollMargin: 200
             });
         </script>
     {% endblock %}
@@ -433,7 +433,7 @@ Before:
         <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
         <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
         <script>
-            var endless_on_scroll_margin = 20;
+            var endless_on_scroll_margin = 200;
         </script>
     {% endblock %}
 
@@ -451,7 +451,7 @@ Now:
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
-                paginateOnScrollMargin: 20
+                paginateOnScrollMargin: 200
             });
         </script>
     {% endblock %}

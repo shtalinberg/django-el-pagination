@@ -1,9 +1,6 @@
 Generic views
 =============
 
-Django 1.3 introduced class-based generic views
-(see https://docs.djangoproject.com/en/1.3/topics/class-based-views/).
-
 This application provides a customized class-based view, similar to
 *django.views.generic.ListView*, that allows Ajax pagination of a
 list of objects (usually a queryset).
@@ -30,16 +27,6 @@ AjaxListView reference
         urlpatterns = [
             url(r'^publishers/$', ListView.as_view(model=Publisher)),
         ]
-
-    NOTE: Django < 1.8 use this rule for urlpatterns::
-    
-        from django.conf.urls.defaults import *
-        from django.views.generic import ListView
-        from books.models import Publisher        
-        
-        urlpatterns = patterns('',
-            (r'^publishers/$', ListView.as_view(model=Publisher)),
-        )
     
     You want to Ajax paginate publishers, so, as seen, you need to switch
     the template if the request is Ajax and put the page template
@@ -55,12 +42,6 @@ AjaxListView reference
         urlpatterns = [
             url(r'^publishers/$', AjaxListView.as_view(model=Publisher)),
         ]
-    
-    NOTE: With Django < 1.8 use this rule for urlpatterns::
-
-        urlpatterns = patterns('',
-            (r'^publishers/$', AjaxListView.as_view(model=Publisher)),
-        )
 
     .. py:attribute:: key
 

@@ -1,6 +1,12 @@
 Contributing
 ============
 
+WARNING
+~~~~~~~
+This app use *git flow* for branching strategy and release management. 
+Please, change code and submit all pull requests into branch `develop`
+
+
 Here are the steps needed to set up a development and testing environment.
 
 Creating a development environment
@@ -29,6 +35,14 @@ dependencies.
 
 Testing the application
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+To install *xvfb* (for integration tests) under Debian/Ubuntu::
+
+    $ sudo apt-get install xvfb
+
+If you are on CentOS and using yum, it's::
+
+	$ yum install xorg-X11-server-Xvfb
 
 Run the tests::
 
@@ -70,4 +84,8 @@ development environment::
 
     $ make help
 
+
+
 Thanks for contributing, and have fun!
+
+
