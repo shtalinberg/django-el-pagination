@@ -18,6 +18,8 @@ install:
 
 
 before_script:
+  - export DJANGO_LIVE_TEST_SERVER_ADDRESS=localhost:8000-8010,8080,9200-9300
+  - export DJANGO_TEST_PROCESSES=1
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   #- python manage.py runserver &
