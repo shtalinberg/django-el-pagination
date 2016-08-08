@@ -20,8 +20,8 @@ install:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - python manage.py runserver &
-  - sleep 3 # give django server time to bind to sockets
+  #- python manage.py runserver &
+  #- sleep 3 # give django server time to bind to sockets
 
 
 script:

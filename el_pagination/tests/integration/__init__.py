@@ -54,12 +54,12 @@ def teardown_package():
 
 # FIXME: do not exclude integration tests on Python3 once Selenium is updated
 # (bug #17).
-# @unittest.skipIf(
-#     PYTHON3,
-#     'excluding integration tests: Python 3 tests are still not supported.')
-# @unittest.skipIf(
-#     SKIP_SELENIUM,
-#     'excluding integration tests: environment variable SKIP_SELENIUM is set.')
+@unittest.skipIf(
+    PYTHON3,
+    'excluding integration tests: Python 3 tests are still not supported.')
+@unittest.skipIf(
+    SKIP_SELENIUM,
+    'excluding integration tests: environment variable SKIP_SELENIUM is set.')
 class SeleniumTestCase(StaticLiveServerTestCase):
     """Base test class for integration tests."""
 
