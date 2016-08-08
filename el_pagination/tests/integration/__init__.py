@@ -39,8 +39,8 @@ def setup_package():
             vdisplay.start()
         # Create a Selenium browser instance.
         selenium = SeleniumTestCase.selenium = Firefox()
+        selenium.maximize_window()
         SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
-        SeleniumTestCase.selenium.maximize_window()
         SeleniumTestCase.selenium.implicitly_wait(3)
 
 def teardown_package():
