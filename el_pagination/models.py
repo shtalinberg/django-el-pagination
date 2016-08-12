@@ -57,12 +57,12 @@ class ELPage(utils.UnicodeMixin):
 
     def __unicode__(self):
         """Render the page as a link."""
-        context = Context({
+        context = Context(self.context)
+        context.update({
             'add_nofollow': settings.ADD_NOFOLLOW,
             'page': self,
             'querystring_key': self.querystring_key,
         })
-        context.update(self.context)
         if self.is_current:
             template_name = 'el_pagination/current_link.html'
         else:
@@ -176,9 +176,8 @@ class PageList(utils.UnicodeMixin):
                     pages.append(self.last_as_arrow())
                 else:
                     pages.append(self[item])
-            context = Context({
-                'pages': pages})
-            context.update(self.context)
+            context = Context(self.context)
+            context.update({'pages': pages})
             return loader.render_to_string('el_pagination/show_pages.html',
                                            context)
         return ''
