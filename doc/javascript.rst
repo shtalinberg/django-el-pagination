@@ -76,7 +76,7 @@ to be activated when 20 pixels remain to the end of the page:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
@@ -143,7 +143,7 @@ To wrap it up, here is an example showing the callbacks' signatures:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 onClick: function(context) {
@@ -380,7 +380,7 @@ Now:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
