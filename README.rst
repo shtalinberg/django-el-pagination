@@ -27,7 +27,7 @@ The initial idea, which has guided the development of this application,
 is to allow pagination of web contents in `very few steps
 <http://django-el-pagination.readthedocs.org/en/latest/start.html>`_.
 
-**Documentation** is `avaliable online
+**Documentation** is `available online
 <http://django-el-pagination.readthedocs.org/>`_, or in the doc
 directory of the project.
 
