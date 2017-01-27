@@ -5,6 +5,7 @@ import re
 
 from django import template
 from django.utils.encoding import iri_to_uri
+from django.http import Http404
 
 from el_pagination import (
     models,
@@ -311,6 +312,8 @@ class PaginateNode(template.Node):
             page = paginator.page(page_number)
         except EmptyPage:
             page = paginator.page(1)
+            if settings.PAGE_OUT_OF_RANGE_404:
+                raise Http404('Page out of range')
 
         # Populate the context with required data.
         data = {

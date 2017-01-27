@@ -54,3 +54,7 @@ DEFAULT_CALLABLE_ARROWS = getattr(
 # Template variable name for *page_template* decorator.
 TEMPLATE_VARNAME = getattr(
     settings, 'EL_PAGINATION_TEMPLATE_VARNAME', 'template')
+
+# If page out of range, throw a 404 exception
+PAGE_OUT_OF_RANGE_404 = getattr(
+    settings, 'EL_PAGINATION_PAGE_OUT_OF_RANGE_404', False)
