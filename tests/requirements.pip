@@ -1,7 +1,6 @@
 # Django Endless Pagination test requirements.
 # Dependencies are installed by the ``make`` command.
 
-django==1.10.2
 coverage==4.2
 django-nose==1.4.4
 flake8==2.6.2

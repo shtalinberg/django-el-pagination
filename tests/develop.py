@@ -30,7 +30,7 @@ def call(*args):
 
 def pip_install(*args):
     """Install packages using pip inside the virtualenv."""
-    call(WITH_VENV, VENV_NAME, 'pip', 'install', *args)
+    call(WITH_VENV, VENV_NAME, 'pip', 'install', '--use-mirrors', *args)
 
 
 def patch_django_nose():
