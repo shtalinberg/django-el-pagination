@@ -65,6 +65,9 @@ Name                                              Default     Description
                                                               this value if you are going to decorate
                                                               generic views using a different variable name
                                                               for the template (e.g. ``template_name``).
+------------------------------------------------- ----------- ----------------------------------------------
+``PAGE_OUT_OF_RANGE_404``                         *False*     If True on page out of range, throw a 404
+                                                              exception, otherwise display the first page
 ================================================= =========== ==============================================
 
 Templates and CSS
