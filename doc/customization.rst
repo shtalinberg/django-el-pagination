@@ -67,7 +67,10 @@ Name                                              Default     Description
                                                               for the template (e.g. ``template_name``).
 ------------------------------------------------- ----------- ----------------------------------------------
 ``PAGE_OUT_OF_RANGE_404``                         *False*     If True on page out of range, throw a 404
-                                                              exception, otherwise display the first page
+                                                              exception, otherwise display the first page.
+                                                              There is a view that maintains the original
+                                                              functionality but sets the 404 status code
+                                                              found in el_pagination\\views.py
 ================================================= =========== ==============================================
 
 Templates and CSS
