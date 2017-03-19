@@ -6,7 +6,7 @@ entries of a blog post, in *views.py* we have class-based::
 
     from el_pagination.views import AjaxListView
 
-    class EntryListView(AjaxListView)
+    class EntryListView(AjaxListView):
         context_object_name = "entry_list"
         template_name = "myapp/entry_list.html"
 		
