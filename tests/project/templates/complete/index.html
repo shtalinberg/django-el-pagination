@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div id="objects" class="span5">
-    {% include "complete/objects_page.html" %}
+  <div class="span5">
+    <div id="objects_simple">
+        {% include "complete/objects_simple_page.html" %}
+    </div>
+    <div id="objects">
+        {% include "complete/objects_page.html" %}
+    </div>
   </div>
   <div id="items" class="span5">
     {% include "complete/items_page.html" %}

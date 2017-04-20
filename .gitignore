@@ -7,5 +7,6 @@ dist/
 ~$
 .venv*
 .coverage
+.ropeproject
 .DS_Store
 MANIFEST

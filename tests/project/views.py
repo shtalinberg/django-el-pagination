@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-
+from django.views.generic import ListView
 
 LOREM = """Lorem ipsum dolor sit amet, consectetur adipisicing elit,
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -30,3 +30,8 @@ def generic(request, extra_context=None, template=None, number=50):
     if extra_context is not None:
         context.update(extra_context)
     return render(request, template, context)
+
+
+def SearchListView(ListView):
+    pass
+
