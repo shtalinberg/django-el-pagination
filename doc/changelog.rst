@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 3.0.2
+~~~~~~~~~~~~~
+**New feature**: Django 1.11 support.
+**Fix**: render_to_response deprecated in django 1.10
+    replaced to return render(request, template, context)
+
 Version 3.0.0
 ~~~~~~~~~~~~~
 

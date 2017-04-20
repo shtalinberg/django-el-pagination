@@ -4,10 +4,12 @@ env:
   - TOXENV=py27-dj18
   - TOXENV=py27-dj19
   - TOXENV=py27-dj110
+  - TOXENV=py27-dj111
   - TOXENV=py27-djdev
   - TOXENV=py34-dj18
   - TOXENV=py34-dj19
   - TOXENV=py34-dj110
+  - TOXENV=py34-dj111
   - TOXENV=py34-djdev
 matrix:
   allow_failures:
