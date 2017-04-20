@@ -24,7 +24,7 @@ def call(*args):
 
 def pip_install(*args):
     """Install packages using pip inside the virtualenv."""
-    call(WITH_VENV, VENV_NAME, 'pip', 'install', '--use-mirrors', *args)
+    call(WITH_VENV, VENV_NAME, 'pip', 'install', *args)
 
 
 if __name__ == '__main__':

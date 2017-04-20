@@ -37,6 +37,6 @@ https://github.com/shtalinberg/django-el-pagination/issues.
 The **source code** for this app is hosted at
 https://github.com/shtalinberg/django-el-pagination.
 
-Pull requests are welcome. See 
+Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
