@@ -83,5 +83,5 @@ some rules:
 - the container (most external html element) class is *endless_container*;
 - the *more* link and the loader hidden element live inside the container;
 - the *more* link class is *endless_more*;
-- the *more* link rel attribute is ``{{ querystring_key }}``;
+- the *more* link data-el-querystring-key attribute is ``{{ querystring_key }}``;
 - the loader hidden element class is *endless_loading*.
