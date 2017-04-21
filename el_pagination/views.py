@@ -106,6 +106,24 @@ class BaseListView(MultipleObjectMixin, View):
         return self.render_to_response(context)
 
 
+class InvalidPaginationListView:
+
+    def get(self, request, *args, **kwargs):
+        """Wraps super().get(...) in order to return 404 status code if
+        the page parameter is invalid
+        """
+        response = super().get(request, args, kwargs)
+        try:
+            response.render()
+        except Http404:
+            request.GET = request.GET.copy()
+            request.GET['page'] = '1'
+            response = super().get(request, args, kwargs)
+            response.status_code = 404
+
+        return response
+
+
 class AjaxMultipleObjectTemplateResponseMixin(
         MultipleObjectTemplateResponseMixin):
 

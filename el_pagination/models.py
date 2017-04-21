@@ -57,30 +57,30 @@ class ELPage(utils.UnicodeMixin):
 
     def __unicode__(self):
         """Render the page as a link."""
-        context = Context(self.context)
-        context.update({
+        extra_context = {
             'add_nofollow': settings.ADD_NOFOLLOW,
             'page': self,
             'querystring_key': self.querystring_key,
-        })
+        }
         if self.is_current:
             template_name = 'el_pagination/current_link.html'
         else:
             template_name = 'el_pagination/page_link.html'
         template = _template_cache.setdefault(
             template_name, loader.get_template(template_name))
-        return template.render(context)
+        with self.context.push(**extra_context):
+            return template.render(self.context.flatten())
 
 
 class PageList(utils.UnicodeMixin):
     """A sequence of endless pages."""
 
     def __init__(
-            self, request, page, querystring_key,
-            default_number=None, override_path=None, context=None):
+            self, request, page, querystring_key, context,
+            default_number=None, override_path=None):
         self._request = request
         self._page = page
-        self.context = context or {}
+        self.context = context
         self.context['request'] = request
         if default_number is None:
             self._default_number = 1
@@ -176,10 +176,9 @@ class PageList(utils.UnicodeMixin):
                     pages.append(self.last_as_arrow())
                 else:
                     pages.append(self[item])
-            context = Context(self.context)
-            context.update({'pages': pages})
-            return loader.render_to_string('el_pagination/show_pages.html',
-                                           context)
+            template = loader.get_template('el_pagination/show_pages.html')
+            with self.context.push(pages=pages):
+                return template.render(self.context.flatten())
         return ''
 
     def current(self):

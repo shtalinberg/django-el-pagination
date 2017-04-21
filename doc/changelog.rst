@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Version 3.1.0
+~~~~~~~~~~~~~
+**Template changes**:
+    link attribute rel="{{ querystring_key }}"  replaced by data-el-querystring-key="{{ querystring_key }}"
+**New feature**: Django 1.11 support.
+**New feature**:
+    added view for maintaining original functionality on page index out of range, but setting response code to 404
+    ``PAGE_OUT_OF_RANGE_404`` default *False* If True on page out of range, throw a 404 exception, otherwise display the first page
+**Documentation**: render_to_response deprecated in django 1.10
+    replaced to ``return render(request, template, context)``
+
+
 Version 3.0.0
 ~~~~~~~~~~~~~
 

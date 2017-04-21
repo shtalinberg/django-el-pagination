@@ -36,7 +36,7 @@
 
         var getContext = function(link) {
             return {
-                key: link.attr('rel').split(' ')[0],
+                key: link.data("el-querystring-key").split(' ')[0],
                 url: link.attr('href')
             };
         };

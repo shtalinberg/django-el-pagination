@@ -65,6 +65,12 @@ Name                                              Default     Description
                                                               this value if you are going to decorate
                                                               generic views using a different variable name
                                                               for the template (e.g. ``template_name``).
+------------------------------------------------- ----------- ----------------------------------------------
+``PAGE_OUT_OF_RANGE_404``                         *False*     If True on page out of range, throw a 404
+                                                              exception, otherwise display the first page.
+                                                              There is a view that maintains the original
+                                                              functionality but sets the 404 status code
+                                                              found in el_pagination\\views.py
 ================================================= =========== ==============================================
 
 Templates and CSS
@@ -77,5 +83,5 @@ some rules:
 - the container (most external html element) class is *endless_container*;
 - the *more* link and the loader hidden element live inside the container;
 - the *more* link class is *endless_more*;
-- the *more* link rel attribute is ``{{ querystring_key }}``;
+- the *more* link data-el-querystring-key attribute is ``{{ querystring_key }}``;
 - the loader hidden element class is *endless_loading*.

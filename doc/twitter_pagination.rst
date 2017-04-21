@@ -9,23 +9,23 @@ entries of a blog post, in *views.py* we have class-based::
     class EntryListView(AjaxListView):
         context_object_name = "entry_list"
         template_name = "myapp/entry_list.html"
-		
+
         def get_queryset(self):
             return Entry.objects.all()
-    	    
+
 or fuction-based::
-    
+
     def entry_index(request, template='myapp/entry_list.html'):
         context = {
             'entry_list': Entry.objects.all(),
         }
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
+
 
 In *myapp/entry_list.html*:
 
 .. code-block:: html+django
-	
+
     <h2>Entries:</h2>
     {% for entry in entry_list %}
         {# your code to show the entry #}
@@ -51,9 +51,9 @@ to put the page template name in the context.
         context_object_name = "entry_list"
         template_name = "myapp/entry_list.html"
         page_template='myapp/entry_list_page.html'
-		
+
         def get_queryset(self):
-            return Entry.objects.all()		
+            return Entry.objects.all()
 
 or fuction-based::
 
@@ -66,8 +66,8 @@ or fuction-based::
         }
         if request.is_ajax():
             template = page_template
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
+
 
 See :ref:`below<twitter-page-template>` how to obtain the same result
 **just decorating the view**.
@@ -99,15 +99,15 @@ with extra context injection:
 
 *views.py*::
 
-    def entry_index(request, 
+    def entry_index(request,
             template='myapp/entry_list.html', extra_context=None):
         context = {
             'entry_list': Entry.objects.all(),
         }
         if extra_context is not None:
             context.update(extra_context)
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
+
 
 Splitting templates and putting the Ajax template name in the context
 is easily achievable by using an included decorator.
@@ -117,15 +117,14 @@ is easily achievable by using an included decorator.
     from el_pagination.decorators import page_template
 
     @page_template('myapp/entry_list_page.html')  # just add this decorator
-    def entry_list(request, 
+    def entry_list(request,
             template='myapp/entry_list.html', extra_context=None):
         context = {
             'entry_list': Entry.objects.all(),
         }
         if extra_context is not None:
             context.update(extra_context)
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
 
 
 Paginating objects

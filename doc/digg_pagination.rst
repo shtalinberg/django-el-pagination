@@ -111,8 +111,7 @@ The view is exactly the same as the one used in
         }
         if extra_context is not None:
             context.update(extra_context)
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
 
 As seen before in :doc:`twitter_pagination`, you have to
 :ref:`split the templates<twitter-split-template>`, separating the main one from
