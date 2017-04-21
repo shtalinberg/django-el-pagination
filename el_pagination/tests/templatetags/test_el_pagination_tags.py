@@ -14,6 +14,7 @@ from django.template import (
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.http import Http404
+from django.template.context import make_context
 
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList
@@ -42,6 +43,8 @@ class TemplateTagsTestMixin(object):
         context_data = kwargs.copy() if kwargs else {'objects': range(47)}
         context_data['request'] = request
         context = Context(context_data)
+        if isinstance(context, dict):  # <-- my temporary workaround
+            context = make_context(context, request, autoescape=self.backend.engine.autoescape)
         html = template.render(context)
         return html.strip(), context
 

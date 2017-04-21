@@ -7,7 +7,7 @@ def make_model_instances(number):
     """Make a ``number`` of test model instances and return a queryset."""
     for _ in range(number):
         TestModel.objects.create()
-    return TestModel.objects.all()
+    return TestModel.objects.all().order_by('pk')
 
 
 @python_2_unicode_compatible
@@ -16,7 +16,6 @@ class TestModel(models.Model):
 
     class Meta:
         app_label = 'el_pagination'
-
 
     def __str__(self):
         return 'TestModel: {0}'.format(self.id)
