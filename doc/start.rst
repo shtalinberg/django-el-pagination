@@ -26,11 +26,34 @@ or ``pip install django-el-pagination``.
 Settings
 ~~~~~~~~
 
-Add the request context processor to your *settings.py*, e.g.::
+Add the request context processor to your *settings.py*, e.g.:
+
+.. code-block:: python
 
     from django.conf.global_settings import TEMPLATES
 
     TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.core.context_processors.request')
+
+or  just adding it to the context_processors manually like so:
+
+.. code-block:: python
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    '...',
+                    '...',
+                    '...',
+                    '...',
+                    'django.template.context_processors.request', ## For EL-pagination
+                ],
+            },
+        },
+    ]
 
 Add ``'el_pagination'`` to the ``INSTALLED_APPS`` to your *settings.py*.
 
