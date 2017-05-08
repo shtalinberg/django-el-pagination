@@ -66,14 +66,22 @@
                     var data = 'querystring_key=' + context.key;
                     // Send the Ajax request.
                     $.get(context.url, data, function(fragment) {
-                        if (content_wrapper.length) {
-                            content_wrapper.append(fragment);
-                        } else {
-                            container.before(fragment);
-                        }
-                        container.remove();
                         // Increase the number of loaded pages.
                         loadedPages += 1;
+
+                        if (!content_wrapper.length) {
+                            // Replace pagination container (the default behavior)
+                            container.before(fragment);
+                            container.remove();
+                        } else {
+                            // Insert the content in the specified wrapper and increment link
+                            content_wrapper.append(fragment);
+                            var nextPage = 'page=' + (loadedPages + 1);
+                            link.attr('href', link.attr('href').replace(/page=\d+/, nextPage));
+                            link.show();
+                            loading.hide();
+                        }
+
                         // Fire onCompleted callback.
                         settings.onCompleted.apply(
                             html_link, [context, fragment.trim()]);
