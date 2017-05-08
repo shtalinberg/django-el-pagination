@@ -66,6 +66,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
     PREVIOUS = '<'
     NEXT = '>'
     MORE = 'More results'
+    selector = 'div.{0} > h4'
 
     def setUp(self):
         self.url = self.live_server_url + reverse(self.view_name)
@@ -168,7 +169,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
     def get_current_elements(self, class_name, driver=None):
         """Return the range of current elements as a list of numbers."""
         elements = []
-        selector = 'div.{0} > h4'.format(class_name)
+        selector = self.selector.format(class_name)
         if driver is None:
             driver = self.selenium
         for element in driver.find_elements_by_css_selector(selector):
@@ -177,8 +178,11 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 
     def asserLinksEqual(self, count, text):
         """Assert the page contains *count* links with given *text*."""
-        links = self.selenium.find_elements_by_link_text(str(text))
-        self.assertEqual(count, len(links))
+        def link_condition_attended(driver):
+            links = driver.find_elements_by_link_text(str(text))
+            return len(links) == count
+        self.wait.until(link_condition_attended)
+        return self.wait
 
     def assertElements(self, class_name, elements):
         """Assert the current page contains the given *elements*."""

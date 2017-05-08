@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load el_pagination_tags %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody class="pagination-content">
+    {% lazy_paginate 10 objects %}
+    {% include page_template %}
+  </tbody>
+</table>
+
+{% show_more "More results" %}
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+  $.endlessPaginate({contentSelector: '.pagination-content'});
+  </script>
+{% endblock %}
+

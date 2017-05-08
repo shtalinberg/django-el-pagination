@@ -1,0 +1,9 @@
+{% load el_pagination_tags %}
+{% if request.is_ajax %}
+  {% lazy_paginate 10 objects %}
+{% endif %}
+{% for object in objects %}
+<tr>
+  <td>{{ object.title }}</td>
+</tr>
+{% endfor %}
