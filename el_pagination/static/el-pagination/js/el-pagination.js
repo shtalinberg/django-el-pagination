@@ -17,6 +17,8 @@
             loadingSelector: '.endless_loading',
             // Twitter-style pagination link selector.
             moreSelector: 'a.endless_more',
+            // Twitter-style pagination content wrapper selector.
+            contentSelector: null,
             // Digg-style pagination page template selector.
             pageSelector: '.endless_page_template',
             // Digg-style pagination link selector.
@@ -49,7 +51,7 @@
             element.on('click', settings.moreSelector, function() {
                 var link = $(this),
                     html_link = link.get(0),
-                    page_template = element.find(settings.pageSelector),
+                    content_wrapper = element.find(settings.contentSelector),
                     container = link.closest(settings.containerSelector),
                     loading = container.find(settings.loadingSelector);
                 // Avoid multiple Ajax calls.
@@ -64,8 +66,8 @@
                     var data = 'querystring_key=' + context.key;
                     // Send the Ajax request.
                     $.get(context.url, data, function(fragment) {
-                        if (page_template.length) {
-                            page_template.append(fragment);
+                        if (content_wrapper.length) {
+                            content_wrapper.append(fragment);
                         } else {
                             container.before(fragment);
                         }

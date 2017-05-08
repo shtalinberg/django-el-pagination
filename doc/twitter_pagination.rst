@@ -252,8 +252,8 @@ If you are paginating a table, you may want to include the *show_more* link
 after the table itself, but the loaded content should be placed inside the
 table.
 
-For any case like this, you may specify the *pageSelector* option that points
-to the element that will hold the cumulative data:
+For any case like this, you may specify the *contentSelector* option that
+points to the element that will wrap the cumulative data:
 
 .. code-block:: html+django
 
@@ -263,15 +263,15 @@ to the element that will hold the cumulative data:
         <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
-                pageSelector: '.endless_page_template'
+                contentSelector: '.endless_content_wrapper'
             });
         </script>
     {% endblock %}
 
 .. note::
 
-    By default, the pageSelector points to the *endless_page_template*
-    class name so, you can use it if you don't want to set your own class name.
+    By default, the contentSelector is null, making each new page be inserted
+    before the *show_more* link container.
 
 Before version 2.0
 ~~~~~~~~~~~~~~~~~~
