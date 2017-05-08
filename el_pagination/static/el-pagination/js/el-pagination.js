@@ -85,6 +85,9 @@
                         // Fire onCompleted callback.
                         settings.onCompleted.apply(
                             html_link, [context, fragment.trim()]);
+                    }).error(function(xhr, textStatus, error) {
+                        // Remove the container left if any
+                        container.remove();
                     });
                 }
                 return false;
