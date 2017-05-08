@@ -49,6 +49,7 @@
             element.on('click', settings.moreSelector, function() {
                 var link = $(this),
                     html_link = link.get(0),
+                    page_template = element.find(settings.pageSelector),
                     container = link.closest(settings.containerSelector),
                     loading = container.find(settings.loadingSelector);
                 // Avoid multiple Ajax calls.
@@ -63,7 +64,11 @@
                     var data = 'querystring_key=' + context.key;
                     // Send the Ajax request.
                     $.get(context.url, data, function(fragment) {
-                        container.before(fragment);
+                        if (page_template.length) {
+                            page_template.append(fragment);
+                        } else {
+                            container.before(fragment);
+                        }
                         container.remove();
                         // Increase the number of loaded pages.
                         loadedPages += 1;
