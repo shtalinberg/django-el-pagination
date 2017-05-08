@@ -2,12 +2,10 @@
 
 from __future__ import unicode_literals
 
-from django.test import override_settings
-
+import el_pagination.settings
 from el_pagination.tests.integration import SeleniumTestCase
 
 
-@override_settings(PAGE_OUT_OF_RANGE_404=True)
 class FeedWrapperPaginationTest(SeleniumTestCase):
 
     view_name = 'feed-wrapper'
@@ -37,7 +35,10 @@ class FeedWrapperPaginationTest(SeleniumTestCase):
         with self.assertNewElements('object', range(11, 31)):
             self.click_link(self.MORE)
 
-    def test_multiple_show_more_through_all_pages(self):
+    def test_feed_wrapper__test_multiple_show_more_through_all_pages(self):
+        # Make a 404 error when page is empty
+        el_pagination.settings.PAGE_OUT_OF_RANGE_404 = True
+
         # Ensure new pages are loaded again and again.
         self.get()
         for page in range(2, 6):
@@ -53,6 +54,9 @@ class FeedWrapperPaginationTest(SeleniumTestCase):
         # After one more click, the more link itself is removed
         self.click_link(self.MORE)
         self.asserLinksEqual(0, self.MORE)
+
+        # Return to initial condition
+        el_pagination.settings.PAGE_OUT_OF_RANGE_404 = False
 
     def test_no_more_link_in_last_page_opened_directly(self):
         self.get(page=5)
