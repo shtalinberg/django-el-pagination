@@ -245,6 +245,77 @@ just use the *paginateOnScrollChunkSize* option:
         </script>
     {% endblock %}
 
+Specifying where the content will be inserted
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are paginating a table, you may want to include the *show_more* link
+after the table itself, but the loaded content should be placed inside the
+table.
+
+For any case like this, you may specify the *contentSelector* option that
+points to the element that will wrap the cumulative data:
+
+.. code-block:: html+django
+
+    {% block js %}
+        {{ block.super }}
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+        <script>
+            $.endlessPaginate({
+                contentSelector: '.endless_content_wrapper'
+            });
+        </script>
+    {% endblock %}
+
+.. note::
+
+    By default, the contentSelector is null, making each new page be inserted
+    before the *show_more* link container.
+
+When using this approach, you should take 2 more actions.
+
+At first, the page template must be splitted a little different. You must do
+the pagination in the main template and only apply pagination in the page
+template if under ajax:
+
+*myapp/entry_list.html* becomes:
+
+.. code-block:: html+django
+
+    <h2>Entries:</h2>
+    {% paginate entry_list %}
+    <ul>
+        {% include page_template %}
+    </ul>
+    {% show_more %}
+
+    {% block js %}
+        {{ block.super }}
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+        <script>$.endlessPaginate();</script>
+    {% endblock %}
+
+*myapp/entry_list_page.html* becomes:
+
+.. code-block:: html+django
+
+    {% load el_pagination_tags %}
+
+    {% if request.is_ajax %}{% paginate entry_list %}{% endif %}
+    {% for entry in entry_list %}
+        {# your code to show the entry #}
+    {% endfor %}
+
+This is needed because the *show_more* button now is taken off the
+page_template and depends of the *paginate* template tag. To avoid apply
+pagination twice, we avoid run it a first time in the page_template.
+
+You may also set the *EL_PAGINATION_PAGE_OUT_OF_RANGE_404* to True, so a blank
+page wouldn't render the first page (the default behavior). When a blank page
+is loaded and propagates the 404 error, the *show_more* link is removed.
+
 Before version 2.0
 ~~~~~~~~~~~~~~~~~~
 

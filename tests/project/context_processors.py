@@ -15,6 +15,7 @@ VOICES = (
     ('digg', 'Digg-style'),
     ('twitter', 'Twitter-style'),
     ('onscroll', 'On scroll'),
+    ('feed-wrapper', 'Feed wrapper'),
     ('multiple', 'Multiple'),
     ('callbacks', 'Callbacks'),
     ('chunks', 'On scroll/chunks'),

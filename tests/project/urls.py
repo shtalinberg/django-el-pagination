@@ -40,6 +40,10 @@ urlpatterns = [
         page_template('onscroll/page.html')(generic),
         {'template': 'onscroll/index.html'},
         name='onscroll'),
+    url(r'^feed-wrapper/$',
+        page_template('feed_wrapper/page.html')(generic),
+        {'template': 'feed_wrapper/index.html'},
+        name='feed-wrapper'),
     url(r'^chunks/$',
         page_templates({
             'chunks/objects_page.html': None,

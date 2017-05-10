@@ -257,6 +257,8 @@ to select DOM nodes. Here is a list of them all:
   (Twitter-style pagination loading selector);
 - moreSelector: 'a.endless_more' -
   (Twitter-style pagination link selector);
+- contentSelector: null -
+  (Twitter-style pagination content wrapper);
 - pageSelector: '.endless_page_template'
   (Digg-style pagination page template selector);
 - pagesSelector: 'a.endless_page_link'
