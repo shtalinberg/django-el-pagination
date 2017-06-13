@@ -47,7 +47,7 @@ to put the page template name in the context.
 
     from el_pagination.views import AjaxListView
 
-    class EntryListView(AjaxListView)
+    class EntryListView(AjaxListView):
         context_object_name = "entry_list"
         template_name = "myapp/entry_list.html"
         page_template='myapp/entry_list_page.html'
