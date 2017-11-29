@@ -48,6 +48,8 @@ class ELPage(utils.UnicodeMixin):
         self.is_current = number == current_number
         self.is_first = number == 1
         self.is_last = number == total_number
+        self.is_previous = label and number == current_number - 1
+        self.is_next = label and number == current_number + 1
 
         self.url = utils.get_querystring_for_page(
             request, number, self.querystring_key,
