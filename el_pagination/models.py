@@ -66,6 +66,10 @@ class ELPage(utils.UnicodeMixin):
         }
         if self.is_current:
             template_name = 'el_pagination/current_link.html'
+        elif self.is_previous:
+            template_name = 'el_pagination/previous_link.html'
+        elif self.is_next:
+            template_name = 'el_pagination/next_link.html'
         else:
             template_name = 'el_pagination/page_link.html'
         template = _template_cache.setdefault(
