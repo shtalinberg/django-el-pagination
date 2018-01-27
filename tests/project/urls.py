@@ -2,9 +2,14 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import url
+from django.conf import settings
 from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+try:
+    from django.urls import re_path as url, include
+except:
+    from django.conf.urls import url, include
+
 
 from el_pagination.decorators import (
     page_template,
@@ -64,6 +69,11 @@ urlpatterns = [
         {'template': 'callbacks/index.html'},
         name='callbacks'),
 ]
+
+if settings.DEBUG:
+    if 'debug_toolbar' in settings.INSTALLED_APPS:
+        import debug_toolbar
+        urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls)), ]
 
 urlpatterns += staticfiles_urlpatterns()
 

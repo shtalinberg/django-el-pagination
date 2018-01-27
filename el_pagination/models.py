@@ -29,6 +29,7 @@ class ELPage(utils.UnicodeMixin):
           (usually the page number as string);
         - *self.url*: the url of the page (strting with "?");
         - *self.path*: the path of the page;
+
         - *self.is_current*: return True if page is the current page displayed;
         - *self.is_first*: return True if page is the first page;
         - *self.is_last*:  return True if page is the last page.
