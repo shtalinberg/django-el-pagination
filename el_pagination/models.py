@@ -48,6 +48,8 @@ class ELPage(utils.UnicodeMixin):
         self.is_current = number == current_number
         self.is_first = number == 1
         self.is_last = number == total_number
+        self.is_previous = label and number == current_number - 1
+        self.is_next = label and number == current_number + 1
 
         self.url = utils.get_querystring_for_page(
             request, number, self.querystring_key,
@@ -64,6 +66,10 @@ class ELPage(utils.UnicodeMixin):
         }
         if self.is_current:
             template_name = 'el_pagination/current_link.html'
+        elif self.is_previous:
+            template_name = 'el_pagination/previous_link.html'
+        elif self.is_next:
+            template_name = 'el_pagination/next_link.html'
         else:
             template_name = 'el_pagination/page_link.html'
         template = _template_cache.setdefault(
