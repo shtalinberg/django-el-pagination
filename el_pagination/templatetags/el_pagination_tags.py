@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import re
 
 from django import template
-from django.utils.encoding import iri_to_uri
+from django.utils.encoding import iri_to_uri, force_text
 from django.http import Http404
 
 from el_pagination import (
@@ -511,13 +511,13 @@ class GetPagesNode(template.Node):
         # *paginate* or *lazy_paginate* before including the getpages template.
         data = utils.get_data_from_context(context)
         # Add the PageList instance to the context.
-        context[self.var_name] = models.PageList(
+        context.render_context[self.var_name] = models.PageList(
             context['request'],
             data['page'],
             data['querystring_key'],
+            context=context,
             default_number=data['default_number'],
             override_path=data['override_path'],
-            context=context
         )
         return ''
 
@@ -572,7 +572,7 @@ class ShowPagesNode(template.Node):
             override_path=data['override_path'],
             context=context
         )
-        return utils.text(pages)
+        return force_text(pages)
 
 
 @register.tag
@@ -693,6 +693,6 @@ class ShowCurrentNumberNode(template.Node):
             context['request'], querystring_key, default=default_number)
 
         if self.var_name is None:
-            return utils.text(page_number)
+            return force_text(page_number)
         context[self.var_name] = page_number
         return ''

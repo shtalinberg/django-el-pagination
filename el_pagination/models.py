@@ -1,12 +1,11 @@
 """Ephemeral models used to represent a page and a list of pages."""
-
 from __future__ import unicode_literals
 
 from django.template import (
     loader,
     Context,
 )
-from django.utils.encoding import iri_to_uri
+from django.utils.encoding import iri_to_uri, python_2_unicode_compatible, force_text
 
 from el_pagination import (
     loaders,
@@ -19,7 +18,7 @@ from el_pagination import (
 _template_cache = {}
 
 
-class ELPage(utils.UnicodeMixin):
+class ELPage(object):
     """A page link representation.
 
     Interesting attributes:
@@ -41,7 +40,7 @@ class ELPage(utils.UnicodeMixin):
             context=None):
         self._request = request
         self.number = number
-        self.label = utils.text(number) if label is None else label
+        self.label = force_text(number) if label is None else label
         self.querystring_key = querystring_key
         self.context = context or {}
         self.context['request'] = request
@@ -49,16 +48,19 @@ class ELPage(utils.UnicodeMixin):
         self.is_current = number == current_number
         self.is_first = number == 1
         self.is_last = number == total_number
-        self.is_previous = label and number == current_number - 1
-        self.is_next = label and number == current_number + 1
+        if settings.USE_NEXT_PREVIOUS_LINKS:
+            self.is_previous = label and number == current_number - 1
+            self.is_next = label and number == current_number + 1
 
         self.url = utils.get_querystring_for_page(
-            request, number, self.querystring_key,
-            default_number=default_number)
+            request, number,
+            self.querystring_key,
+            default_number=default_number
+        )
         path = iri_to_uri(override_path or request.path)
         self.path = '{0}{1}'.format(path, self.url)
 
-    def __unicode__(self):
+    def render_link(self):
         """Render the page as a link."""
         extra_context = {
             'add_nofollow': settings.ADD_NOFOLLOW,
@@ -67,19 +69,22 @@ class ELPage(utils.UnicodeMixin):
         }
         if self.is_current:
             template_name = 'el_pagination/current_link.html'
-        elif self.is_previous:
-            template_name = 'el_pagination/previous_link.html'
-        elif self.is_next:
-            template_name = 'el_pagination/next_link.html'
         else:
             template_name = 'el_pagination/page_link.html'
-        template = _template_cache.setdefault(
-            template_name, loader.get_template(template_name))
+            if settings.USE_NEXT_PREVIOUS_LINKS:
+                if self.is_previous:
+                    template_name = 'el_pagination/previous_link.html'
+                if self.is_next:
+                    template_name = 'el_pagination/next_link.html'
+        if template_name not in _template_cache:
+            _template_cache[template_name] = loader.get_template(template_name)
+        template = _template_cache[template_name]
         with self.context.push(**extra_context):
             return template.render(self.context.flatten())
 
 
-class PageList(utils.UnicodeMixin):
+python_2_unicode_compatible
+class PageList(object):
     """A sequence of endless pages."""
 
     def __init__(
@@ -135,7 +140,7 @@ class PageList(utils.UnicodeMixin):
         for i in range(len(self)):
             yield self[i + 1]
 
-    def __unicode__(self):
+    def __str__(self):
         """Return a rendered Digg-style pagination (by default).
 
         The callable *settings.PAGE_LIST_CALLABLE* can be used to customize

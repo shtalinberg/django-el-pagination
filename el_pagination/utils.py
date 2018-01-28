@@ -1,7 +1,6 @@
 """Django EL Pagination utility functions."""
 
 from __future__ import unicode_literals
-import sys
 
 from el_pagination import exceptions
 from el_pagination.settings import (
@@ -10,16 +9,6 @@ from el_pagination.settings import (
     DEFAULT_CALLABLE_EXTREMES,
     PAGE_LABEL,
 )
-
-
-# Handle the Python 2 to 3 migration.
-if sys.version_info[0] >= 3:
-    PYTHON3 = True
-    text = str
-else:
-    PYTHON3 = False
-    # Avoid lint errors under Python 3.
-    text = unicode  # NOQA
 
 
 def get_data_from_context(context):
@@ -50,8 +39,10 @@ def get_page_number_from_request(
 
 
 def get_page_numbers(
-        current_page, num_pages, extremes=DEFAULT_CALLABLE_EXTREMES,
-        arounds=DEFAULT_CALLABLE_AROUNDS, arrows=DEFAULT_CALLABLE_ARROWS):
+        current_page, num_pages,
+        extremes=DEFAULT_CALLABLE_EXTREMES,
+        arounds=DEFAULT_CALLABLE_AROUNDS,
+        arrows=DEFAULT_CALLABLE_ARROWS):
     """Default callable for page listing.
 
     Produce a Digg-style pagination.
@@ -185,11 +176,3 @@ def normalize_page_number(page_number, page_range):
         return page_range[page_number]
     except IndexError:
         return page_range[0]
-
-
-class UnicodeMixin(object):
-    """Mixin class to handle defining the proper unicode and string methods."""
-
-    if PYTHON3:
-        def __str__(self):
-            return self.__unicode__()
