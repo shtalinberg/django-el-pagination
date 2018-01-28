@@ -81,6 +81,5 @@ with VenvLinkDeleted():
             'Programming Language :: Python :: 3.4',
             'Topic :: Utilities',
         ],
-        zip_safe=False,
         install_requires=install_requires,
     )

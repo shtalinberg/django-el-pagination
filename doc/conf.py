@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 AUTHOR = 'Oleksandr Shtalinberg and Francesco Banconi'
 APP = 'Django EL(Endless) Pagination'
 TITLE = APP + ' Documentation'
-VERSION = '3.0.2'
+VERSION = '3.2.0'
 
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -24,7 +24,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = APP
-copyright = '2009-2017, ' + AUTHOR
+copyright = '2009-2018, ' + AUTHOR
 
 # The short X.Y version.
 version = release = VERSION
