@@ -54,7 +54,7 @@ with VenvLinkDeleted():
     setup(
         name='django-el-pagination',
         version=project.get_version(),
-        description="Django pagination tools supporting Ajax, multiple and lazy pagination, Twitter-style and Digg-style pagination." # project.__doc__,
+        description="Django pagination tools supporting Ajax, multiple and lazy pagination, Twitter-style and Digg-style pagination.", # project.__doc__,
         long_description=read('README.rst'),
         author='Oleksandr Shtalinberg',
         author_email='O.Shtalinberg@gmail.com',
