@@ -6,7 +6,10 @@ import os
 import time
 import unittest
 
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except:
+    from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -15,6 +18,7 @@ from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import ui
 from xvfbwrapper import Xvfb
 
@@ -38,7 +42,9 @@ def setup_package():
             vdisplay = SeleniumTestCase.vdisplay = Xvfb(width=1280, height=720)
             vdisplay.start()
         # Create a Selenium browser instance.
-        selenium = SeleniumTestCase.selenium = Firefox()
+        options = Options()
+        options.add_argument('-headless')
+        selenium = SeleniumTestCase.selenium = Firefox(firefox_options=options)
         selenium.maximize_window()
         SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
         SeleniumTestCase.selenium.implicitly_wait(3)
