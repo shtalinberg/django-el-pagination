@@ -1,25 +1,34 @@
 Changelog
 =========
 
+Version 3.2.2
+~~~~~~~~~~~~~
+Bug-fix release
+
+**Fix**: fix UnicodeEncodeError with translate in templates
+
 Version 3.2.0
 ~~~~~~~~~~~~~
 **New feature**: Django 2.0.x support.
-Django EL(Endless) Pagination now supports Django from 1.8.x to 2.0.x
+    Django EL(Endless) Pagination now supports Django from 1.8.x to 2.0.x
+
 
 **New feature**: settings.USE_NEXT_PREVIOUS_LINKS: default=False
-if True
-Add `is_previous` & `is_next` flags for `previous` and `next` pages
-Add `next_link.html` & `previous_link.html` templates
+    if True:
+    Add `is_previous` & `is_next` flags for `previous` and `next` pages
+    Add `next_link.html` & `previous_link.html` templates
+
 
 **New feature**:  `__unicode__` is removed from class ELPage
-It's Fix Causes Fatal Python error with django-debug-toolbar
-In templates:
-- {{ page }} now use as {{ page.render_link }}
-- {{ pages }} now use as {{ pages.get_rendered }}
+    It's Fix Causes Fatal Python error with django-debug-toolbar
+    In templates:
+    - {{ page }} now use as {{ page.render_link }}
+    - {{ pages }} now use as {{ pages.get_rendered }}
+
 
 **Template changes**:
-show_pages.html:
-`page|default_if_none` replaced `page.render_link|default`
+    show_pages.html:
+    `page|default_if_none` replaced `page.render_link|default`
 
 ----
 
