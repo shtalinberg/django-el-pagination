@@ -13,8 +13,8 @@ env:
   - TOXENV=py34-dj110
   - TOXENV=py34-dj111
   - TOXENV=py34-dj20
-  - TOXENV=py34-djdev
-  - TOXENV=py36-djdev
+  # - TOXENV=py34-djdev
+  # - TOXENV=py36-djdev
 matrix:
   allow_failures:
     - env: TOXENV=py34-djdev
@@ -22,7 +22,8 @@ matrix:
 install:
   - pip install tox
 addons:
-  firefox: latest
+  firefox: "48.0.2"
+  #firefox: latest
 
 before_script:
   - export DJANGO_LIVE_TEST_SERVER_ADDRESS=localhost:8000-8010,8080,9200-9300
