@@ -66,7 +66,7 @@ Name                                              Default     Description
                                                               generic views using a different variable name
                                                               for the template (e.g. ``template_name``).
 ------------------------------------------------- ----------- ----------------------------------------------
-``EL_PAGINATION_PAGE_OUT_OF_RANGE_404``                         *False*     If True on page out of range, throw a 404
+``EL_PAGINATION_PAGE_OUT_OF_RANGE_404``           *False*     If True on page out of range, throw a 404
                                                               exception, otherwise display the first page.
                                                               There is a view that maintains the original
                                                               functionality but sets the 404 status code
