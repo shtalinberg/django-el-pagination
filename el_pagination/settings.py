@@ -22,6 +22,9 @@ ORPHANS = getattr(settings, 'EL_PAGINATION_ORPHANS', 0)
 LOADING = getattr(
     settings, 'EL_PAGINATION_LOADING', 'loading')
 
+USE_NEXT_PREVIOUS_LINKS = getattr(
+    settings, 'EL_PAGINATION_USE_NEXT_PREVIOUS_LINKS', False)
+
 # Labels for previous and next page links.
 PREVIOUS_LABEL = getattr(
     settings, 'EL_PAGINATION_PREVIOUS_LABEL', '&lt;')

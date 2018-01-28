@@ -12,10 +12,6 @@ Django EL(Endless) Pagination
 
 .. image:: https://img.shields.io/badge/django-1.8%20or%20newer-green.svg
 
-.. image:: https://img.shields.io/pypi/dm/django-el-pagination.svg
-    :target:  https://pypi.python.org/pypi/django-el-pagination/
-
-
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
 like multiple or lazy pagination.

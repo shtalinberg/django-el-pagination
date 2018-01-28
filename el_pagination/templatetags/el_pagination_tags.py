@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import re
 
 from django import template
-from django.utils.encoding import iri_to_uri
+from django.utils.encoding import iri_to_uri, force_text
 from django.http import Http404
 
 from el_pagination import (
@@ -388,11 +388,11 @@ def get_pages(parser, token):
     This call inserts in the template context a *pages* variable, as a sequence
     of page links. You can use *pages* in different ways:
 
-    - just print *pages* and you will get Digg-style pagination displayed:
+    - just print *pages.get_rendered* and you will get Digg-style pagination displayed:
 
     .. code-block:: html+django
 
-        {{ pages }}
+        {{ pages.get_rendered }}
 
     - display pages count:
 
@@ -452,7 +452,7 @@ def get_pages(parser, token):
 
         {% for page in pages %}
             {# display page link #}
-            {{ page }}
+            {{ page.render_link}}
 
             {# the page url (beginning with "?") #}
             {{ page.url }}
@@ -515,9 +515,9 @@ class GetPagesNode(template.Node):
             context['request'],
             data['page'],
             data['querystring_key'],
+            context=context,
             default_number=data['default_number'],
             override_path=data['override_path'],
-            context=context
         )
         return ''
 
@@ -572,7 +572,7 @@ class ShowPagesNode(template.Node):
             override_path=data['override_path'],
             context=context
         )
-        return utils.text(pages)
+        return force_text(pages)
 
 
 @register.tag
@@ -693,6 +693,6 @@ class ShowCurrentNumberNode(template.Node):
             context['request'], querystring_key, default=default_number)
 
         if self.var_name is None:
-            return utils.text(page_number)
+            return force_text(page_number)
         context[self.var_name] = page_number
         return ''

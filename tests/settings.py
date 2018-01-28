@@ -4,12 +4,13 @@ from __future__ import unicode_literals
 """Settings file for the Django project used for tests."""
 
 import os
+import sys
 
 DEBUG = True
-
+ALLOWED_HOSTS = ['*']
 # Disable 1.9 arguments '--parallel' and try exclude  “Address already in use” at “setUpClass”
 os.environ['DJANGO_TEST_PROCESSES'] = "1"
-os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = "localhost:8000-8010,8080,9200-9300" 
+os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = "localhost:8000-8010,8080,9200-9300"
 
 PROJECT_NAME = 'project'
 
@@ -73,3 +74,11 @@ NOSE_ARGS = (
     # '--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+try:
+    from settings_local import *
+    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL
+except ImportError:
+    sys.stderr.write('settings_local.py not loaded\n')
+
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG

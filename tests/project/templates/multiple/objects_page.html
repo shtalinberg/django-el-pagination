@@ -9,5 +9,5 @@
 {% endfor %}
 <div class="pagination pagination-centered">
   {% get_pages as all_pages %}
-  <div>{{ all_pages }}</div>
+  <div>{{ all_pages.get_rendered }}</div>
 </div>

@@ -1,12 +1,11 @@
 """Ephemeral models used to represent a page and a list of pages."""
-
 from __future__ import unicode_literals
 
 from django.template import (
     loader,
     Context,
 )
-from django.utils.encoding import iri_to_uri
+from django.utils.encoding import iri_to_uri, python_2_unicode_compatible, force_text
 
 from el_pagination import (
     loaders,
@@ -19,7 +18,7 @@ from el_pagination import (
 _template_cache = {}
 
 
-class ELPage(utils.UnicodeMixin):
+class ELPage(object):
     """A page link representation.
 
     Interesting attributes:
@@ -29,6 +28,7 @@ class ELPage(utils.UnicodeMixin):
           (usually the page number as string);
         - *self.url*: the url of the page (strting with "?");
         - *self.path*: the path of the page;
+
         - *self.is_current*: return True if page is the current page displayed;
         - *self.is_first*: return True if page is the first page;
         - *self.is_last*:  return True if page is the last page.
@@ -40,7 +40,7 @@ class ELPage(utils.UnicodeMixin):
             context=None):
         self._request = request
         self.number = number
-        self.label = utils.text(number) if label is None else label
+        self.label = force_text(number) if label is None else label
         self.querystring_key = querystring_key
         self.context = context or {}
         self.context['request'] = request
@@ -48,14 +48,19 @@ class ELPage(utils.UnicodeMixin):
         self.is_current = number == current_number
         self.is_first = number == 1
         self.is_last = number == total_number
+        if settings.USE_NEXT_PREVIOUS_LINKS:
+            self.is_previous = label and number == current_number - 1
+            self.is_next = label and number == current_number + 1
 
         self.url = utils.get_querystring_for_page(
-            request, number, self.querystring_key,
-            default_number=default_number)
+            request, number,
+            self.querystring_key,
+            default_number=default_number
+        )
         path = iri_to_uri(override_path or request.path)
         self.path = '{0}{1}'.format(path, self.url)
 
-    def __unicode__(self):
+    def render_link(self):
         """Render the page as a link."""
         extra_context = {
             'add_nofollow': settings.ADD_NOFOLLOW,
@@ -66,13 +71,20 @@ class ELPage(utils.UnicodeMixin):
             template_name = 'el_pagination/current_link.html'
         else:
             template_name = 'el_pagination/page_link.html'
-        template = _template_cache.setdefault(
-            template_name, loader.get_template(template_name))
+            if settings.USE_NEXT_PREVIOUS_LINKS:
+                if self.is_previous:
+                    template_name = 'el_pagination/previous_link.html'
+                if self.is_next:
+                    template_name = 'el_pagination/next_link.html'
+        if template_name not in _template_cache:
+            _template_cache[template_name] = loader.get_template(template_name)
+        template = _template_cache[template_name]
         with self.context.push(**extra_context):
             return template.render(self.context.flatten())
 
 
-class PageList(utils.UnicodeMixin):
+python_2_unicode_compatible
+class PageList(object):
     """A sequence of endless pages."""
 
     def __init__(
@@ -88,6 +100,7 @@ class PageList(utils.UnicodeMixin):
             self._default_number = int(default_number)
         self._querystring_key = querystring_key
         self._override_path = override_path
+        self._pages_list = []
 
     def _endless_page(self, number, label=None):
         """Factory function that returns a *ELPage* instance.
@@ -128,7 +141,7 @@ class PageList(utils.UnicodeMixin):
         for i in range(len(self)):
             yield self[i + 1]
 
-    def __unicode__(self):
+    def __str__(self):
         """Return a rendered Digg-style pagination (by default).
 
         The callable *settings.PAGE_LIST_CALLABLE* can be used to customize
@@ -154,30 +167,44 @@ class PageList(utils.UnicodeMixin):
         *settings.PAGE_LIST_CALLABLE* can also be a dotted path to a callable.
         """
         if len(self) > 1:
-            callable_or_path = settings.PAGE_LIST_CALLABLE
-            if callable_or_path:
-                if callable(callable_or_path):
-                    pages_callable = callable_or_path
-                else:
-                    pages_callable = loaders.load_object(callable_or_path)
-            else:
-                pages_callable = utils.get_page_numbers
-            pages = []
-            for item in pages_callable(self._page.number, len(self)):
-                if item is None:
-                    pages.append(None)
-                elif item == 'previous':
-                    pages.append(self.previous())
-                elif item == 'next':
-                    pages.append(self.next())
-                elif item == 'first':
-                    pages.append(self.first_as_arrow())
-                elif item == 'last':
-                    pages.append(self.last_as_arrow())
-                else:
-                    pages.append(self[item])
             template = loader.get_template('el_pagination/show_pages.html')
-            with self.context.push(pages=pages):
+            with self.context.push(pages=self.get_pages_list()):
+                return template.render(self.context.flatten())
+        return ''
+
+    def get_pages_list(self):
+        if self._pages_list:
+            return self._pages_list
+
+        callable_or_path = settings.PAGE_LIST_CALLABLE
+        if callable_or_path:
+            if callable(callable_or_path):
+                pages_callable = callable_or_path
+            else:
+                pages_callable = loaders.load_object(callable_or_path)
+        else:
+            pages_callable = utils.get_page_numbers
+        pages = []
+        for item in pages_callable(self._page.number, len(self)):
+            if item is None:
+                pages.append(None)
+            elif item == 'previous':
+                pages.append(self.previous())
+            elif item == 'next':
+                pages.append(self.next())
+            elif item == 'first':
+                pages.append(self.first_as_arrow())
+            elif item == 'last':
+                pages.append(self.last_as_arrow())
+            else:
+                pages.append(self[item])
+        self._pages_list = pages
+        return pages
+
+    def get_rendered(self):
+        if len(self) > 1:
+            template = loader.get_template('el_pagination/show_pages.html')
+            with self.context.push(pages=self.get_pages_list()):
                 return template.render(self.context.flatten())
         return ''
 

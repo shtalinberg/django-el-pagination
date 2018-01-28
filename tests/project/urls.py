@@ -2,9 +2,14 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import url
+from django.conf import settings
 from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+try:
+    from django.urls import re_path as url, include
+except:
+    from django.conf.urls import url, include
+
 
 from el_pagination.decorators import (
     page_template,
@@ -40,6 +45,10 @@ urlpatterns = [
         page_template('onscroll/page.html')(generic),
         {'template': 'onscroll/index.html'},
         name='onscroll'),
+    url(r'^feed-wrapper/$',
+        page_template('feed_wrapper/page.html')(generic),
+        {'template': 'feed_wrapper/index.html'},
+        name='feed-wrapper'),
     url(r'^chunks/$',
         page_templates({
             'chunks/objects_page.html': None,
@@ -60,6 +69,11 @@ urlpatterns = [
         {'template': 'callbacks/index.html'},
         name='callbacks'),
 ]
+
+if settings.DEBUG:
+    if 'debug_toolbar' in settings.INSTALLED_APPS:
+        import debug_toolbar
+        urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls)), ]
 
 urlpatterns += staticfiles_urlpatterns()
 
