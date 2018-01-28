@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 """Settings file for the Django project used for tests."""
 
 import os
+import sys
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']

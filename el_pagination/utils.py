@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+import sys
+
 from el_pagination import exceptions
 from el_pagination.settings import (
     DEFAULT_CALLABLE_AROUNDS,
@@ -9,7 +11,11 @@ from el_pagination.settings import (
     DEFAULT_CALLABLE_EXTREMES,
     PAGE_LABEL,
 )
-
+# Handle the Python 2 to 3 migration.
+if sys.version_info[0] >= 3:
+    PYTHON3 = True
+else:
+    PYTHON3 = False
 
 def get_data_from_context(context):
     """Get the django paginator data object from the given *context*.

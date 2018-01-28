@@ -388,11 +388,11 @@ def get_pages(parser, token):
     This call inserts in the template context a *pages* variable, as a sequence
     of page links. You can use *pages* in different ways:
 
-    - just print *pages* and you will get Digg-style pagination displayed:
+    - just print *pages.get_rendered* and you will get Digg-style pagination displayed:
 
     .. code-block:: html+django
 
-        {{ pages }}
+        {{ pages.get_rendered }}
 
     - display pages count:
 
@@ -452,7 +452,7 @@ def get_pages(parser, token):
 
         {% for page in pages %}
             {# display page link #}
-            {{ page }}
+            {{ page.render_link}}
 
             {# the page url (beginning with "?") #}
             {{ page.url }}
@@ -511,7 +511,7 @@ class GetPagesNode(template.Node):
         # *paginate* or *lazy_paginate* before including the getpages template.
         data = utils.get_data_from_context(context)
         # Add the PageList instance to the context.
-        context.render_context[self.var_name] = models.PageList(
+        context[self.var_name] = models.PageList(
             context['request'],
             data['page'],
             data['querystring_key'],

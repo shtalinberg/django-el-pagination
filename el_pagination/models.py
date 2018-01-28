@@ -100,6 +100,7 @@ class PageList(object):
             self._default_number = int(default_number)
         self._querystring_key = querystring_key
         self._override_path = override_path
+        self._pages_list = []
 
     def _endless_page(self, number, label=None):
         """Factory function that returns a *ELPage* instance.
@@ -166,30 +167,44 @@ class PageList(object):
         *settings.PAGE_LIST_CALLABLE* can also be a dotted path to a callable.
         """
         if len(self) > 1:
-            callable_or_path = settings.PAGE_LIST_CALLABLE
-            if callable_or_path:
-                if callable(callable_or_path):
-                    pages_callable = callable_or_path
-                else:
-                    pages_callable = loaders.load_object(callable_or_path)
-            else:
-                pages_callable = utils.get_page_numbers
-            pages = []
-            for item in pages_callable(self._page.number, len(self)):
-                if item is None:
-                    pages.append(None)
-                elif item == 'previous':
-                    pages.append(self.previous())
-                elif item == 'next':
-                    pages.append(self.next())
-                elif item == 'first':
-                    pages.append(self.first_as_arrow())
-                elif item == 'last':
-                    pages.append(self.last_as_arrow())
-                else:
-                    pages.append(self[item])
             template = loader.get_template('el_pagination/show_pages.html')
-            with self.context.push(pages=pages):
+            with self.context.push(pages=self.get_pages_list()):
+                return template.render(self.context.flatten())
+        return ''
+
+    def get_pages_list(self):
+        if self._pages_list:
+            return self._pages_list
+
+        callable_or_path = settings.PAGE_LIST_CALLABLE
+        if callable_or_path:
+            if callable(callable_or_path):
+                pages_callable = callable_or_path
+            else:
+                pages_callable = loaders.load_object(callable_or_path)
+        else:
+            pages_callable = utils.get_page_numbers
+        pages = []
+        for item in pages_callable(self._page.number, len(self)):
+            if item is None:
+                pages.append(None)
+            elif item == 'previous':
+                pages.append(self.previous())
+            elif item == 'next':
+                pages.append(self.next())
+            elif item == 'first':
+                pages.append(self.first_as_arrow())
+            elif item == 'last':
+                pages.append(self.last_as_arrow())
+            else:
+                pages.append(self[item])
+        self._pages_list = pages
+        return pages
+
+    def get_rendered(self):
+        if len(self) > 1:
+            template = loader.get_template('el_pagination/show_pages.html')
+            with self.context.push(pages=self.get_pages_list()):
                 return template.render(self.context.flatten())
         return ''
 
