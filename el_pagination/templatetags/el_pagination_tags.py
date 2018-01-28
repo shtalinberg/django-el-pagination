@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import re
 
 from django import template
-from django.utils.encoding import iri_to_uri, force_text
+from django.utils.encoding import iri_to_uri, force_text, force_bytes
 from django.http import Http404
 
 from el_pagination import (
@@ -572,7 +572,7 @@ class ShowPagesNode(template.Node):
             override_path=data['override_path'],
             context=context
         )
-        return force_text(pages)
+        return force_bytes(pages)
 
 
 @register.tag
