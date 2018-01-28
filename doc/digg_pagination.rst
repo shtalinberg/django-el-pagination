@@ -62,7 +62,7 @@ number of entries:
     {{ pages.current_start_index }}-{{ pages.current_end_index }} of
     {{ pages.total_count }}.
     {# Just print pages to render the Digg-style pagination. #}
-    {{ pages }}
+    {{ pages.get_rendered }}
 
 Number of pages
 ~~~~~~~~~~~~~~~
@@ -87,7 +87,7 @@ the results are actually paginated:
     {% if pages.paginated %}
         Some info/layout to display only if the available
         objects span multiple pages...
-        {{ pages }}
+        {{ pages.get_rendered }}
     {% endif %}
 
 Again, for a full overview of the :ref:`templatetags-get-pages` and all the

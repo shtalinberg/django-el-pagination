@@ -349,9 +349,8 @@ is handled by JavaScript. These changes are discussed in this document and in
 the :doc:`changelog`.
 
 The JavaScript code now lives in a file named ``el-pagination.js``.
-For backward compatibility, the application still includes the two JavaScript
-files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js``. However, please consider
-migrating as soon as possible: the old JavaScript files are deprecated, are
+The two JavaScript files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js`` was removed.
+However, please consider migrating: the old JavaScript files was removed, are
 no longer maintained, and don't provide the new JavaScript features.
 
 Instructions on how to migrate from the old version to the new one follow.

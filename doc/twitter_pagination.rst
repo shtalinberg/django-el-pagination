@@ -324,29 +324,19 @@ pagination. As seen above, Ajax can now be enabled using a brand new jQuery
 plugin that can be found in
 ``static/el-pagination/js/el-pagination.js``.
 
-For backward compatibility, the application still includes the two JavaScript
-files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js`` that were used before, so
-that it is still possible to use code like this:
+Old code was removed:
 
 .. code-block:: html+django
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    {# Deprecated. #}
-    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
-
-To enable pagination on scroll, the code was the following:
-
-.. code-block:: html+django
-
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    {# Deprecated. #}
+    {# new jQuery plugin #}
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+    {# Removed. #}
     <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
     <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
 
 However, please consider :ref:`migrating<javascript-migrate>` as soon as
-possible: the old JavaScript files are deprecated, are no longer maintained,
-and don't provide the new JavaScript features. Also note that the old
-Javascript files will not work if jQuery >= 1.9 is used.
+possible: the old JavaScript files are removed.
 
 Please refer to the :doc:`javascript` for a detailed overview of the new
 features and for instructions on :ref:`how to migrate<javascript-migrate>` from

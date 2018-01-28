@@ -12,3 +12,4 @@ dist/
 .DS_Store
 MANIFEST
 tests/settings_local.py
+*.log
