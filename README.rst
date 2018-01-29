@@ -2,7 +2,8 @@
 Django EL(Endless) Pagination
 =============================
 
-|  |pypi-pkg-version| |pypi-status| |python-versions| |django-versions| |docs|
+|  |pypi-pkg-version| |pypi-status| |docs|
+|  |python-versions| |django-versions| 
 |  |travis-ci-status| 
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
@@ -44,6 +45,6 @@ Pull requests are welcome. See `Contributing Guide
     :alt: Package stability status
 .. |python-versions| image:: https://img.shields.io/pypi/pyversions/django-el-pagination.svg
    :alt: Python versions
-.. |c| image:: https://img.shields.io/badge/django-1.8%20or%20newer-green.svg
+.. |django-versions| image:: https://img.shields.io/badge/django-1.8%20or%20newer-green.svg
    :alt: Django versions
    
