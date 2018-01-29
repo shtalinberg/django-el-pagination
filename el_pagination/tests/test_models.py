@@ -237,10 +237,26 @@ class PageListTest(TestCase):
         previous_page = self.pages.previous()
         self.assertEqual(self.current_number - 1, previous_page.number)
 
+    def test_previous_attrs(self):
+        # Ensure the attrs of the next page are correctly defined.
+        with local_settings(USE_NEXT_PREVIOUS_LINKS=True):
+            previous_page = self.pages.previous()
+        self.assertEqual(True, previous_page.is_previous)
+        self.check_page(
+            previous_page, self.current_number - 1, True, False, False, label=settings.PREVIOUS_LABEL)
+
     def test_next(self):
         # Ensure the correct next page is returned.
         next_page = self.pages.next()
         self.assertEqual(self.current_number + 1, next_page.number)
+
+    def test_next_attrs(self):
+        # Ensure the attrs of the next page are correctly defined.
+        with local_settings(USE_NEXT_PREVIOUS_LINKS=True):
+            next_page = self.pages.next()
+        self.assertEqual(True, next_page.is_next)
+        self.check_page(
+            next_page, self.current_number + 1, False, False, False, label=settings.NEXT_LABEL)
 
     def test_no_previous(self):
         # An empty string is returned if the previous page cannot be found.
