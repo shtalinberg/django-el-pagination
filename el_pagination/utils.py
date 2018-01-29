@@ -14,8 +14,11 @@ from el_pagination.settings import (
 # Handle the Python 2 to 3 migration.
 if sys.version_info[0] >= 3:
     PYTHON3 = True
+    text = str
 else:
     PYTHON3 = False
+    # Avoid lint errors under Python 3.
+    text = unicode  # NOQA
 
 def get_data_from_context(context):
     """Get the django paginator data object from the given *context*.

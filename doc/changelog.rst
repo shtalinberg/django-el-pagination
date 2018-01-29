@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 3.2.3
+~~~~~~~~~~~~~
+Bug-fix release
+
+**Fix**: cycle in show_pages with django 2.0
+fix tests for PageList.get_rendered()
+
 Version 3.2.2
 ~~~~~~~~~~~~~
 Bug-fix release
