@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import re
 
 from django import template
-from django.utils.encoding import iri_to_uri, force_text, force_bytes
+from django.utils.encoding import iri_to_uri
 from django.http import Http404
 
 from el_pagination import (
@@ -537,7 +537,7 @@ def show_pages(parser, token):
     .. code-block:: html+django
 
         {% get_pages %}
-        {{ pages }}
+        {{ pages.get_rendered }}
 
     You can set ``ENDLESS_PAGINATION_PAGE_LIST_CALLABLE`` in your *settings.py*
     to a callable, or to a dotted path representing a callable, used to
@@ -572,7 +572,8 @@ class ShowPagesNode(template.Node):
             override_path=data['override_path'],
             context=context
         )
-        return force_bytes(pages)
+        print("get_rendered")
+        return pages.get_rendered()
 
 
 @register.tag
@@ -693,6 +694,6 @@ class ShowCurrentNumberNode(template.Node):
             context['request'], querystring_key, default=default_number)
 
         if self.var_name is None:
-            return force_text(page_number)
+            return utils.text(page_number)
         context[self.var_name] = page_number
         return ''

@@ -107,7 +107,7 @@ class PageListTest(TestCase):
     def check_page_list_callable(self, callable_or_path):
         """Check the provided *page_list_callable* is actually used."""
         with local_settings(PAGE_LIST_CALLABLE=callable_or_path):
-            rendered = force_text(self.pages).strip()
+            rendered = force_text(self.pages.get_rendered()).strip()
         expected = '<span class="endless_separator">...</span>'
         self.assertEqual(expected, rendered)
 
@@ -196,7 +196,7 @@ class PageListTest(TestCase):
 
     def test_page_list_render(self):
         # Ensure the page list is correctly rendered.
-        rendered = force_text(self.pages)
+        rendered = force_text(self.pages.get_rendered())
         self.assertEqual(5, rendered.count('<a href'))
         self.assertIn(settings.PREVIOUS_LABEL, rendered)
         self.assertIn(settings.NEXT_LABEL, rendered)
@@ -207,7 +207,7 @@ class PageListTest(TestCase):
         page_list_callable = (
             'el_pagination.tests.test_models.page_list_callable_arrows')
         with local_settings(PAGE_LIST_CALLABLE=page_list_callable):
-            rendered = force_text(self.pages)
+            rendered = force_text(self.pages.get_rendered())
         self.assertEqual(7, rendered.count('<a href'))
         self.assertIn(settings.FIRST_LABEL, rendered)
         self.assertIn(settings.LAST_LABEL, rendered)
