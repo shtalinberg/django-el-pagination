@@ -2,13 +2,6 @@
 
 (function ($) {
 
-    // Fix JS String.trim() function is unavailable in IE<9 #45
-    if (typeof(String.prototype.trim) === "undefined") {
-         String.prototype.trim = function() {
-             return String(this).replace(/^\s+|\s+$/g, '');
-         };
-    }
-
     $.fn.endlessPaginate = function(options) {
         var defaults = {
             // Twitter-style pagination container selector.
@@ -65,7 +58,7 @@
                 if (settings.onClick.apply(html_link, [context]) !== false) {
                     var data = 'querystring_key=' + context.key;
                     // Send the Ajax request.
-                    $.get(context.url, data, function(fragment) {
+                    $.get(context.url, data, function (fragment) {
                         // Increase the number of loaded pages.
                         loadedPages += 1;
 
@@ -84,8 +77,8 @@
 
                         // Fire onCompleted callback.
                         settings.onCompleted.apply(
-                            html_link, [context, fragment.trim()]);
-                    }).error(function(xhr, textStatus, error) {
+                            html_link, [context, $.trim(fragment)]);
+                    }).fail(function (xhr, textStatus, error) {
                         // Remove the container left if any
                         container.remove();
                     });
@@ -97,14 +90,14 @@
             if (settings.paginateOnScroll) {
                 var win = $(window),
                     doc = $(document);
-                doc.scroll(function(){
+                doc.on('scroll', function () {
                     if (doc.height() - win.height() -
                         win.scrollTop() <= settings.paginateOnScrollMargin) {
                         // Do not paginate on scroll if chunks are used and
                         // the current chunk is complete.
                         var chunckSize = settings.paginateOnScrollChunkSize;
                         if (!chunckSize || loadedPages % chunckSize) {
-                            element.find(settings.moreSelector).click();
+                            element.find(settings.moreSelector).trigger('click');
                         } else {
                             element.find(settings.moreSelector).addClass('endless_chunk_complete');
                         }
@@ -125,7 +118,7 @@
                     page_template.load(context.url, data, function(fragment) {
                         // Fire onCompleted callback.
                         settings.onCompleted.apply(
-                            html_link, [context, fragment.trim()]);
+                            html_link, [context, $.trim(fragment)]);
                     });
                 }
                 return false;

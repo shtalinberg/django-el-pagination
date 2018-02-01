@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+Version 3.2.4
+~~~~~~~~~~~~~
+
+**Fix**:  compatible with jQuery 3.x
+
+
 Version 3.2.3
 ~~~~~~~~~~~~~
 Bug-fix release
