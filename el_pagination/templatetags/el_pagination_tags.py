@@ -572,7 +572,6 @@ class ShowPagesNode(template.Node):
             override_path=data['override_path'],
             context=context
         )
-        print("get_rendered")
         return pages.get_rendered()
 
 
