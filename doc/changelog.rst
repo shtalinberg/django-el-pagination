@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+Version 3.3.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 3.0.x support.
+    Django EL(Endless) Pagination now supports Django from 1.11.x to 3.0.x
+    Dropped support for Python 2.x 
+
 Version 3.2.4
 ~~~~~~~~~~~~~
 
