@@ -21,7 +21,7 @@ from el_pagination.paginators import (
 
 PAGINATE_EXPRESSION = re.compile(r"""
     ^   # Beginning of line.
-    (((?P<first_page>\w+)\,)?(?P<per_page>\w+)\s+)?  # First page, per page.
+    (((?P<first_page>\w+)\,)?(?P<per_page>\w+(\.\w+)?)\s+)?  # First page, per page.
     (?P<objects>[\.\w]+)  # Objects / queryset.
     (\s+starting\s+from\s+page\s+(?P<number>[\-]?\d+|\w+))?  # Page start.
     (\s+using\s+(?P<key>[\"\'\-\w]+))?  # Querystring key.
