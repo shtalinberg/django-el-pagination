@@ -53,16 +53,16 @@ number of entries:
 
     {% load el_pagination_tags %}
 
-    {% paginate entries %}
+    {% paginate entries %}{% get_pages %}
     {% for entry in entries %}
         {# your code to show the entry #}
     {% endfor %}
-    {% get_pages %}
+
     Showing entries
     {{ pages.current_start_index }}-{{ pages.current_end_index }} of
     {{ pages.total_count }}.
     {# Just print pages to render the Digg-style pagination. #}
-    {{ pages }}
+    {{ pages.get_rendered }}
 
 Number of pages
 ~~~~~~~~~~~~~~~
@@ -87,7 +87,7 @@ the results are actually paginated:
     {% if pages.paginated %}
         Some info/layout to display only if the available
         objects span multiple pages...
-        {{ pages }}
+        {{ pages.get_rendered }}
     {% endif %}
 
 Again, for a full overview of the :ref:`templatetags-get-pages` and all the
@@ -111,8 +111,7 @@ The view is exactly the same as the one used in
         }
         if extra_context is not None:
             context.update(extra_context)
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
 
 As seen before in :doc:`twitter_pagination`, you have to
 :ref:`split the templates<twitter-split-template>`, separating the main one from

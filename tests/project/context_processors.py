@@ -4,7 +4,10 @@ from __future__ import unicode_literals
 import platform
 
 import django
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except:
+    from django.core.urlresolvers import reverse
 
 import el_pagination
 
@@ -15,6 +18,7 @@ VOICES = (
     ('digg', 'Digg-style'),
     ('twitter', 'Twitter-style'),
     ('onscroll', 'On scroll'),
+    ('feed-wrapper', 'Feed wrapper'),
     ('multiple', 'Multiple'),
     ('callbacks', 'Callbacks'),
     ('chunks', 'On scroll/chunks'),

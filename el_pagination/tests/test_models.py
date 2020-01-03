@@ -3,11 +3,13 @@
 from __future__ import unicode_literals
 from contextlib import contextmanager
 
+from django.template import Context
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.utils.encoding import force_text
 
 from el_pagination import (
-    models,
+    models as el_models,
     settings,
     utils,
 )
@@ -79,9 +81,9 @@ class PageListTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get(
             self.get_path_for_page(self.current_number))
-        self.pages = models.PageList(
+        self.pages = el_models.PageList(
             self.request, self.paginator.page(self.current_number),
-            self.page_label)
+            self.page_label, context=Context())
 
     def get_url_for_page(self, number):
         """Return a url for the given page ``number``."""
@@ -95,7 +97,7 @@ class PageListTest(TestCase):
             self, page, number, is_first, is_last, is_current, label=None):
         """Perform several assertions on the given page attrs."""
         if label is None:
-            label = utils.text(page.number)
+            label = force_text(page.number)
         self.assertEqual(label, page.label)
         self.assertEqual(number, page.number)
         self.assertEqual(is_first, page.is_first)
@@ -105,7 +107,7 @@ class PageListTest(TestCase):
     def check_page_list_callable(self, callable_or_path):
         """Check the provided *page_list_callable* is actually used."""
         with local_settings(PAGE_LIST_CALLABLE=callable_or_path):
-            rendered = utils.text(self.pages).strip()
+            rendered = force_text(self.pages.get_rendered()).strip()
         expected = '<span class="endless_separator">...</span>'
         self.assertEqual(expected, rendered)
 
@@ -117,7 +119,8 @@ class PageListTest(TestCase):
         # Ensure the *paginated* method returns True if the page list contains
         # more than one page, False otherwise.
         page = DefaultPaginator(range(10), 10).page(1)
-        pages = models.PageList(self.request, page, self.page_label)
+        pages = el_models.PageList(self.request, page, self.page_label,
+                                   context=Context())
         self.assertFalse(pages.paginated())
         self.assertTrue(self.pages.paginated())
 
@@ -180,20 +183,20 @@ class PageListTest(TestCase):
     def test_page_render(self):
         # Ensure the page is correctly rendered.
         page = self.pages.first()
-        rendered_page = utils.text(page)
+        rendered_page = force_text(page.render_link())
         self.assertIn('href="/"', rendered_page)
         self.assertIn(page.label, rendered_page)
 
     def test_current_page_render(self):
         # Ensure the page is correctly rendered.
         page = self.pages.current()
-        rendered_page = utils.text(page)
+        rendered_page = force_text(page.render_link())
         self.assertNotIn('href', rendered_page)
         self.assertIn(page.label, rendered_page)
 
     def test_page_list_render(self):
         # Ensure the page list is correctly rendered.
-        rendered = utils.text(self.pages)
+        rendered = force_text(self.pages.get_rendered())
         self.assertEqual(5, rendered.count('<a href'))
         self.assertIn(settings.PREVIOUS_LABEL, rendered)
         self.assertIn(settings.NEXT_LABEL, rendered)
@@ -204,7 +207,7 @@ class PageListTest(TestCase):
         page_list_callable = (
             'el_pagination.tests.test_models.page_list_callable_arrows')
         with local_settings(PAGE_LIST_CALLABLE=page_list_callable):
-            rendered = utils.text(self.pages)
+            rendered = force_text(self.pages.get_rendered())
         self.assertEqual(7, rendered.count('<a href'))
         self.assertIn(settings.FIRST_LABEL, rendered)
         self.assertIn(settings.LAST_LABEL, rendered)
@@ -212,14 +215,15 @@ class PageListTest(TestCase):
     def test_page_list_render_just_one_page(self):
         # Ensure nothing is rendered if the page list contains only one page.
         page = DefaultPaginator(range(10), 10).page(1)
-        pages = models.PageList(self.request, page, self.page_label)
-        self.assertEqual('', utils.text(pages))
+        pages = el_models.PageList(self.request, page, self.page_label,
+                                   context=Context())
+        self.assertEqual('', force_text(pages))
 
     def test_different_default_number(self):
         # Ensure the page path is generated based on the default number.
-        pages = models.PageList(
+        pages = el_models.PageList(
             self.request, self.paginator.page(2), self.page_label,
-            default_number=2)
+            default_number=2, context=Context())
         self.assertEqual('/', pages.current().path)
         self.assertEqual(self.get_path_for_page(1), pages.first().path)
 
@@ -233,22 +237,40 @@ class PageListTest(TestCase):
         previous_page = self.pages.previous()
         self.assertEqual(self.current_number - 1, previous_page.number)
 
+    def test_previous_attrs(self):
+        # Ensure the attrs of the next page are correctly defined.
+        with local_settings(USE_NEXT_PREVIOUS_LINKS=True):
+            previous_page = self.pages.previous()
+        self.assertEqual(True, previous_page.is_previous)
+        self.check_page(
+            previous_page, self.current_number - 1, True, False, False, label=settings.PREVIOUS_LABEL)
+
     def test_next(self):
         # Ensure the correct next page is returned.
         next_page = self.pages.next()
         self.assertEqual(self.current_number + 1, next_page.number)
 
+    def test_next_attrs(self):
+        # Ensure the attrs of the next page are correctly defined.
+        with local_settings(USE_NEXT_PREVIOUS_LINKS=True):
+            next_page = self.pages.next()
+        self.assertEqual(True, next_page.is_next)
+        self.check_page(
+            next_page, self.current_number + 1, False, False, False, label=settings.NEXT_LABEL)
+
     def test_no_previous(self):
         # An empty string is returned if the previous page cannot be found.
-        pages = models.PageList(
-            self.request, self.paginator.page(1), self.page_label)
+        pages = el_models.PageList(
+            self.request, self.paginator.page(1), self.page_label,
+            context=Context())
         self.assertEqual('', pages.previous())
 
     def test_no_next(self):
         # An empty string is returned if the next page cannot be found.
         num_pages = self.paginator.num_pages
-        pages = models.PageList(
-            self.request, self.paginator.page(num_pages), self.page_label)
+        pages = el_models.PageList(
+            self.request, self.paginator.page(num_pages), self.page_label,
+            context=Context())
         self.assertEqual('', pages.next())
 
     def test_customized_page_list_callable(self):
@@ -265,9 +287,9 @@ class PageListTest(TestCase):
         # Ensure white spaces in paths are correctly handled.
         path = '/a path/containing spaces/'
         request = self.factory.get(path)
-        next = models.PageList(
+        next = el_models.PageList(
             request, self.paginator.page(self.current_number),
-            self.page_label).next()
+            self.page_label, context=Context()).next()
         self.assertEqual(path.replace(' ', '%20') + next.url, next.path)
 
     def test_lookup(self):

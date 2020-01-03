@@ -106,6 +106,24 @@ class BaseListView(MultipleObjectMixin, View):
         return self.render_to_response(context)
 
 
+class InvalidPaginationListView:
+
+    def get(self, request, *args, **kwargs):
+        """Wraps super().get(...) in order to return 404 status code if
+        the page parameter is invalid
+        """
+        response = super().get(request, args, kwargs)
+        try:
+            response.render()
+        except Http404:
+            request.GET = request.GET.copy()
+            request.GET['page'] = '1'
+            response = super().get(request, args, kwargs)
+            response.status_code = 404
+
+        return response
+
+
 class AjaxMultipleObjectTemplateResponseMixin(
         MultipleObjectTemplateResponseMixin):
 
@@ -135,7 +153,7 @@ class AjaxMultipleObjectTemplateResponseMixin(
         querystring_key = request.GET.get(key,
             request.POST.get(key, PAGE_LABEL))
         if request.is_ajax() and querystring_key == self.key:
-            return [self.page_template]
+            return [self.page_template or self.get_page_template()]
         return super(
             AjaxMultipleObjectTemplateResponseMixin, self).get_template_names()
 
@@ -167,7 +185,7 @@ class AjaxListView(AjaxMultipleObjectTemplateResponseMixin, BaseListView):
 
         from books.models import Publisher
 
-        from endless_pagination.views import AjaxListView
+        from el_pagination.views import AjaxListView
 
         urlpatterns = patterns('',
             (r'^publishers/$', AjaxListView.as_view(model=Publisher)),

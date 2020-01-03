@@ -1,12 +1,6 @@
-(function ($) {
-    'use strict';
+'use strict';
 
-    // Fix JS String.trim() function is unavailable in IE<9 #45
-    if (typeof(String.prototype.trim) === "undefined") {
-         String.prototype.trim = function() {
-             return String(this).replace(/^\s+|\s+$/g, '');
-         };
-    }
+(function ($) {
 
     $.fn.endlessPaginate = function(options) {
         var defaults = {
@@ -16,6 +10,8 @@
             loadingSelector: '.endless_loading',
             // Twitter-style pagination link selector.
             moreSelector: 'a.endless_more',
+            // Twitter-style pagination content wrapper selector.
+            contentSelector: null,
             // Digg-style pagination page template selector.
             pageSelector: '.endless_page_template',
             // Digg-style pagination link selector.
@@ -35,7 +31,7 @@
 
         var getContext = function(link) {
             return {
-                key: link.attr('rel').split(' ')[0],
+                key: link.data("el-querystring-key").split(' ')[0],
                 url: link.attr('href')
             };
         };
@@ -48,6 +44,7 @@
             element.on('click', settings.moreSelector, function() {
                 var link = $(this),
                     html_link = link.get(0),
+                    content_wrapper = element.find(settings.contentSelector),
                     container = link.closest(settings.containerSelector),
                     loading = container.find(settings.loadingSelector);
                 // Avoid multiple Ajax calls.
@@ -61,14 +58,29 @@
                 if (settings.onClick.apply(html_link, [context]) !== false) {
                     var data = 'querystring_key=' + context.key;
                     // Send the Ajax request.
-                    $.get(context.url, data, function(fragment) {
-                        container.before(fragment);
-                        container.remove();
+                    $.get(context.url, data, function (fragment) {
                         // Increase the number of loaded pages.
                         loadedPages += 1;
+
+                        if (!content_wrapper.length) {
+                            // Replace pagination container (the default behavior)
+                            container.before(fragment);
+                            container.remove();
+                        } else {
+                            // Insert the content in the specified wrapper and increment link
+                            content_wrapper.append(fragment);
+                            var nextPage = 'page=' + (loadedPages + 1);
+                            link.attr('href', link.attr('href').replace(/page=\d+/, nextPage));
+                            link.show();
+                            loading.hide();
+                        }
+
                         // Fire onCompleted callback.
                         settings.onCompleted.apply(
-                            html_link, [context, fragment.trim()]);
+                            html_link, [context, $.trim(fragment)]);
+                    }).fail(function (xhr, textStatus, error) {
+                        // Remove the container left if any
+                        container.remove();
                     });
                 }
                 return false;
@@ -78,14 +90,14 @@
             if (settings.paginateOnScroll) {
                 var win = $(window),
                     doc = $(document);
-                doc.scroll(function(){
+                doc.on('scroll', function () {
                     if (doc.height() - win.height() -
                         win.scrollTop() <= settings.paginateOnScrollMargin) {
                         // Do not paginate on scroll if chunks are used and
                         // the current chunk is complete.
                         var chunckSize = settings.paginateOnScrollChunkSize;
                         if (!chunckSize || loadedPages % chunckSize) {
-                            element.find(settings.moreSelector).click();
+                            element.find(settings.moreSelector).trigger('click');
                         } else {
                             element.find(settings.moreSelector).addClass('endless_chunk_complete');
                         }
@@ -106,7 +118,7 @@
                     page_template.load(context.url, data, function(fragment) {
                         // Fire onCompleted callback.
                         settings.onCompleted.apply(
-                            html_link, [context, fragment.trim()]);
+                            html_link, [context, $.trim(fragment)]);
                     });
                 }
                 return false;

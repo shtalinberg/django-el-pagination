@@ -76,11 +76,11 @@ to be activated when 20 pixels remain to the end of the page:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
-                paginateOnScrollMargin: 20
+                paginateOnScrollMargin: 200
             });
         </script>
     {% endblock %}
@@ -143,7 +143,7 @@ To wrap it up, here is an example showing the callbacks' signatures:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>
             $.endlessPaginate({
                 onClick: function(context) {
@@ -257,6 +257,8 @@ to select DOM nodes. Here is a list of them all:
   (Twitter-style pagination loading selector);
 - moreSelector: 'a.endless_more' -
   (Twitter-style pagination link selector);
+- contentSelector: null -
+  (Twitter-style pagination content wrapper);
 - pageSelector: '.endless_page_template'
   (Digg-style pagination page template selector);
 - pagesSelector: 'a.endless_page_link'
@@ -347,9 +349,8 @@ is handled by JavaScript. These changes are discussed in this document and in
 the :doc:`changelog`.
 
 The JavaScript code now lives in a file named ``el-pagination.js``.
-For backward compatibility, the application still includes the two JavaScript
-files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js``. However, please consider
-migrating as soon as possible: the old JavaScript files are deprecated, are
+The two JavaScript files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js`` was removed.
+However, please consider migrating: the old JavaScript files was removed, are
 no longer maintained, and don't provide the new JavaScript features.
 
 Instructions on how to migrate from the old version to the new one follow.
@@ -380,7 +381,7 @@ Now:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
@@ -433,7 +434,7 @@ Before:
         <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
         <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
         <script>
-            var endless_on_scroll_margin = 20;
+            var endless_on_scroll_margin = 200;
         </script>
     {% endblock %}
 
@@ -451,7 +452,7 @@ Now:
         <script>
             $.endlessPaginate({
                 paginateOnScroll: true,
-                paginateOnScrollMargin: 20
+                paginateOnScrollMargin: 200
             });
         </script>
     {% endblock %}

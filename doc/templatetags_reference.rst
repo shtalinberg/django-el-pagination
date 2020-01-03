@@ -178,7 +178,7 @@ of page links. You can use *pages* in different ways:
 
 .. code-block:: html+django
 
-    {{ pages }}
+    {{ pages.get_rendered }}
 
 - display pages count:
 
@@ -244,7 +244,7 @@ of page links. You can use *pages* in different ways:
 
     {% for page in pages %}
         {# display page link #}
-        {{ page }}
+        {{ page.render_link }}
 
         {# the page url (beginning with "?") #}
         {{ page.url }}
@@ -266,6 +266,15 @@ of page links. You can use *pages* in different ways:
 
         {# check if the page is the last one #}
         {{ page.is_last }}
+
+        {### next two example work only with settings.EL_PAGINATION_USE_NEXT_PREVIOUS_LINKS = True ###}
+
+        {# check if the page is previous #}
+        {{ page.is_previous }}
+
+        {# check if the page is_next #}
+        {{ page.is_next }}
+
     {% endfor %}
 
 You can change the variable name, e.g.:
@@ -273,6 +282,9 @@ You can change the variable name, e.g.:
 .. code-block:: html+django
 
     {% get_pages as page_links %}
+    {{ page_links.get_rendered }}
+    {# the current selected page #}
+    {{ page_links.current }}
 
 This must be called after `paginate`_ or `lazy_paginate`_.
 
@@ -292,7 +304,7 @@ It is just a shortcut for:
 .. code-block:: html+django
 
     {% get_pages %}
-    {{ pages }}
+    {{ pages.get_rendered }}
 
 You can set ``EL_PAGINATION_PAGE_LIST_CALLABLE`` in your *settings.py* to
 a callable used to customize the pages that are displayed.

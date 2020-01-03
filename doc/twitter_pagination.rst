@@ -2,21 +2,32 @@ Twitter-style Pagination
 ========================
 
 Assuming the developer wants Twitter-style pagination of
-entries of a blog post, in *views.py* we have::
+entries of a blog post, in *views.py* we have class-based::
 
-    def entry_index(request, template='myapp/entry_index.html'):
+    from el_pagination.views import AjaxListView
+
+    class EntryListView(AjaxListView):
+        context_object_name = "entry_list"
+        template_name = "myapp/entry_list.html"
+
+        def get_queryset(self):
+            return Entry.objects.all()
+
+or fuction-based::
+
+    def entry_index(request, template='myapp/entry_list.html'):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
         }
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
 
-In *myapp/entry_index.html*:
+
+In *myapp/entry_list.html*:
 
 .. code-block:: html+django
 
     <h2>Entries:</h2>
-    {% for entry in entries %}
+    {% for entry in entry_list %}
         {# your code to show the entry #}
     {% endfor %}
 
@@ -32,36 +43,47 @@ entries, and use it to render the context if the request is Ajax.
 The main template will include the extracted part, so it is convenient
 to put the page template name in the context.
 
-*views.py* becomes::
+*views.py* class-based becomes::
 
-    def entry_index(
-            request,
-            template='myapp/entry_index.html',
-            page_template='myapp/entry_index_page.html'):
+    from el_pagination.views import AjaxListView
+
+    class EntryListView(AjaxListView):
+        context_object_name = "entry_list"
+        template_name = "myapp/entry_list.html"
+        page_template='myapp/entry_list_page.html'
+
+        def get_queryset(self):
+            return Entry.objects.all()
+
+or fuction-based::
+
+    def entry_list(request,
+        template='myapp/entry_list.html',
+        page_template='myapp/entry_list_page.html'):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
             'page_template': page_template,
         }
         if request.is_ajax():
             template = page_template
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
+
 
 See :ref:`below<twitter-page-template>` how to obtain the same result
-**just decorating the view** (in a way compatible with generic views too).
+**just decorating the view**.
 
-*myapp/entry_index.html* becomes:
+*myapp/entry_list.html* becomes:
 
 .. code-block:: html+django
 
     <h2>Entries:</h2>
     {% include page_template %}
 
-*myapp/entry_index_page.html* becomes:
+*myapp/entry_list_page.html* becomes:
 
 .. code-block:: html+django
 
-    {% for entry in entries %}
+    {% for entry in entry_list %}
         {# your code to show the entry #}
     {% endfor %}
 
@@ -77,15 +99,15 @@ with extra context injection:
 
 *views.py*::
 
-    def entry_index(
-            request, template='myapp/entry_index.html', extra_context=None):
+    def entry_index(request,
+            template='myapp/entry_list.html', extra_context=None):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
         }
         if extra_context is not None:
             context.update(extra_context)
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
+
 
 Splitting templates and putting the Ajax template name in the context
 is easily achievable by using an included decorator.
@@ -94,21 +116,16 @@ is easily achievable by using an included decorator.
 
     from el_pagination.decorators import page_template
 
-    @page_template('myapp/entry_index_page.html')  # just add this decorator
-    def entry_index(
-            request, template='myapp/entry_index.html', extra_context=None):
+    @page_template('myapp/entry_list_page.html')  # just add this decorator
+    def entry_list(request,
+            template='myapp/entry_list.html', extra_context=None):
         context = {
-            'entries': Entry.objects.all(),
+            'entry_list': Entry.objects.all(),
         }
         if extra_context is not None:
             context.update(extra_context)
-        return render_to_response(
-            template, context, context_instance=RequestContext(request))
+        return render(request, template, context)
 
-This way, *el_pagination* can be included in **generic views** too.
-
-See :doc:`generic_views` if you use Django >= 1.3 and you want to replicate
-the same behavior using a class-based generic view.
 
 Paginating objects
 ~~~~~~~~~~~~~~~~~~
@@ -118,7 +135,7 @@ All that's left is changing the page template and loading the
 jQuery plugin ``el-pagination.js`` included in the distribution under
 ``/static/el-pagination/js/``.
 
-*myapp/entry_index.html* becomes:
+*myapp/entry_list.html* becomes:
 
 .. code-block:: html+django
 
@@ -132,14 +149,14 @@ jQuery plugin ``el-pagination.js`` included in the distribution under
         <script>$.endlessPaginate();</script>
     {% endblock %}
 
-*myapp/entry_index_page.html* becomes:
+*myapp/entry_list_page.html* becomes:
 
 .. code-block:: html+django
 
     {% load el_pagination_tags %}
 
-    {% paginate entries %}
-    {% for entry in entries %}
+    {% paginate entry_list %}
+    {% for entry in entry_list %}
         {# your code to show the entry #}
     {% endfor %}
     {% show_more %}
@@ -228,6 +245,77 @@ just use the *paginateOnScrollChunkSize* option:
         </script>
     {% endblock %}
 
+Specifying where the content will be inserted
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are paginating a table, you may want to include the *show_more* link
+after the table itself, but the loaded content should be placed inside the
+table.
+
+For any case like this, you may specify the *contentSelector* option that
+points to the element that will wrap the cumulative data:
+
+.. code-block:: html+django
+
+    {% block js %}
+        {{ block.super }}
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+        <script>
+            $.endlessPaginate({
+                contentSelector: '.endless_content_wrapper'
+            });
+        </script>
+    {% endblock %}
+
+.. note::
+
+    By default, the contentSelector is null, making each new page be inserted
+    before the *show_more* link container.
+
+When using this approach, you should take 2 more actions.
+
+At first, the page template must be splitted a little different. You must do
+the pagination in the main template and only apply pagination in the page
+template if under ajax:
+
+*myapp/entry_list.html* becomes:
+
+.. code-block:: html+django
+
+    <h2>Entries:</h2>
+    {% paginate entry_list %}
+    <ul>
+        {% include page_template %}
+    </ul>
+    {% show_more %}
+
+    {% block js %}
+        {{ block.super }}
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+        <script>$.endlessPaginate();</script>
+    {% endblock %}
+
+*myapp/entry_list_page.html* becomes:
+
+.. code-block:: html+django
+
+    {% load el_pagination_tags %}
+
+    {% if request.is_ajax %}{% paginate entry_list %}{% endif %}
+    {% for entry in entry_list %}
+        {# your code to show the entry #}
+    {% endfor %}
+
+This is needed because the *show_more* button now is taken off the
+page_template and depends of the *paginate* template tag. To avoid apply
+pagination twice, we avoid run it a first time in the page_template.
+
+You may also set the *EL_PAGINATION_PAGE_OUT_OF_RANGE_404* to True, so a blank
+page wouldn't render the first page (the default behavior). When a blank page
+is loaded and propagates the 404 error, the *show_more* link is removed.
+
 Before version 2.0
 ~~~~~~~~~~~~~~~~~~
 
@@ -236,29 +324,19 @@ pagination. As seen above, Ajax can now be enabled using a brand new jQuery
 plugin that can be found in
 ``static/el-pagination/js/el-pagination.js``.
 
-For backward compatibility, the application still includes the two JavaScript
-files ``el-pagination-endless.js`` and ``el-pagination_on_scroll.js`` that were used before, so
-that it is still possible to use code like this:
+Old code was removed:
 
 .. code-block:: html+django
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    {# Deprecated. #}
-    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
-
-To enable pagination on scroll, the code was the following:
-
-.. code-block:: html+django
-
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    {# Deprecated. #}
+    {# new jQuery plugin #}
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+    {# Removed. #}
     <script src="{{ STATIC_URL }}el-pagination/js/el-pagination-endless.js"></script>
     <script src="{{ STATIC_URL }}el-pagination/js/el-pagination_on_scroll.js"></script>
 
 However, please consider :ref:`migrating<javascript-migrate>` as soon as
-possible: the old JavaScript files are deprecated, are no longer maintained,
-and don't provide the new JavaScript features. Also note that the old
-Javascript files will not work if jQuery >= 1.9 is used.
+possible: the old JavaScript files are removed.
 
 Please refer to the :doc:`javascript` for a detailed overview of the new
 features and for instructions on :ref:`how to migrate<javascript-migrate>` from

@@ -5,8 +5,8 @@ Requirements
 ~~~~~~~~~~~~
 
 ======  ====================
-Python  >= 2.6 (or Python 3)
-Django  >= 1.4
+Python  >= 2.7 (or Python 3)
+Django  >= 1.8
 jQuery  >= 1.7
 ======  ====================
 
@@ -26,12 +26,34 @@ or ``pip install django-el-pagination``.
 Settings
 ~~~~~~~~
 
-Add the request context processor to your *settings.py*, e.g.::
+Add the request context processor to your *settings.py*, e.g.:
 
-    from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-    TEMPLATE_CONTEXT_PROCESSORS += (
-        'django.core.context_processors.request',
-    )
+.. code-block:: python
+
+    from django.conf.global_settings import TEMPLATES
+
+    TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.core.context_processors.request')
+
+or  just adding it to the context_processors manually like so:
+
+.. code-block:: python
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    '...',
+                    '...',
+                    '...',
+                    '...',
+                    'django.template.context_processors.request', ## For EL-pagination
+                ],
+            },
+        },
+    ]
 
 Add ``'el_pagination'`` to the ``INSTALLED_APPS`` to your *settings.py*.
 

@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import string
 import sys
 import xml.etree.ElementTree as etree
+import unittest
 
 from django.template import (
     Context,
@@ -12,16 +13,13 @@ from django.template import (
 )
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils import unittest
+from django.http import Http404
+from django.template.context import make_context
 
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList
-from el_pagination.settings import (
-    PAGE_LABEL,
-    PER_PAGE,
-)
-from el_pagination.tests import make_model_instances
-
+from el_pagination import settings
+from project.models import make_model_instances
 
 skip_if_old_etree = unittest.skipIf(
     sys.version_info < (2, 7), 'XPath not supported by this Python version.')
@@ -45,6 +43,8 @@ class TemplateTagsTestMixin(object):
         context_data = kwargs.copy() if kwargs else {'objects': range(47)}
         context_data['request'] = request
         context = Context(context_data)
+        if isinstance(context, dict):  # <-- my temporary workaround
+            context = make_context(context, request, autoescape=self.backend.engine.autoescape)
         html = template.render(context)
         return html.strip(), context
 
@@ -53,7 +53,7 @@ class TemplateTagsTestMixin(object):
         querydict = {} if data is None else data
         querydict.update(kwargs)
         if page is not None:
-            querydict[PAGE_LABEL] = page
+            querydict[settings.PAGE_LABEL] = page
         return self.factory.get(url, querydict)
 
 
@@ -106,7 +106,7 @@ class PaginateTestMixin(TemplateTagsTestMixin):
         # Ensure the queryset is correctly updated.
         template = '{% $tagname objects %}'
         html, context = self.render(self.request(), template)
-        self.assertRangeEqual(range(PER_PAGE), context['objects'])
+        self.assertRangeEqual(range(settings.PER_PAGE), context['objects'])
         self.assertEqual('', html)
 
     def test_per_page_argument(self):
@@ -229,9 +229,18 @@ class PaginateTestMixin(TemplateTagsTestMixin):
 
     def test_invalid_page(self):
         # The first page is displayed if an invalid page is provided.
+        settings.PAGE_OUT_OF_RANGE_404 = False
         template = '{% $tagname 5 objects %}'
         _, context = self.render(self.request(page=0), template)
         self.assertRangeEqual(range(5), context['objects'])
+
+    def test_invalid_page_with_raise_404_enabled(self):
+        # The 404 error is raised if an invalid page is provided and
+        # env variable PAGE_OUT_OF_RANGE_404 is set to True.
+        settings.PAGE_OUT_OF_RANGE_404 = True
+        template = '{% $tagname 5 objects %}'
+        with self.assertRaises(Http404):
+            self.render(self.request(page=0), template)
 
     def test_nested_context_variable(self):
         # Ensure nested context variables are correctly handled.
@@ -291,7 +300,7 @@ class PaginateTest(PaginateTestMixin, TestCase):
         # In this case, the argument is provided as context variable.
         template = '{% $tagname 10 objects starting from page mypage %}'
         _, context = self.render(
-            self.request(), template, objects=range(47), mypage=-2)
+            self.request(), template, objects=range(47), mypage= -2)
         self.assertRangeEqual(range(30, 40), context['objects'])
 
     def test_starting_from_negative_page_out_of_range(self):
@@ -356,7 +365,7 @@ class ShowMoreTest(EtreeTemplateTagsTestMixin, TestCase):
         template = '{% paginate objects %}{% show_more %}'
         tree = self.render(self.request(), template)
         link = tree.find('.//a[@class="endless_more"]')
-        expected = '/?{0}={1}'.format(PAGE_LABEL, 2)
+        expected = '/?{0}={1}'.format(settings.PAGE_LABEL, 2)
         self.assertEqual(expected, link.attrib['href'])
 
     def test_page_next_url(self):
@@ -364,7 +373,7 @@ class ShowMoreTest(EtreeTemplateTagsTestMixin, TestCase):
         template = '{% paginate objects %}{% show_more %}'
         tree = self.render(self.request(page=3), template)
         link = tree.find('.//a[@class="endless_more"]')
-        expected = '/?{0}={1}'.format(PAGE_LABEL, 4)
+        expected = '/?{0}={1}'.format(settings.PAGE_LABEL, 4)
         self.assertEqual(expected, link.attrib['href'])
 
     def test_last_page(self):

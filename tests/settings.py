@@ -1,10 +1,16 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 """Settings file for the Django project used for tests."""
 
 import os
+import sys
 
-from django import VERSION
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+# Disable 1.9 arguments '--parallel' and try exclude  “Address already in use” at “setUpClass”
+os.environ['DJANGO_TEST_PROCESSES'] = "1"
+os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = "localhost:8000-8010,8080,9200-9300"
 
 PROJECT_NAME = 'project'
 
@@ -14,43 +20,65 @@ PROJECT = os.path.join(ROOT, PROJECT_NAME)
 
 # Django configuration.
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
-DEBUG = TEMPLATE_DEBUG = True
+
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'el_pagination',
+    'nose',
+    'django_nose',
     PROJECT_NAME,
 )
-LANGUAGE_CODE = os.getenv('EL_PAGINATION_LANGUAGE_CODE', 'en-us')
+gettext = lambda s: s
+
+LANGUAGES = (('en', gettext('English')),)
+LANGUAGE_CODE = os.getenv('EL_PAGINATION_LANGUAGE_CODE', 'en')
 ROOT_URLCONF = PROJECT_NAME + '.urls'
 SECRET_KEY = os.getenv('EL_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
-TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.request',
-    PROJECT_NAME + '.context_processors.navbar',
-    PROJECT_NAME + '.context_processors.versions',
+
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-
-if VERSION >= (1, 8):
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [os.path.join(PROJECT, 'templates'),],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                # ... some options here ...
-            },
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(PROJECT, 'templates'), ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'debug': DEBUG,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                PROJECT_NAME + '.context_processors.navbar',
+                PROJECT_NAME + '.context_processors.versions',
+            ],
         },
-    ]
-else:
-    TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
+
+    },
+]
 
 # Testing.
 NOSE_ARGS = (
     '--verbosity=2',
-    '--with-coverage',
-    '--cover-package=el_pagination',
+    '--stop',
+    '-s',  # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
+    # '--nomigrations',
+    # '--with-coverage',
+    # '--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+try:
+    from settings_local import *
+    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL
+except ImportError:
+    sys.stderr.write('settings_local.py not loaded\n')
+
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG

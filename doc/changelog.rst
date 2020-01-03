@@ -2,6 +2,92 @@ Changelog
 =========
 
 
+Version 3.3.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 3.0.x support.
+    Django EL(Endless) Pagination now supports Django from 1.11.x to 3.0.x
+    Dropped support for Python 2.x 
+
+Version 3.2.4
+~~~~~~~~~~~~~
+
+**Fix**:  compatible with jQuery 3.x
+
+
+Version 3.2.3
+~~~~~~~~~~~~~
+Bug-fix release
+
+**Fix**: cycle in show_pages with django 2.0
+fix tests for PageList.get_rendered()
+
+Version 3.2.2
+~~~~~~~~~~~~~
+Bug-fix release
+
+**Fix**: fix UnicodeEncodeError with translate in templates
+
+Version 3.2.0
+~~~~~~~~~~~~~
+**New feature**: Django 2.0.x support.
+    Django EL(Endless) Pagination now supports Django from 1.8.x to 2.0.x
+
+
+**New feature**: settings.USE_NEXT_PREVIOUS_LINKS: default=False
+    if True:
+    Add `is_previous` & `is_next` flags for `previous` and `next` pages
+    Add `next_link.html` & `previous_link.html` templates
+
+
+**New feature**:  `__unicode__` is removed from class ELPage
+    It's Fix Causes Fatal Python error with django-debug-toolbar
+    In templates:
+    - {{ page }} now use as {{ page.render_link }}
+    - {{ pages }} now use as {{ pages.get_rendered }}
+
+
+**Template changes**:
+    show_pages.html:
+    `page|default_if_none` replaced `page.render_link|default`
+
+----
+
+**Cleanup**:
+utils.UnicodeMixin
+utils.text
+
+Version 3.1.0
+~~~~~~~~~~~~~
+**Template changes**:
+    link attribute rel="{{ querystring_key }}"  replaced by data-el-querystring-key="{{ querystring_key }}"
+
+**New feature**: Django 1.11 support.
+
+**New feature**:
+    added view for maintaining original functionality on page index out of range, but setting response code to 404
+    ``PAGE_OUT_OF_RANGE_404`` default *False* If True on page out of range, throw a 404 exception, otherwise display the first page
+
+**Documentation**: render_to_response deprecated in django 1.10
+    replaced to ``return render(request, template, context)``
+
+
+Version 3.0.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 1.10 support.
+New app Django EL(Endless) Pagination now supports Django from 1.8.x to 1.10
+
+----
+
+**New feature**: Travic CI support
+add tox and Travic CI config
+
+----
+
+**Documentation**: general clean up.
+
+
 Version 2.1.1
 ~~~~~~~~~~~~~
 

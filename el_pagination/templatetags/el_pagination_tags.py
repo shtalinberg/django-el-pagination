@@ -5,6 +5,7 @@ import re
 
 from django import template
 from django.utils.encoding import iri_to_uri
+from django.http import Http404
 
 from el_pagination import (
     models,
@@ -311,6 +312,8 @@ class PaginateNode(template.Node):
             page = paginator.page(page_number)
         except EmptyPage:
             page = paginator.page(1)
+            if settings.PAGE_OUT_OF_RANGE_404:
+                raise Http404('Page out of range')
 
         # Populate the context with required data.
         data = {
@@ -385,11 +388,11 @@ def get_pages(parser, token):
     This call inserts in the template context a *pages* variable, as a sequence
     of page links. You can use *pages* in different ways:
 
-    - just print *pages* and you will get Digg-style pagination displayed:
+    - just print *pages.get_rendered* and you will get Digg-style pagination displayed:
 
     .. code-block:: html+django
 
-        {{ pages }}
+        {{ pages.get_rendered }}
 
     - display pages count:
 
@@ -449,7 +452,7 @@ def get_pages(parser, token):
 
         {% for page in pages %}
             {# display page link #}
-            {{ page }}
+            {{ page.render_link}}
 
             {# the page url (beginning with "?") #}
             {{ page.url }}
@@ -512,9 +515,9 @@ class GetPagesNode(template.Node):
             context['request'],
             data['page'],
             data['querystring_key'],
+            context=context,
             default_number=data['default_number'],
             override_path=data['override_path'],
-            context=context
         )
         return ''
 
@@ -534,7 +537,7 @@ def show_pages(parser, token):
     .. code-block:: html+django
 
         {% get_pages %}
-        {{ pages }}
+        {{ pages.get_rendered }}
 
     You can set ``ENDLESS_PAGINATION_PAGE_LIST_CALLABLE`` in your *settings.py*
     to a callable, or to a dotted path representing a callable, used to
@@ -569,7 +572,7 @@ class ShowPagesNode(template.Node):
             override_path=data['override_path'],
             context=context
         )
-        return utils.text(pages)
+        return pages.get_rendered()
 
 
 @register.tag
