@@ -64,13 +64,18 @@ TEMPLATES = [
     },
 ]
 
+MIDDLEWARE = (
+    'django.middleware.common.CommonMiddleware',
+)
+
 # Testing.
 NOSE_ARGS = (
-    '--verbosity=2',
+    '--verbosity=1',
     '--stop',
     '-s',  # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
     # '--nomigrations',
     # '--with-coverage',
+    # '--cover-branches',
     # '--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

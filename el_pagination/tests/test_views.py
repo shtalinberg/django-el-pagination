@@ -117,6 +117,6 @@ class AjaxListViewTest(TestCase):
             queryset=range(30),
             page_template=self.page_template,
         )
-        response = view(self.request)
+        response = view(self.ajax_request)
         view_instance = response.context_data['view']
         self.assertIsInstance(view_instance, views.AjaxListView)
