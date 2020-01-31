@@ -1,71 +1,52 @@
 """Integration tests base objects definitions."""
 
 from __future__ import unicode_literals
-from contextlib import contextmanager
-import os
-import time
-import unittest
 
-try:
-    from django.urls import reverse
-except:
-    from django.core.urlresolvers import reverse
-from django.http import QueryDict
-from django.test import LiveServerTestCase
+import os
+import unittest
+from contextlib import contextmanager
+
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.http import QueryDict
 from selenium.common import exceptions
-from selenium import webdriver
-from selenium.webdriver import DesiredCapabilities
-from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import ui
-from xvfbwrapper import Xvfb
 
-from el_pagination.utils import PYTHON3
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 
-SHOW_BROWSER = os.getenv('SHOW_BROWSER', False)
-SKIP_SELENIUM = os.getenv('SKIP_SELENIUM', False)
-# FIXME: do not exclude integration tests on Python3 once Selenium is updated
-# (bug #17).
-tests_are_run = not (PYTHON3 or SKIP_SELENIUM)
+# Disable selenium as default. Difficult to setup for local tests. Must be enabled
+# in CI environment.
+USE_SELENIUM = os.getenv('USE_SELENIUM', 0) in (1, True, '1')
 
 
 def setup_package():
     """Set up the Selenium driver once for all tests."""
     # Just skipping *setup_package* and *teardown_package* generates an
     # uncaught exception under Python 2.6.
-    if tests_are_run:
-        if not SHOW_BROWSER:
-            # Perform all graphical operations in memory.
-            vdisplay = SeleniumTestCase.vdisplay = Xvfb(width=1280, height=720)
-            vdisplay.start()
+    if USE_SELENIUM:
         # Create a Selenium browser instance.
         options = Options()
         options.add_argument('-headless')
-        selenium = SeleniumTestCase.selenium = Firefox(firefox_options=options)
+        selenium = SeleniumTestCase.selenium = Firefox(options=options)
         selenium.maximize_window()
-        SeleniumTestCase.wait = ui.WebDriverWait(selenium, 10)
+        SeleniumTestCase.wait = ui.WebDriverWait(selenium, 5)
         SeleniumTestCase.selenium.implicitly_wait(3)
 
 
 def teardown_package():
     """Quit the Selenium driver."""
-    if tests_are_run:
+    if USE_SELENIUM:
         SeleniumTestCase.selenium.quit()
-        if not SHOW_BROWSER:
-            SeleniumTestCase.vdisplay.stop()
 
 
-# FIXME: do not exclude integration tests on Python3 once Selenium is updated
-# (bug #17).
 @unittest.skipIf(
-    PYTHON3,
-    'excluding integration tests: Python 3 tests are still not supported.')
-@unittest.skipIf(
-    SKIP_SELENIUM,
-    'excluding integration tests: environment variable SKIP_SELENIUM is set.')
+    not USE_SELENIUM,
+    'excluding integration tests: environment variable USE_SELENIUM is not set.')
 class SeleniumTestCase(StaticLiveServerTestCase):
     """Base test class for integration tests."""
 
@@ -148,7 +129,6 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 
     def wait_ajax(self):
         """Wait for the document to be ready."""
-        time.sleep(10)
         def document_ready(driver):
             script = """
                 return (
@@ -158,6 +138,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
                 );
             """
             return driver.execute_script(script)
+
         self.wait.until(document_ready)
         return self.wait
 

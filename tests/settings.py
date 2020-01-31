@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-"""Settings file for the Django project used for tests."""
-
 import os
 import sys
+
+"""Settings file for the Django project used for tests."""
+
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']
@@ -81,8 +82,8 @@ NOSE_ARGS = (
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 try:
-    from settings_local import *
-    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL
+    from settings_local import *  # noqa
+    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL  # noqa
 except ImportError:
     sys.stderr.write('settings_local.py not loaded\n')
 

@@ -1,24 +1,21 @@
 """Endless template tags tests."""
 
 from __future__ import unicode_literals
+
 import string
 import sys
-import xml.etree.ElementTree as etree
 import unittest
+import xml.etree.ElementTree as etree
 
-from django.template import (
-    Context,
-    Template,
-    TemplateSyntaxError,
-)
+from django.http import Http404
+from django.template import Context, Template, TemplateSyntaxError
+from django.template.context import make_context
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.http import Http404
-from django.template.context import make_context
 
+from el_pagination import settings
 from el_pagination.exceptions import PaginationError
 from el_pagination.models import PageList
-from el_pagination import settings
 from project.models import make_model_instances
 
 skip_if_old_etree = unittest.skipIf(
@@ -300,7 +297,8 @@ class PaginateTest(PaginateTestMixin, TestCase):
         # In this case, the argument is provided as context variable.
         template = '{% $tagname 10 objects starting from page mypage %}'
         _, context = self.render(
-            self.request(), template, objects=range(47), mypage= -2)
+            self.request(), template, objects=range(47), mypage=-2
+        )
         self.assertRangeEqual(range(30, 40), context['objects'])
 
     def test_starting_from_negative_page_out_of_range(self):

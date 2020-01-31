@@ -3,20 +3,16 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic import TemplateView
+
+from el_pagination.decorators import page_template, page_templates
+from project.views import generic
+
 try:
     from django.urls import re_path as url, include
-except:
+except ImportError:
     from django.conf.urls import url, include
-
-
-from el_pagination.decorators import (
-    page_template,
-    page_templates,
-)
-
-from project.views import generic
 
 
 # Avoid lint errors for the following Django idiom: flake8: noqa.
@@ -76,4 +72,3 @@ if settings.DEBUG:
         urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls)), ]
 
 urlpatterns += staticfiles_urlpatterns()
-

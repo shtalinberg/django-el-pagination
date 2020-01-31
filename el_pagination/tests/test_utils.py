@@ -6,8 +6,8 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 
 from el_pagination import utils
-from el_pagination.settings import PAGE_LABEL
 from el_pagination.exceptions import PaginationError
+from el_pagination.settings import PAGE_LABEL
 
 
 class GetDataFromContextTest(TestCase):

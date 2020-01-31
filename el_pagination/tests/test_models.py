@@ -1,6 +1,7 @@
 """Model tests."""
 
 from __future__ import unicode_literals
+
 from contextlib import contextmanager
 
 from django.template import Context
@@ -8,11 +9,8 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.utils.encoding import force_text
 
-from el_pagination import (
-    models as el_models,
-    settings,
-    utils,
-)
+from el_pagination import models as el_models
+from el_pagination import settings, utils
 from el_pagination.paginators import DefaultPaginator
 
 

@@ -1,23 +1,16 @@
 """Django Endless Pagination template tags."""
-
 from __future__ import unicode_literals
+
 import re
 
 from django import template
-from django.utils.encoding import iri_to_uri
 from django.http import Http404
+from django.utils.encoding import force_text, iri_to_uri
 
-from el_pagination import (
-    models,
-    settings,
-    utils,
-)
-from el_pagination.paginators import (
-    DefaultPaginator,
-    EmptyPage,
-    LazyPaginator,
-)
+from el_pagination import models, settings, utils
+from el_pagination.paginators import DefaultPaginator, EmptyPage, LazyPaginator
 
+register = template.Library()
 
 PAGINATE_EXPRESSION = re.compile(r"""
     ^   # Beginning of line.
@@ -29,6 +22,7 @@ PAGINATE_EXPRESSION = re.compile(r"""
     (\s+as\s+(?P<var_name>\w+))?  # Context variable name.
     $   # End of line.
 """, re.VERBOSE)
+
 SHOW_CURRENT_NUMBER_EXPRESSION = re.compile(r"""
     ^   # Beginning of line.
     (starting\s+from\s+page\s+(?P<number>\w+))?\s*  # Page start.
@@ -36,9 +30,6 @@ SHOW_CURRENT_NUMBER_EXPRESSION = re.compile(r"""
     (as\s+(?P<var_name>\w+))?  # Context variable name.
     $   # End of line.
 """, re.VERBOSE)
-
-
-register = template.Library()
 
 
 @register.tag
@@ -252,11 +243,10 @@ class PaginateNode(template.Node):
 
         # Handle *override_path*.
         self.override_path_variable = None
+
         if override_path is None:
             self.override_path = None
-        elif (
-                override_path[0] in ('"', "'") and
-                override_path[-1] == override_path[0]):
+        elif override_path[0] in ('"', "'") and override_path[-1] == override_path[0]:  # noqa
             self.override_path = override_path[1:-1]
         else:
             self.override_path_variable = template.Variable(override_path)
@@ -693,6 +683,6 @@ class ShowCurrentNumberNode(template.Node):
             context['request'], querystring_key, default=default_number)
 
         if self.var_name is None:
-            return utils.text(page_number)
+            return force_text(page_number)
         context[self.var_name] = page_number
         return ''
