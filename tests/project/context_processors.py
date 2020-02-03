@@ -1,15 +1,17 @@
 """Navigation bar context processor."""
 
 from __future__ import unicode_literals
+
 import platform
 
 import django
-try:
-    from django.urls import reverse
-except:
-    from django.core.urlresolvers import reverse
 
 import el_pagination
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 
 VOICES = (

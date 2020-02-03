@@ -1,14 +1,13 @@
 """View decorators for Ajax powered pagination."""
 
 from __future__ import unicode_literals
+
 from functools import wraps
 
-from el_pagination.settings import (
-    PAGE_LABEL,
-    TEMPLATE_VARNAME,
-)
+from el_pagination.settings import PAGE_LABEL, TEMPLATE_VARNAME
 
 QS_KEY = 'querystring_key'
+
 
 def page_template(template, key=PAGE_LABEL):
     """Return a view dynamically switching template if the request is Ajax.

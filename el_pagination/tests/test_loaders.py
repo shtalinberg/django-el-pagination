@@ -1,13 +1,13 @@
 """Loader tests."""
 
 from __future__ import unicode_literals
+
 from contextlib import contextmanager
 
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from el_pagination import loaders
-
 
 test_object = 'test object'
 
