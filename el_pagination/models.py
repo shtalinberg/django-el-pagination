@@ -1,18 +1,10 @@
 """Ephemeral models used to represent a page and a list of pages."""
 from __future__ import unicode_literals
 
-from django.template import (
-    loader,
-    Context,
-)
-from django.utils.encoding import iri_to_uri, python_2_unicode_compatible, force_text
+from django.template import loader
+from django.utils.encoding import force_text, iri_to_uri
 
-from el_pagination import (
-    loaders,
-    settings,
-    utils,
-)
-
+from el_pagination import loaders, settings, utils
 
 # Page templates cache.
 _template_cache = {}
@@ -83,7 +75,6 @@ class ELPage(object):
             return template.render(self.context.flatten())
 
 
-python_2_unicode_compatible
 class PageList(object):
     """A sequence of endless pages."""
 

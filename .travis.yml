@@ -1,46 +1,39 @@
+dist: bionic
+os: linux
 language: python
-sudo: false
 cache: pip
-env:
-  global:
-    MOZ_HEADLESS=1
-  matrix:
-  - TOXENV=py27-dj18
-  - TOXENV=py27-dj19
-  - TOXENV=py27-dj110
-  - TOXENV=py27-dj111
-  - TOXENV=py34-dj18
-  - TOXENV=py34-dj19
-  - TOXENV=py34-dj110
-  - TOXENV=py34-dj111
-  - TOXENV=py34-dj20
-  # - TOXENV=py34-djdev
-  # - TOXENV=py36-djdev
-matrix:
+python:
+  - 3.5
+  - 3.6
+  - 3.7
+  - 3.8
+stages:
+  - lint
+  - test
+  - integration
+jobs:
+  include:
+    - stage: lint
+      python: 3.6
+      env: TOXENV=lint
+    - stage: integration
+      services:
+        - xvfb
+      python: 3.6
+      addons:
+        firefox: latest
+        apt:
+          packages: firefox-geckodriver
+      env:
+        - USE_SELENIUM=1
+        - MOZ_HEADLESS=1
+      script:
+        - tox -v
   allow_failures:
-    - env: TOXENV=py34-djdev
-    - env: TOXENV=py36-djdev
-before_install:
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.19.1-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
-install:
-  - pip install tox codecov
-addons:
-  #firefox: "48.0.2"
-  firefox: latest
+    - stage: integration
 
-before_script:
-  - export DJANGO_LIVE_TEST_SERVER_ADDRESS=localhost:8000-8010,8080,9200-9300
-  - export DJANGO_TEST_PROCESSES=1
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  #- python manage.py runserver &
-  #- sleep 3 # give django server time to bind to sockets
-  - sleep 3 # give xvfb some time to start
-  # - rackup  # start a Web server
-  # - sleep 3 # give Web server some time to bind to sockets, etc
+install:
+  - pip install tox tox-travis codecov
 
 script:
   - tox -v

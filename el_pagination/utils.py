@@ -2,23 +2,12 @@
 
 from __future__ import unicode_literals
 
-import sys
-
 from el_pagination import exceptions
 from el_pagination.settings import (
-    DEFAULT_CALLABLE_AROUNDS,
-    DEFAULT_CALLABLE_ARROWS,
-    DEFAULT_CALLABLE_EXTREMES,
-    PAGE_LABEL,
+    DEFAULT_CALLABLE_AROUNDS, DEFAULT_CALLABLE_ARROWS,
+    DEFAULT_CALLABLE_EXTREMES, PAGE_LABEL,
 )
-# Handle the Python 2 to 3 migration.
-if sys.version_info[0] >= 3:
-    PYTHON3 = True
-    text = str
-else:
-    PYTHON3 = False
-    # Avoid lint errors under Python 3.
-    text = unicode  # NOQA
+
 
 def get_data_from_context(context):
     """Get the django paginator data object from the given *context*.
@@ -126,7 +115,7 @@ def _make_elastic_range(begin, end):
     factor = _iter_factors(starting_factor)
     left_half, right_half = [], []
     left_val, right_val = begin, end
-    right_val = end
+
     while left_val < right_val:
         left_half.append(left_val)
         right_half.append(right_val)

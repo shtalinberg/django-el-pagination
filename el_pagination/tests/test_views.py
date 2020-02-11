@@ -8,7 +8,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 
 from el_pagination import views
-from project.models import make_model_instances, TestModel
+from project.models import TestModel, make_model_instances
 
 
 class AjaxListViewTest(TestCase):
@@ -117,6 +117,6 @@ class AjaxListViewTest(TestCase):
             queryset=range(30),
             page_template=self.page_template,
         )
-        response = view(self.request)
+        response = view(self.ajax_request)
         view_instance = response.context_data['view']
         self.assertIsInstance(view_instance, views.AjaxListView)

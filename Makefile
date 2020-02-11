@@ -1,22 +1,14 @@
 # Django Endless Pagination Makefile.
 
 # Define these variables based on the system Python versions.
-PYTHON2 = python
 PYTHON3 = python3
-
-VENV2 = .venv
 VENV3 = .venv3
 
 LINTER = flake8 --show-source endless_pagination/ tests/
 MANAGE = python ./tests/manage.py
 
-ifdef PY3
-	PYTHON = $(PYTHON3)
-	VENV = $(VENV3)
-else
-	PYTHON = $(PYTHON2)
-	VENV = $(VENV2)
-endif
+PYTHON = $(PYTHON3)
+VENV = $(VENV3)
 
 DOC_INDEX = doc/_build/html/index.html
 VENV_ACTIVATE = $(VENV)/bin/activate

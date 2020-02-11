@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-"""Settings file for the Django project used for tests."""
-
 import os
 import sys
+
+"""Settings file for the Django project used for tests."""
+
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']
@@ -64,20 +65,25 @@ TEMPLATES = [
     },
 ]
 
+MIDDLEWARE = (
+    'django.middleware.common.CommonMiddleware',
+)
+
 # Testing.
 NOSE_ARGS = (
-    '--verbosity=2',
+    '--verbosity=1',
     '--stop',
     '-s',  # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
     # '--nomigrations',
     # '--with-coverage',
+    # '--cover-branches',
     # '--cover-package=el_pagination',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 try:
-    from settings_local import *
-    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL
+    from settings_local import *  # noqa
+    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL  # noqa
 except ImportError:
     sys.stderr.write('settings_local.py not loaded\n')
 

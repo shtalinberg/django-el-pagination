@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 
-
 # How many objects are normally displayed in a page
 # (overwriteable by templatetag).
 PER_PAGE = getattr(settings, 'EL_PAGINATION_PER_PAGE', 10)

@@ -1,14 +1,10 @@
 """Customized Django paginators."""
 
 from __future__ import unicode_literals
+
 from math import ceil
 
-from django.core.paginator import (
-    EmptyPage,
-    Page,
-    PageNotAnInteger,
-    Paginator,
-)
+from django.core.paginator import EmptyPage, Page, PageNotAnInteger, Paginator
 
 
 class CustomPage(Page):

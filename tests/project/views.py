@@ -32,6 +32,5 @@ def generic(request, extra_context=None, template=None, number=50):
     return render(request, template, context)
 
 
-def SearchListView(ListView):
+class SearchListView(ListView):
     pass
-
