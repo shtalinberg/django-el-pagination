@@ -9,9 +9,9 @@ from contextlib import contextmanager
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.http import QueryDict
 from selenium.common import exceptions
-from selenium.webdriver.firefox.webdriver import WebDriver
 # from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support import ui
 
 try:
