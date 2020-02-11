@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.http import QueryDict
 from selenium.common import exceptions
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import ui
@@ -32,7 +33,7 @@ def setup_package():
         # Create a Selenium browser instance.
         options = Options()
         options.add_argument('-headless')
-        selenium = SeleniumTestCase.selenium = Firefox(options=options)
+        selenium = SeleniumTestCase.selenium = WebDriver(options=options)
         selenium.maximize_window()
         SeleniumTestCase.wait = ui.WebDriverWait(selenium, 5)
         SeleniumTestCase.selenium.implicitly_wait(3)
