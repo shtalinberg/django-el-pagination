@@ -13,3 +13,4 @@ dist/
 MANIFEST
 tests/settings_local.py
 *.log
+.tox/

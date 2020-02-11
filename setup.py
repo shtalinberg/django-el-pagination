@@ -7,7 +7,7 @@ VENV = os.path.join(ROOT, '.venv')
 VENV_LINK = os.path.join(VENV, 'local')
 
 install_requires = [
-    'django>=1.8.0',
+    'django>=1.11.0',
 ]
 
 project = __import__(PROJECT_NAME)
@@ -78,9 +78,11 @@ with VenvLinkDeleted():
             'License :: OSI Approved :: MIT License',
             'Operating System :: OS Independent',
             'Programming Language :: Python',
-            'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3 :: Only',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'Programming Language :: Python :: 3.8',
             'Topic :: Utilities',
         ],
         install_requires=install_requires,
