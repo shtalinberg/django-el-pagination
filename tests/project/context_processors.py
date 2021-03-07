@@ -17,6 +17,9 @@ VOICES = (
     ('multiple', 'Multiple'),
     ('callbacks', 'Callbacks'),
     ('chunks', 'On scroll/chunks'),
+    ('digg-table', 'Digg-style table'),
+    ('twitter-table', 'Twitter-style table'),
+    ('onscroll-table', 'On scroll table'),
 )
 
 

@@ -50,3 +50,9 @@ class DiggPaginationTest(SeleniumTestCase):
         # Ensure there is no forward link on the last page.
         self.get(page=10)
         self.asserLinksEqual(0, self.NEXT)
+
+
+class DiggPaginationTableTest(DiggPaginationTest):
+
+    view_name = 'digg-table'
+    selector = 'tr.{0} td > h4'

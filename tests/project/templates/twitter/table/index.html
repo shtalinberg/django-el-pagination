@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <table class="span12">
+    {% include page_template %}
+  </table>
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+    $.endlessPaginate();
+  </script>
+{% endblock %}

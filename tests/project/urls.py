@@ -2,12 +2,11 @@
 
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import include, re_path as url
 from django.views.generic import TemplateView
 
 from el_pagination.decorators import page_template, page_templates
 from project.views import generic
-
-from django.urls import re_path as url, include
 
 # Avoid lint errors for the following Django idiom: flake8: noqa.
 urlpatterns = [
@@ -32,16 +31,34 @@ urlpatterns = [
         name='digg',
     ),
     url(
+        r'^digg/table$',
+        page_template('digg/table/page.html')(generic),
+        {'template': 'digg/table/index.html'},
+        name='digg-table',
+    ),
+    url(
         r'^twitter/$',
         page_template('twitter/page.html')(generic),
         {'template': 'twitter/index.html'},
         name='twitter',
     ),
     url(
+        r'^twitter/table$',
+        page_template('twitter/table/page.html')(generic),
+        {'template': 'twitter/table/index.html'},
+        name='twitter-table',
+    ),
+    url(
         r'^onscroll/$',
         page_template('onscroll/page.html')(generic),
         {'template': 'onscroll/index.html'},
         name='onscroll',
+    ),
+    url(
+        r'^onscroll/table$',
+        page_template('onscroll/table/page.html')(generic),
+        {'template': 'onscroll/table/index.html'},
+        name='onscroll-table',
     ),
     url(
         r'^feed-wrapper/$',
