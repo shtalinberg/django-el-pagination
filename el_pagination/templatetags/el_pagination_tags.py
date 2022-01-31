@@ -5,7 +5,7 @@ import re
 
 from django import template
 from django.http import Http404
-from django.utils.encoding import force_text, iri_to_uri
+from django.utils.encoding import force_str, iri_to_uri
 
 from el_pagination import models, settings, utils
 from el_pagination.paginators import DefaultPaginator, EmptyPage, LazyPaginator
@@ -683,6 +683,6 @@ class ShowCurrentNumberNode(template.Node):
             context['request'], querystring_key, default=default_number)
 
         if self.var_name is None:
-            return force_text(page_number)
+            return force_str(page_number)
         context[self.var_name] = page_number
         return ''

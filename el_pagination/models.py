@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.template import loader
-from django.utils.encoding import force_text, iri_to_uri
+from django.utils.encoding import force_str, iri_to_uri
 
 from el_pagination import loaders, settings, utils
 
@@ -32,7 +32,7 @@ class ELPage(object):
             context=None):
         self._request = request
         self.number = number
-        self.label = force_text(number) if label is None else label
+        self.label = force_str(number) if label is None else label
         self.querystring_key = querystring_key
         self.context = context or {}
         self.context['request'] = request
