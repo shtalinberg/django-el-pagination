@@ -152,7 +152,7 @@ class AjaxMultipleObjectTemplateResponseMixin(
         key = 'querystring_key'
         querystring_key = request.GET.get(key,
             request.POST.get(key, PAGE_LABEL))
-        if request.is_ajax() and querystring_key == self.key:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and querystring_key == self.key:
             return [self.page_template or self.get_page_template()]
         return super(
             AjaxMultipleObjectTemplateResponseMixin, self).get_template_names()

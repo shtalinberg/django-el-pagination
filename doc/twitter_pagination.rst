@@ -64,7 +64,7 @@ or fuction-based::
             'entry_list': Entry.objects.all(),
             'page_template': page_template,
         }
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             template = page_template
         return render(request, template, context)
 
