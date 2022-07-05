@@ -49,7 +49,7 @@ class GetPageNumberFromRequestTest(TestCase):
 
     def test_custom_querystring_key(self):
         # Ensure the page returned correctly reflects the ``querystring_key``.
-        request = self.factory.get('?mypage=4'.format(PAGE_LABEL))
+        request = self.factory.get('?mypage=4'.format(PAGE_LABEL))  # noqa: F523
         page_number = utils.get_page_number_from_request(
             request, querystring_key='mypage')
         self.assertEqual(4, page_number)
