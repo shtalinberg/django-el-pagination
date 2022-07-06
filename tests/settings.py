@@ -25,8 +25,6 @@ DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'el_pagination',
-    'nose',
-    'django_nose',
     PROJECT_NAME,
 )
 gettext = lambda s: s
@@ -38,7 +36,6 @@ SECRET_KEY = os.getenv('EL_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
-
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -70,16 +67,7 @@ MIDDLEWARE = (
 )
 
 # Testing.
-NOSE_ARGS = (
-    '--verbosity=1',
-    '--stop',
-    '-s',  # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
-    # '--nomigrations',
-    # '--with-coverage',
-    # '--cover-branches',
-    # '--cover-package=el_pagination',
-)
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+DJANGO_SETTINGS_MODULE = 'test.settings'
 
 try:
     from settings_local import *  # noqa
