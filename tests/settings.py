@@ -66,9 +66,6 @@ MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
 )
 
-# Testing.
-DJANGO_SETTINGS_MODULE = 'test.settings'
-
 try:
     from settings_local import *  # noqa
     INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL  # noqa
