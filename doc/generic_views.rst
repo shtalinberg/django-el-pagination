@@ -93,7 +93,7 @@ If the developer wants pagination of publishers, in *views.py* we have code clas
         template_name = "myapp/publisher_list.html"
         context_object_name = "publisher_list"
 
-or fuction-based::
+or function-based::
 
     def entry_index(request, template='myapp/publisher_list.html'):
         context = {
