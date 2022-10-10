@@ -20,7 +20,12 @@ ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT = os.path.join(ROOT, PROJECT_NAME)
 
 # Django configuration.
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    }
+}
 
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
