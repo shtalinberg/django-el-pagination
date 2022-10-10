@@ -3,12 +3,10 @@ import os
 import subprocess
 import sys
 
-VENV_NAME = '.venv3'
-
 TESTS = os.path.abspath(os.path.dirname(__file__))
 REQUIREMENTS = os.path.join(TESTS, 'requirements.pip')
 WITH_VENV = os.path.join(TESTS, 'with_venv.sh')
-VENV = os.path.abspath(os.path.join(TESTS, '..', VENV_NAME))
+VENV = os.path.abspath(os.path.join(TESTS, '..', '.venv'))
 
 
 def call(*args):
@@ -19,7 +17,7 @@ def call(*args):
 
 def pip_install(*args):
     """Install packages using pip inside the virtualenv."""
-    call(WITH_VENV, VENV_NAME, 'pip', 'install', *args)
+    call(WITH_VENV, '.venv', 'pip', 'install', *args)
 
 
 if __name__ == '__main__':

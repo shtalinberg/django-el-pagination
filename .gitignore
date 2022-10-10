@@ -6,7 +6,7 @@ doc/_build
 /help-man
 dist/
 ~$
-.venv*
+.venv/
 .coverage
 .ropeproject
 .DS_Store
