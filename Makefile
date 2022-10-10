@@ -49,7 +49,7 @@ help:
 	@echo 'make shell - Enter Django interactive interpreter'
 	@echo 'make server - Run Django development server'
 	@echo 'make clean - Get rid of bytecode files, build dirs, dist files'
-	@echo 'make cleanall - Clean and also get rid of the virtualenvs'
+	@echo 'make cleanall - Clean and also get rid of the venvs'
 	@echo -e '\nDefine the env var PY3 to work using Python 3.'
 	@echo 'E.g. to create a Python 3 development environment:'
 	@echo '  - make PY3=1'

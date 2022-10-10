@@ -13,18 +13,14 @@ Please, change code and submit all pull requests into branch `develop`
 Creating a development environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The development environment is created in a virtualenv. The environment
-creation requires the *make* and *virtualenv* programs to be installed.
+The development environment is created in a venv. The environment
+creation requires the *make* program to be installed.
 
 To install *make* under Debian/Ubuntu::
 
     $ sudo apt-get install build-essential
 
 Under Mac OS/X, *make* is available as part of XCode.
-
-To install virtualenv::
-
-    $ sudo pip install virtualenv
 
 At this point, from the root of this branch, run the command::
 

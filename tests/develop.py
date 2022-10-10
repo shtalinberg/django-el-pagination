@@ -16,10 +16,10 @@ def call(*args):
 
 
 def pip_install(*args):
-    """Install packages using pip inside the virtualenv."""
+    """Install packages using pip inside the venv."""
     call(WITH_VENV, '.venv', 'pip', 'install', *args)
 
 
 if __name__ == '__main__':
-    call('virtualenv', '-p', sys.executable, VENV)
+    call(sys.executable, '-m', 'venv', VENV)
     pip_install('-r', REQUIREMENTS)
