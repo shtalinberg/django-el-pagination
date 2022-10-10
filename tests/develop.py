@@ -1,15 +1,9 @@
 """Create a development and testing environment using a virtualenv."""
-
-from __future__ import unicode_literals
-
 import os
 import subprocess
 import sys
 
-if sys.version_info[0] >= 3:
-    VENV_NAME = '.venv3'
-else:
-    VENV_NAME = '.venv'
+VENV_NAME = '.venv3'
 
 TESTS = os.path.abspath(os.path.dirname(__file__))
 REQUIREMENTS = os.path.join(TESTS, 'requirements.pip')
@@ -29,5 +23,5 @@ def pip_install(*args):
 
 
 if __name__ == '__main__':
-    call('virtualenv', '--distribute', '-p', sys.executable, VENV)
+    call('virtualenv', '-p', sys.executable, VENV)
     pip_install('-r', REQUIREMENTS)
