@@ -22,7 +22,7 @@ class MultipleObjectMixin(object):
     def get_queryset(self):
         """Get the list of items for this view.
 
-        This must be an interable, and may be a queryset
+        This must be an iterable, and may be a queryset
         (in which qs-specific behavior will be enabled).
 
         See original in ``django.views.generic.list.MultipleObjectMixin``.

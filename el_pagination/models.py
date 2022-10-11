@@ -112,7 +112,7 @@ class PageList(object):
 
     def __getitem__(self, value):
         # The type conversion is required here because in templates Django
-        # performs a dictionary lookup before the attribute lokups
+        # performs a dictionary lookup before the attribute lookups
         # (when a dot is encountered).
         try:
             value = int(value)

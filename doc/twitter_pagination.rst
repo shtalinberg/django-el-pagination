@@ -13,7 +13,7 @@ entries of a blog post, in *views.py* we have class-based::
         def get_queryset(self):
             return Entry.objects.all()
 
-or fuction-based::
+or function-based::
 
     def entry_index(request, template='myapp/entry_list.html'):
         context = {
@@ -55,7 +55,7 @@ to put the page template name in the context.
         def get_queryset(self):
             return Entry.objects.all()
 
-or fuction-based::
+or function-based::
 
     def entry_list(request,
         template='myapp/entry_list.html',

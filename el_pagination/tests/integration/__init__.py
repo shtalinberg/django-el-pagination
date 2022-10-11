@@ -118,7 +118,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         path = '{0}?{1}'.format(url, querydict.urlencode())
 
         # the following javascript scrolls down the entire page body.  Since Twitter
-        # uses "inifinite scrolling", more content will be added to the bottom of the
+        # uses "infinite scrolling", more content will be added to the bottom of the
         # DOM as you scroll... since it is in the loop, it will scroll down up to 100
         # times.
         # for _ in range(100):
