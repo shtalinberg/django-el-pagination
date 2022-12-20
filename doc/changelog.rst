@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 4.0.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 4.1.x support.
 
 Version 3.3.0
 ~~~~~~~~~~~~~
