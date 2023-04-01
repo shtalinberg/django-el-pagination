@@ -1,6 +1,6 @@
 """Endless template tags tests."""
 
-from __future__ import unicode_literals
+
 
 import string
 import sys
@@ -62,7 +62,7 @@ class EtreeTemplateTagsTestMixin(TemplateTagsTestMixin):
 
         Does not return the context.
         """
-        html, _ = super(EtreeTemplateTagsTestMixin, self).render(
+        html, _ = super().render(
             request, contents, **kwargs)
         if html:
             return etree.fromstring('<html>{0}</html>'.format(html))
@@ -97,7 +97,7 @@ class PaginateTestMixin(TemplateTagsTestMixin):
 
     def render(self, request, contents, **kwargs):
         text = string.Template(contents).substitute(tagname=self.tagname)
-        return super(PaginateTestMixin, self).render(request, text, **kwargs)
+        return super().render(request, text, **kwargs)
 
     def test_object_list(self):
         # Ensure the queryset is correctly updated.

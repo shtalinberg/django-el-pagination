@@ -1,11 +1,11 @@
 """Django EL Pagination utility functions."""
 
-from __future__ import unicode_literals
-
 from el_pagination import exceptions
 from el_pagination.settings import (
-    DEFAULT_CALLABLE_AROUNDS, DEFAULT_CALLABLE_ARROWS,
-    DEFAULT_CALLABLE_EXTREMES, PAGE_LABEL,
+    DEFAULT_CALLABLE_AROUNDS,
+    DEFAULT_CALLABLE_ARROWS,
+    DEFAULT_CALLABLE_EXTREMES,
+    PAGE_LABEL,
 )
 
 
@@ -18,29 +18,28 @@ def get_data_from_context(context):
     try:
         return context['endless']
     except KeyError:
-        raise exceptions.PaginationError(
-            'Cannot find endless data in context.')
+        raise exceptions.PaginationError('Cannot find endless data in context.')
 
 
-def get_page_number_from_request(
-        request, querystring_key=PAGE_LABEL, default=1):
+def get_page_number_from_request(request, querystring_key=PAGE_LABEL, default=1):
     """Retrieve the current page number from *GET* or *POST* data.
 
     If the page does not exists in *request*, or is not a number,
     then *default* number is returned.
     """
     try:
-        return int(request.GET.get(querystring_key,
-            request.POST.get(querystring_key)))
+        return int(request.GET.get(querystring_key, request.POST.get(querystring_key)))
     except (KeyError, TypeError, ValueError):
         return default
 
 
 def get_page_numbers(
-        current_page, num_pages,
-        extremes=DEFAULT_CALLABLE_EXTREMES,
-        arounds=DEFAULT_CALLABLE_AROUNDS,
-        arrows=DEFAULT_CALLABLE_ARROWS):
+    current_page,
+    num_pages,
+    extremes=DEFAULT_CALLABLE_EXTREMES,
+    arounds=DEFAULT_CALLABLE_AROUNDS,
+    arrows=DEFAULT_CALLABLE_ARROWS,
+):
     """Default callable for page listing.
 
     Produce a Digg-style pagination.
@@ -73,7 +72,7 @@ def get_page_numbers(
         if diff > 1:
             pages.append(None)
         elif diff < 1:
-            to_add = current[abs(diff) + 1:]
+            to_add = current[abs(diff) + 1 :]
     pages.extend(to_add)
 
     # Mix current with last pages.
@@ -83,7 +82,7 @@ def get_page_numbers(
         if diff > 1:
             pages.append(None)
         elif diff < 1:
-            to_add = last[abs(diff) + 1:]
+            to_add = last[abs(diff) + 1 :]
         pages.extend(to_add)
 
     if current_page != num_pages:
@@ -150,7 +149,8 @@ def get_elastic_page_numbers(current_page, num_pages):
 
 
 def get_querystring_for_page(
-        request, page_number, querystring_key, default_number=1):
+        request, page_number, querystring_key, default_number=1
+):
     """Return a querystring pointing to *page_number*."""
     querydict = request.GET.copy()
     querydict[querystring_key] = page_number

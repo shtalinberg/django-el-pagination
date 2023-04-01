@@ -1,6 +1,6 @@
 """Twitter-style pagination feeding an specific content wrapper integration tests."""
 
-from __future__ import unicode_literals
+
 
 import el_pagination.settings
 from el_pagination.tests.integration import SeleniumTestCase

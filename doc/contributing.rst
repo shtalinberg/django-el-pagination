@@ -52,7 +52,7 @@ tests, define the environment variable SKIP_SELENIUM, e.g.::
     $ make test SKIP_SELENIUM=1
 
 Integration tests are excluded by default when using Python 3. The test suite
-requires Python >= 2.6.1.
+requires Python >= 3.8.x.
 
 Run the tests and lint/pep8 checks::
 

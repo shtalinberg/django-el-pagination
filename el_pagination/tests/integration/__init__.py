@@ -1,6 +1,6 @@
 """Integration tests base objects definitions."""
 
-from __future__ import unicode_literals
+
 
 import os
 import unittest

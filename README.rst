@@ -15,6 +15,7 @@ From version 3.0.0 drop support Django<1.8. For support Django<1.8 use django-en
 
 From version 3.3.0 drop support Django<1.11. For support Django<1.11 use django-endless-pagination<3.3.x
 
+From version 4.0.0 drop support Django<3.2. For support Django<3.2 use django-endless-pagination<4.0.x
 
 The initial idea, which has guided the development of this application,
 is to allow pagination of web contents in `very few steps
@@ -45,4 +46,4 @@ Pull requests are welcome. See `Contributing Guide
 .. |python-versions| image:: https://img.shields.io/pypi/pyversions/django-el-pagination.svg
 .. |django-versions| image:: https://img.shields.io/badge/django-1.8%20or%20newer-green.svg
 .. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/develop/graph/badge.svg
-  :target: https://codecov.io/gh/shtalinberg/django-el-pagination   
+  :target: https://codecov.io/gh/shtalinberg/django-el-pagination

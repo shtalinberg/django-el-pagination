@@ -15,4 +15,4 @@ class TestModel(models.Model):
         app_label = 'el_pagination'
 
     def __str__(self):
-        return 'TestModel: {0}'.format(self.id)
+        return f'TestModel: {self.id}'

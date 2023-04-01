@@ -2,12 +2,21 @@ Changelog
 =========
 
 
+Version 4.0.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 4.1.x support.
+    Django EL(Endless) Pagination now supports Django from 3.2.x to 4.1.x
+    supports Python 3.8, 3.9, 3.10
+
+
 Version 3.3.0
 ~~~~~~~~~~~~~
 
 **New feature**: Django 3.0.x support.
     Django EL(Endless) Pagination now supports Django from 1.11.x to 3.0.x
-    Dropped support for Python 2.x 
+    Dropped support for Python 2.x
+
 
 Version 3.2.4
 ~~~~~~~~~~~~~
@@ -22,11 +31,13 @@ Bug-fix release
 **Fix**: cycle in show_pages with django 2.0
 fix tests for PageList.get_rendered()
 
+
 Version 3.2.2
 ~~~~~~~~~~~~~
 Bug-fix release
 
 **Fix**: fix UnicodeEncodeError with translate in templates
+
 
 Version 3.2.0
 ~~~~~~~~~~~~~
@@ -56,6 +67,7 @@ Version 3.2.0
 **Cleanup**:
 utils.UnicodeMixin
 utils.text
+
 
 Version 3.1.0
 ~~~~~~~~~~~~~
