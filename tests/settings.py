@@ -39,7 +39,7 @@ SECRET_KEY = os.getenv('EL_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
-
+USE_TZ = True
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
