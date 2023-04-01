@@ -1,10 +1,10 @@
 \.pyc$
 .coverage
 .DS_Store
-.venv
+.venv/
 ~$
 doc/_build
 build/
 dist/
 MANIFEST$
-
+*.egg-info/

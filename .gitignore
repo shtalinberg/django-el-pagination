@@ -6,7 +6,7 @@ doc/_build
 /help-man
 dist/
 ~$
-.venv*
+.venv/
 .coverage
 .ropeproject
 .DS_Store
@@ -14,3 +14,4 @@ MANIFEST
 tests/settings_local.py
 *.log
 .tox/
+*.egg-info/

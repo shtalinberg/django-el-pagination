@@ -20,13 +20,16 @@ ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT = os.path.join(ROOT, PROJECT_NAME)
 
 # Django configuration.
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    }
+}
 
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'el_pagination',
-    'nose',
-    'django_nose',
     PROJECT_NAME,
 )
 gettext = lambda s: s
@@ -68,18 +71,6 @@ TEMPLATES = [
 MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
 )
-
-# Testing.
-NOSE_ARGS = (
-    '--verbosity=1',
-    '--stop',
-    '-s',  # Don't capture stdout (any stdout output will be printed immediately) [NOSE_NOCAPTURE]
-    # '--nomigrations',
-    # '--with-coverage',
-    # '--cover-branches',
-    # '--cover-package=el_pagination',
-)
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 try:
     from settings_local import *  # noqa
