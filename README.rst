@@ -3,7 +3,7 @@ Django EL(Endless) Pagination
 =============================
 
 |  |pypi-pkg-version| |python-versions| |django-versions|  |pypi-status| |docs|
-|  |travis-ci-status| |codecov|
+|  |build-ci-status| |codecov|
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
@@ -35,8 +35,8 @@ Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
 
-.. |travis-ci-status| image:: https://travis-ci.org/shtalinberg/django-el-pagination.svg?branch=develop
-   :target: https://travis-ci.org/shtalinberg/django-el-pagination
+.. |build-ci-status| image:: https://github.com/jazzband/shtalinberg/django-el-pagination/Test/badge.svg
+   :target: https://github.com/shtalinberg/django-el-pagination/actions
 .. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest&style=flat
     :target: https://django-el-pagination.readthedocs.io/
 .. |pypi-pkg-version| image:: https://img.shields.io/pypi/v/django-el-pagination.svg
@@ -44,6 +44,6 @@ Pull requests are welcome. See `Contributing Guide
 .. |pypi-status| image:: https://img.shields.io/pypi/status/coverage.svg
     :target: https://pypi.python.org/pypi/django-el-pagination/
 .. |python-versions| image:: https://img.shields.io/pypi/pyversions/django-el-pagination.svg
-.. |django-versions| image:: https://img.shields.io/badge/django-1.8%20or%20newer-green.svg
-.. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/develop/graph/badge.svg
+.. |django-versions| image:: https://img.shields.io/pypi/djversions/django-el-pagination.svg
+.. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/shtalinberg/django-el-pagination

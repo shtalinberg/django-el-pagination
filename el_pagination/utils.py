@@ -148,9 +148,7 @@ def get_elastic_page_numbers(current_page, num_pages):
     return pages
 
 
-def get_querystring_for_page(
-        request, page_number, querystring_key, default_number=1
-):
+def get_querystring_for_page(request, page_number, querystring_key, default_number=1):
     """Return a querystring pointing to *page_number*."""
     querydict = request.GET.copy()
     querydict[querystring_key] = page_number
