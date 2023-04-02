@@ -2,9 +2,9 @@
 # Dependencies are installed by the ``make`` command.
 
 codecov
-coverage==4.3.4
+coverage==7.2.2
 flake8
-isort==4.3.21
+isort==5.12.0
 ipdb
 selenium<4.0
 sphinx==1.5.5

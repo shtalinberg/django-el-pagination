@@ -1,6 +1,6 @@
 """On scroll chunks integration tests."""
 
-from __future__ import unicode_literals
+
 
 from el_pagination.tests.integration import SeleniumTestCase
 

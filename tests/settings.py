@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import os
 import sys
 
@@ -26,6 +23,7 @@ DATABASES = {
         'NAME': ':memory:',
     }
 }
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
@@ -41,7 +39,7 @@ SECRET_KEY = os.getenv('EL_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
-
+USE_TZ = True
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -51,7 +49,9 @@ STATICFILES_FINDERS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT, 'templates'), ],
+        'DIRS': [
+            os.path.join(PROJECT, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'debug': DEBUG,
@@ -64,16 +64,14 @@ TEMPLATES = [
                 PROJECT_NAME + '.context_processors.versions',
             ],
         },
-
     },
 ]
 
-MIDDLEWARE = (
-    'django.middleware.common.CommonMiddleware',
-)
+MIDDLEWARE = ('django.middleware.common.CommonMiddleware',)
 
 try:
     from settings_local import *  # noqa
+
     INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL  # noqa
 except ImportError:
     sys.stderr.write('settings_local.py not loaded\n')

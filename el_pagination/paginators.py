@@ -1,7 +1,5 @@
 """Customized Django paginators."""
 
-from __future__ import unicode_literals
-
 from math import ceil
 
 from django.core.paginator import EmptyPage, Page, PageNotAnInteger, Paginator
@@ -18,8 +16,7 @@ class CustomPage(Page):
             return 0
         elif self.number == 1:
             return 1
-        return (
-            (self.number - 2) * paginator.per_page + paginator.first_page + 1)
+        return (self.number - 2) * paginator.per_page + paginator.first_page + 1
 
     def end_index(self):
         """Return the 1-based index of the last item on this page."""
@@ -42,7 +39,7 @@ class BasePaginator(Paginator):
             self.first_page = kwargs.pop('first_page')
         else:
             self.first_page = per_page
-        super(BasePaginator, self).__init__(object_list, per_page, **kwargs)
+        super().__init__(object_list, per_page, **kwargs)
 
     def get_current_per_page(self, number):
         return self.first_page if number == 1 else self.per_page
@@ -56,7 +53,7 @@ class DefaultPaginator(BasePaginator):
         if number == 1:
             bottom = 0
         else:
-            bottom = ((number - 2) * self.per_page + self.first_page)
+            bottom = (number - 2) * self.per_page + self.first_page
         top = bottom + self.get_current_per_page(number)
         if top + self.orphans >= self.count:
             top = self.count
@@ -73,6 +70,7 @@ class DefaultPaginator(BasePaginator):
                 except ZeroDivisionError:
                     self._num_pages = 0  # fallback to a safe value
         return self._num_pages
+
     num_pages = property(_get_num_pages)
 
 
@@ -94,10 +92,10 @@ class LazyPaginator(BasePaginator):
         if number == 1:
             bottom = 0
         else:
-            bottom = ((number - 2) * self.per_page + self.first_page)
+            bottom = (number - 2) * self.per_page + self.first_page
         top = bottom + current_per_page
         # Retrieve more objects to check if there is a next page.
-        objects = list(self.object_list[bottom:top + self.orphans + 1])
+        objects = list(self.object_list[bottom : top + self.orphans + 1])
         objects_count = len(objects)
         if objects_count > (current_per_page + self.orphans):
             # If another page is found, increase the total number of pages.
