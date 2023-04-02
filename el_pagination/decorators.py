@@ -1,12 +1,10 @@
 """View decorators for Ajax powered pagination."""
 
-from __future__ import unicode_literals
-
 from functools import wraps
 
 from el_pagination.settings import PAGE_LABEL, TEMPLATE_VARNAME
 
-QS_KEY = 'querystring_key'
+QS_KEY = "querystring_key"
 
 
 def page_template(template, key=PAGE_LABEL):
@@ -20,19 +18,25 @@ def page_template(template, key=PAGE_LABEL):
     The name of the page template is given as *page_template* in the
     extra context.
     """
+
     def decorator(view):
         @wraps(view)
         def decorated(request, *args, **kwargs):
             # Trust the developer: he wrote ``context.update(extra_context)``
             # in his view.
-            extra_context = kwargs.setdefault('extra_context', {})
-            extra_context['page_template'] = template
+            extra_context = kwargs.setdefault("extra_context", {})
+            extra_context["page_template"] = template
             # Switch the template when the request is Ajax.
-            querystring_key = request.GET.get(QS_KEY,
-                request.POST.get(QS_KEY, PAGE_LABEL))
-            if request.is_ajax() and querystring_key == key:
+            querystring_key = request.GET.get(
+                QS_KEY, request.POST.get(QS_KEY, PAGE_LABEL)
+            )
+            if (
+                request.headers.get("x-requested-with") == "XMLHttpRequest"
+                and querystring_key == key
+            ):
                 kwargs[TEMPLATE_VARNAME] = template
             return view(request, *args, **kwargs)
+
         return decorated
 
     return decorator
@@ -71,20 +75,23 @@ def page_templates(mapping):
     (defined in settings) is used. You can use this decorator instead of
     chaining multiple *page_template* calls.
     """
+
     def decorator(view):
         @wraps(view)
         def decorated(request, *args, **kwargs):
             # Trust the developer: he wrote ``context.update(extra_context)``
             # in his view.
-            extra_context = kwargs.setdefault('extra_context', {})
-            querystring_key = request.GET.get(QS_KEY,
-                request.POST.get(QS_KEY, PAGE_LABEL))
+            extra_context = kwargs.setdefault("extra_context", {})
+            querystring_key = request.GET.get(
+                QS_KEY, request.POST.get(QS_KEY, PAGE_LABEL)
+            )
             template = _get_template(querystring_key, mapping)
-            extra_context['page_template'] = template
+            extra_context["page_template"] = template
             # Switch the template when the request is Ajax.
-            if request.is_ajax() and template:
+            if request.headers.get("x-requested-with") == "XMLHttpRequest" and template:
                 kwargs[TEMPLATE_VARNAME] = template
             return view(request, *args, **kwargs)
+
         return decorated
 
     return decorator

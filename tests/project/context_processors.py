@@ -1,18 +1,11 @@
 """Navigation bar context processor."""
 
-from __future__ import unicode_literals
-
 import platform
 
 import django
+from django.urls import reverse
 
 import el_pagination
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
 
 VOICES = (
     # Name and label pairs.
@@ -33,11 +26,13 @@ def navbar(request):
     current_path = request.path
     for name, label in VOICES:
         path = reverse(name)
-        voice_list.append({
-            'label': label,
-            'path': path,
-            'is_active': path == current_path,
-        })
+        voice_list.append(
+            {
+                'label': label,
+                'path': path,
+                'is_active': path == current_path,
+            }
+        )
     return {'navbar': voice_list}
 
 

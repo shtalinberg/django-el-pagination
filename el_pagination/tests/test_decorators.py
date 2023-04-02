@@ -1,6 +1,6 @@
 """Decorator tests."""
 
-from __future__ import unicode_literals
+
 
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -53,7 +53,7 @@ class DecoratorsTestMixin(object):
 
     def test_request_with_querystring_key(self):
         # If the querystring key refers to the handled template,
-        # the view still uses the default tempate if the request is not Ajax.
+        # the view still uses the default template if the request is not Ajax.
         view = self.decorate(self.arg)
         templates = view(self.factory.get(self.page_url))
         self.assertTemplatesEqual(self.default, self.page, templates)
@@ -88,14 +88,14 @@ class PageTemplateTest(DecoratorsTestMixin, TestCase):
 
     def test_request_with_querystring_key_to_mypage(self):
         # If the querystring key refers to another template,
-        # the view still uses the default tempate if the request is not Ajax.
+        # the view still uses the default template if the request is not Ajax.
         view = self.decorate(self.arg)
         templates = view(self.factory.get(self.mypage_url))
         self.assertTemplatesEqual(self.default, self.page, templates)
 
     def test_ajax_request_with_querystring_key_to_mypage(self):
         # If the querystring key refers to another template,
-        # the view still uses the default tempate even if the request is Ajax.
+        # the view still uses the default template even if the request is Ajax.
         view = self.decorate(self.arg)
         templates = view(
             self.factory.get(self.mypage_url, **self.ajax_headers))
@@ -119,7 +119,7 @@ class PageTemplatesTest(DecoratorsTestMixin, TestCase):
 
     def test_request_with_querystring_key_to_mypage(self):
         # If the querystring key refers to another template,
-        # the view still uses the default tempate if the request is not Ajax.
+        # the view still uses the default template if the request is not Ajax.
         view = self.decorate(self.arg)
         templates = view(self.factory.get(self.mypage_url))
         self.assertTemplatesEqual(self.default, self.mypage, templates)

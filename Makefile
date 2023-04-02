@@ -2,17 +2,15 @@
 
 # Define these variables based on the system Python versions.
 PYTHON3 = python3
-VENV3 = .venv3
 
-LINTER = flake8 --show-source endless_pagination/ tests/
+LINTER = flake8 --show-source el_pagination/ tests/
 MANAGE = python ./tests/manage.py
 
 PYTHON = $(PYTHON3)
-VENV = $(VENV3)
 
 DOC_INDEX = doc/_build/html/index.html
-VENV_ACTIVATE = $(VENV)/bin/activate
-WITH_VENV = ./tests/with_venv.sh $(VENV)
+VENV_ACTIVATE = .venv/bin/activate
+WITH_VENV = ./tests/with_venv.sh .venv
 
 all: develop
 
@@ -28,7 +26,7 @@ clean:
 	find . -name '__pycache__' -type d -delete
 
 cleanall: clean
-	rm -rfv $(VENV2) $(VENV3)
+	rm -rfv .venv
 
 check: test lint
 
@@ -51,7 +49,7 @@ help:
 	@echo 'make shell - Enter Django interactive interpreter'
 	@echo 'make server - Run Django development server'
 	@echo 'make clean - Get rid of bytecode files, build dirs, dist files'
-	@echo 'make cleanall - Clean and also get rid of the virtualenvs'
+	@echo 'make cleanall - Clean and also get rid of the venvs'
 	@echo -e '\nDefine the env var PY3 to work using Python 3.'
 	@echo 'E.g. to create a Python 3 development environment:'
 	@echo '  - make PY3=1'

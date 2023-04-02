@@ -1,13 +1,13 @@
 """Model tests."""
 
-from __future__ import unicode_literals
+
 
 from contextlib import contextmanager
 
 from django.template import Context
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from el_pagination import models as el_models
 from el_pagination import settings, utils
@@ -95,7 +95,7 @@ class PageListTest(TestCase):
             self, page, number, is_first, is_last, is_current, label=None):
         """Perform several assertions on the given page attrs."""
         if label is None:
-            label = force_text(page.number)
+            label = force_str(page.number)
         self.assertEqual(label, page.label)
         self.assertEqual(number, page.number)
         self.assertEqual(is_first, page.is_first)
@@ -105,7 +105,7 @@ class PageListTest(TestCase):
     def check_page_list_callable(self, callable_or_path):
         """Check the provided *page_list_callable* is actually used."""
         with local_settings(PAGE_LIST_CALLABLE=callable_or_path):
-            rendered = force_text(self.pages.get_rendered()).strip()
+            rendered = force_str(self.pages.get_rendered()).strip()
         expected = '<span class="endless_separator">...</span>'
         self.assertEqual(expected, rendered)
 
@@ -181,20 +181,20 @@ class PageListTest(TestCase):
     def test_page_render(self):
         # Ensure the page is correctly rendered.
         page = self.pages.first()
-        rendered_page = force_text(page.render_link())
+        rendered_page = force_str(page.render_link())
         self.assertIn('href="/"', rendered_page)
         self.assertIn(page.label, rendered_page)
 
     def test_current_page_render(self):
         # Ensure the page is correctly rendered.
         page = self.pages.current()
-        rendered_page = force_text(page.render_link())
+        rendered_page = force_str(page.render_link())
         self.assertNotIn('href', rendered_page)
         self.assertIn(page.label, rendered_page)
 
     def test_page_list_render(self):
         # Ensure the page list is correctly rendered.
-        rendered = force_text(self.pages.get_rendered())
+        rendered = force_str(self.pages.get_rendered())
         self.assertEqual(5, rendered.count('<a href'))
         self.assertIn(settings.PREVIOUS_LABEL, rendered)
         self.assertIn(settings.NEXT_LABEL, rendered)
@@ -205,7 +205,7 @@ class PageListTest(TestCase):
         page_list_callable = (
             'el_pagination.tests.test_models.page_list_callable_arrows')
         with local_settings(PAGE_LIST_CALLABLE=page_list_callable):
-            rendered = force_text(self.pages.get_rendered())
+            rendered = force_str(self.pages.get_rendered())
         self.assertEqual(7, rendered.count('<a href'))
         self.assertIn(settings.FIRST_LABEL, rendered)
         self.assertIn(settings.LAST_LABEL, rendered)
@@ -215,7 +215,7 @@ class PageListTest(TestCase):
         page = DefaultPaginator(range(10), 10).page(1)
         pages = el_models.PageList(self.request, page, self.page_label,
                                    context=Context())
-        self.assertEqual('', force_text(pages))
+        self.assertEqual('', force_str(pages))
 
     def test_different_default_number(self):
         # Ensure the page path is generated based on the default number.

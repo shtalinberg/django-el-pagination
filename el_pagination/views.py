@@ -1,6 +1,5 @@
 """Django EL Pagination class-based views."""
 
-from __future__ import unicode_literals
 
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
@@ -13,7 +12,6 @@ from el_pagination.settings import PAGE_LABEL
 
 
 class MultipleObjectMixin(object):
-
     allow_empty = True
     context_object_name = None
     model = None
@@ -22,7 +20,7 @@ class MultipleObjectMixin(object):
     def get_queryset(self):
         """Get the list of items for this view.
 
-        This must be an interable, and may be a queryset
+        This must be an iterable, and may be a queryset
         (in which qs-specific behavior will be enabled).
 
         See original in ``django.views.generic.list.MultipleObjectMixin``.
@@ -86,15 +84,13 @@ class MultipleObjectMixin(object):
             if hasattr(queryset, 'model'):
                 page_template = self.get_page_template(**kwargs)
             else:
-                raise ImproperlyConfigured(
-                    'AjaxListView requires a page_template')
+                raise ImproperlyConfigured('AjaxListView requires a page_template')
         context['page_template'] = self.page_template = page_template
 
         return context
 
 
 class BaseListView(MultipleObjectMixin, View):
-
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
         allow_empty = self.get_allow_empty()
@@ -102,12 +98,12 @@ class BaseListView(MultipleObjectMixin, View):
             msg = _('Empty list and ``%(class_name)s.allow_empty`` is False.')
             raise Http404(msg % {'class_name': self.__class__.__name__})
         context = self.get_context_data(
-            object_list=self.object_list, page_template=self.page_template)
+            object_list=self.object_list, page_template=self.page_template
+        )
         return self.render_to_response(context)
 
 
 class InvalidPaginationListView:
-
     def get(self, request, *args, **kwargs):
         """Wraps super().get(...) in order to return 404 status code if
         the page parameter is invalid
@@ -124,9 +120,7 @@ class InvalidPaginationListView:
         return response
 
 
-class AjaxMultipleObjectTemplateResponseMixin(
-        MultipleObjectTemplateResponseMixin):
-
+class AjaxMultipleObjectTemplateResponseMixin(MultipleObjectTemplateResponseMixin):
     key = PAGE_LABEL
     page_template = None
     page_template_suffix = '_page'
@@ -150,12 +144,13 @@ class AjaxMultipleObjectTemplateResponseMixin(
         """Switch the templates for Ajax requests."""
         request = self.request
         key = 'querystring_key'
-        querystring_key = request.GET.get(key,
-            request.POST.get(key, PAGE_LABEL))
-        if request.is_ajax() and querystring_key == self.key:
+        querystring_key = request.GET.get(key, request.POST.get(key, PAGE_LABEL))
+        if (
+            request.headers.get('x-requested-with') == 'XMLHttpRequest'
+            and querystring_key == self.key
+        ):
             return [self.page_template or self.get_page_template()]
-        return super(
-            AjaxMultipleObjectTemplateResponseMixin, self).get_template_names()
+        return super().get_template_names()
 
 
 class AjaxListView(AjaxMultipleObjectTemplateResponseMixin, BaseListView):

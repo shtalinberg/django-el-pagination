@@ -5,9 +5,9 @@ Requirements
 ~~~~~~~~~~~~
 
 ======  ====================
-Python  >= 2.7 (or Python 3)
-Django  >= 1.8
-jQuery  >= 1.7
+Python  >= 3.8
+Django  >= 3.2
+jQuery  >= 1.11.1
 ======  ====================
 
 Installation

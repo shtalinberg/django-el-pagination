@@ -1,6 +1,6 @@
 """Integration tests base objects definitions."""
 
-from __future__ import unicode_literals
+
 
 import os
 import unittest
@@ -9,9 +9,9 @@ from contextlib import contextmanager
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.http import QueryDict
 from selenium.common import exceptions
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver import Firefox
+# from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support import ui
 
 try:
@@ -118,7 +118,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         path = '{0}?{1}'.format(url, querydict.urlencode())
 
         # the following javascript scrolls down the entire page body.  Since Twitter
-        # uses "inifinite scrolling", more content will be added to the bottom of the
+        # uses "infinite scrolling", more content will be added to the bottom of the
         # DOM as you scroll... since it is in the loop, it will scroll down up to 100
         # times.
         # for _ in range(100):
