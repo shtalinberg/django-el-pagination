@@ -11,7 +11,6 @@ like multiple or lazy pagination.
 
 This app **django-el-pagination** forked from django-endless-pagination==2.0 (https://github.com/frankban/django-endless-pagination)
 
-From version 3.0.0 drop support Django<1.8. For support Django<1.8 use django-endless-pagination==2.x.x
 
 From version 3.3.0 drop support Django<1.11. For support Django<1.11 use django-endless-pagination<3.3.x
 
@@ -35,7 +34,7 @@ Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
 
-.. |build-ci-status| image:: https://github.com/jazzband/shtalinberg/django-el-pagination/Test/badge.svg
+.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/Test/badge.svg
    :target: https://github.com/shtalinberg/django-el-pagination/actions
 .. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest&style=flat
     :target: https://django-el-pagination.readthedocs.io/

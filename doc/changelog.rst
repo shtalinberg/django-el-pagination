@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 4.1.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 4.2.x support.
+    Django EL(Endless) Pagination now supports Django 3.2.x and 4.2.x
+    supports Python 3.8, 3.9, 3.10, 3.11
 
 Version 4.0.0
 ~~~~~~~~~~~~~

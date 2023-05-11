@@ -3,7 +3,7 @@ Twitter-style and Digg-style pagination.
 """
 
 
-VERSION = (4, 0, 0)
+VERSION = (4, 1, 0)
 
 
 def get_version():
