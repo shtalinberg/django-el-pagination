@@ -74,6 +74,23 @@ class DefaultPaginator(BasePaginator):
     num_pages = property(_get_num_pages)
 
 
+class LazyPaginatorCustomPage(Page):
+    """Handle different number of items on the first page."""
+
+    def start_index(self):
+        """Return the 1-based index of the first item on this page."""
+        paginator = self.paginator
+        if self.number == 1:
+            return 1
+        return (
+            (self.number - 2) * paginator.per_page + paginator.first_page + 1)
+
+    def end_index(self):
+        """Return the 1-based index of the last item on this page."""
+        paginator = self.paginator
+        return (self.number - 1) * paginator.per_page + paginator.first_page
+
+
 class LazyPaginator(BasePaginator):
     """Implement lazy pagination."""
 
@@ -107,7 +124,7 @@ class LazyPaginator(BasePaginator):
         else:
             # This is the last page.
             self._num_pages = number
-        return CustomPage(objects, number, self)
+        return LazyPaginatorCustomPage(objects, number, self)
 
     def _get_count(self):
         raise NotImplementedError

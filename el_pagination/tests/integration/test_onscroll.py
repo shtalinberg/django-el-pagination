@@ -47,3 +47,9 @@ class OnScrollPaginationTest(SeleniumTestCase):
         self.get(page=5)
         with self.assertNewElements('object', range(41, 51)):
             self.scroll_down()
+
+
+class OnScrollPaginationTableTest(OnScrollPaginationTest):
+
+    view_name = 'onscroll-table'
+    selector = 'tr.{0} td > h4'
