@@ -50,6 +50,12 @@ jobs:
             django-version: "==3.2.*"
           - python-version: 3.12
             django-version: "==3.2.*"
+          - python-version: 3.12
+            django-version: "==4.1.*"
+          - python-version: 3.8
+            django-version: "==5.0.*"
+          - python-version: 3.9
+            django-version: "==5.0.*"
         # # Django 4.0 no longer supports python 3.7
         #   - python-version: 3.7
         #     django-version: "==4.0.*"
