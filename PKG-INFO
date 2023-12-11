@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: django-el-pagination
-Version: 4.1.0
+Version: 4.2.0
 Summary: Django pagination tools supporting Ajax, multiple and lazy pagination, Twitter-style and Digg-style pagination.
 Home-page: https://github.com/shtalinberg/django-el-pagination
 Author: Oleksandr Shtalinberg
