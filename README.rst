@@ -33,8 +33,9 @@ Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
 
-.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/Test/badge.svg
+.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/workflows/Test/badge.svg
    :target: https://github.com/shtalinberg/django-el-pagination/actions
+   :alt: GitHub Actions
 .. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest&style=flat
     :target: https://django-el-pagination.readthedocs.io/
 .. |pypi-pkg-version| image:: https://img.shields.io/pypi/v/django-el-pagination.svg
@@ -45,3 +46,5 @@ Pull requests are welcome. See `Contributing Guide
 .. |django-versions| image:: https://img.shields.io/pypi/djversions/django-el-pagination.svg
 .. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/shtalinberg/django-el-pagination
+  :alt: Code coverage
+
