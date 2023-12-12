@@ -11,11 +11,9 @@ like multiple or lazy pagination.
 
 This app **django-el-pagination** forked from django-endless-pagination==2.0 (https://github.com/frankban/django-endless-pagination)
 
-From version 3.0.0 drop support Django<1.8. For support Django<1.8 use django-endless-pagination==2.x.x
-
-From version 3.3.0 drop support Django<1.11. For support Django<1.11 use django-endless-pagination<3.3.x
-
 From version 4.0.0 drop support Django<3.2. For support Django<3.2 use django-endless-pagination<4.0.x
+
+From version 4.1.0 added support Django 5.0 and python 3.12
 
 The initial idea, which has guided the development of this application,
 is to allow pagination of web contents in `very few steps
@@ -35,8 +33,9 @@ Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
 
-.. |build-ci-status| image:: https://github.com/jazzband/shtalinberg/django-el-pagination/Test/badge.svg
+.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/workflows/Test/badge.svg
    :target: https://github.com/shtalinberg/django-el-pagination/actions
+   :alt: GitHub Actions
 .. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest&style=flat
     :target: https://django-el-pagination.readthedocs.io/
 .. |pypi-pkg-version| image:: https://img.shields.io/pypi/v/django-el-pagination.svg
@@ -47,3 +46,5 @@ Pull requests are welcome. See `Contributing Guide
 .. |django-versions| image:: https://img.shields.io/pypi/djversions/django-el-pagination.svg
 .. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/shtalinberg/django-el-pagination
+  :alt: Code coverage
+
