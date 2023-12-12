@@ -9,8 +9,6 @@ Version 4.1.0
     supports Python  
 	Django 	Python versions
 	3.2	3.8, 3.9, 3.10 (added in 3.2.9)
-	4.0	3.8, 3.9, 3.10
-	4.1	3.8, 3.9, 3.10, 3.11 (added in 4.1.3)
 	4.2	3.8, 3.9, 3.10, 3.11, 3.12 (added in 4.2.8)
 	5.0	3.10, 3.11, 3.12
 
