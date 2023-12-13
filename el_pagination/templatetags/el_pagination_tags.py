@@ -250,7 +250,7 @@ class PaginateNode(template.Node):
         self.querystring_key_variable = None
         if key is None:
             self.querystring_key = settings.PAGE_LABEL
-        elif key[0] in ('"', "'") and key[-1] == key[0]:
+        elif key[0] in {'"', "'"} and key[-1] == key[0]:
             self.querystring_key = key[1:-1]
         else:
             self.querystring_key_variable = template.Variable(key)
@@ -261,8 +261,8 @@ class PaginateNode(template.Node):
         if override_path is None:
             self.override_path = None
         elif (
-            override_path[0] in ('"', "'") and override_path[-1] == override_path[0]
-        ):  # noqa
+            override_path[0] in {'"', "'"} and override_path[-1] == override_path[0]
+        ):
             self.override_path = override_path[1:-1]
         else:
             self.override_path_variable = template.Variable(override_path)
@@ -693,7 +693,7 @@ class ShowCurrentNumberNode(template.Node):
         self.querystring_key_variable = None
         if key is None:
             self.querystring_key = settings.PAGE_LABEL
-        elif key[0] in ('"', "'") and key[-1] == key[0]:
+        elif key[0] in {'"', "'"} and key[-1] == key[0]:
             self.querystring_key = key[1:-1]
         else:
             self.querystring_key_variable = template.Variable(key)

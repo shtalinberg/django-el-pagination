@@ -11,7 +11,7 @@ VENV = os.path.abspath(os.path.join(TESTS, '..', '.venv'))
 
 def call(*args):
     """Simple ``subprocess.call`` wrapper."""
-    if subprocess.call(args):
+    if subprocess.call(args):  # noqa: S603
         raise SystemExit('Error running {0}.'.format(args))
 
 

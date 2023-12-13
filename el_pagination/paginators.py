@@ -14,7 +14,7 @@ class CustomPage(Page):
         # Special case, return zero if no items.
         if paginator.count == 0:
             return 0
-        elif self.number == 1:
+        elif self.number == 1:  # noqa: RET505
             return 1
         return (self.number - 2) * paginator.per_page + paginator.first_page + 1
 

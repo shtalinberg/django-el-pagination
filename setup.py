@@ -25,7 +25,7 @@ for dirpath, dirnames, filenames in os.walk(PROJECT_NAME):
         continue
     elif filenames:
         for f in filenames:
-            data_files.append(os.path.join(
+            data_files.append(os.path.join(  # noqa: PERF401
                 dirpath[len(PROJECT_NAME) + 1:], f))
 
 

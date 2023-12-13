@@ -1,9 +1,18 @@
 name: Tox
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
 
 jobs:
-  tox-lint:
+  tox-jobs:
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        job: ["lint", "docs", "docs-linkcheck"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -12,29 +21,7 @@ jobs:
           python-version: 3.x
       - run: pip install --upgrade pip
       - run: pip install tox
-      - run: tox -e lint || true  # Fix error and remove "|| true"!
-
-  tox-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-      - run: pip install --upgrade pip
-      - run: pip install tox
-      - run: tox -e docs || true  # Fix error and remove "|| true"!
-
-  tox-docs-linkcheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-      - run: pip install --upgrade pip
-      - run: pip install tox
-      - run: tox -e docs-linkcheck || true  # Fix error and remove "|| true"!
+      - run: tox -e ${{ matrix.job }}
 
   build:
     strategy:
@@ -56,9 +43,6 @@ jobs:
             django-version: "==5.0.*"
           - python-version: 3.9
             django-version: "==5.0.*"
-        # # Django 4.0 no longer supports python 3.7
-        #   - python-version: 3.7
-        #     django-version: "==4.0.*"
 
     runs-on: ${{ matrix.os }}
 

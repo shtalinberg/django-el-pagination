@@ -5,7 +5,7 @@
 import string
 import sys
 import unittest
-import xml.etree.ElementTree as etree
+import xml.etree.ElementTree as etree  # noqa: N813
 
 from django.http import Http404
 from django.template import Context, Template, TemplateSyntaxError
@@ -65,7 +65,8 @@ class EtreeTemplateTagsTestMixin(TemplateTagsTestMixin):
         html, _ = super().render(
             request, contents, **kwargs)
         if html:
-            return etree.fromstring('<html>{0}</html>'.format(html))
+            return etree.fromstring('<html>{0}</html>'.format(html))  # noqa: S314
+        return None
 
 
 class PaginateTestMixin(TemplateTagsTestMixin):
@@ -88,8 +89,7 @@ class PaginateTestMixin(TemplateTagsTestMixin):
         request = self.request()
         with self.assertNumQueries(num_queries):
             _, context = self.render(request, template, objects=queryset)
-            objects = list(context['objects'])
-        return objects
+            return list(context['objects'])
 
     def assertRangeEqual(self, expected, actual):
         """Assert the *expected* range equals the *actual* one."""
@@ -485,7 +485,7 @@ class ShowPagesTest(EtreeTemplateTagsTestMixin, TestCase):
         for page_number in range(1, 6):
             tree = self.render(self.request(page=page_number), template)
             links = tree.findall('.//a')
-            expected = 5 if page_number == 1 or page_number == 5 else 6
+            expected = 5 if page_number in {1, 5} else 6
             self.assertEqual(expected, len(links))
 
     def test_without_paginate_tag(self):

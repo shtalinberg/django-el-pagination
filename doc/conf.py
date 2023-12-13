@@ -23,7 +23,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = APP
-copyright = '2009-2023, ' + AUTHOR
+copyright = '2009-2023, ' + AUTHOR  # noqa: A001
 
 # The short X.Y version.
 version = release = VERSION
@@ -55,3 +55,5 @@ latex_documents = [(
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [('index', 'djangoelpagination', TITLE, [AUTHOR], 1)]
+
+linkcheck_ignore = [r'http://localhost:8000']

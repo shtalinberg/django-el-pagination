@@ -51,7 +51,7 @@ def _get_template(querystring_key, mapping):
         template_and_keys = mapping
     for template, key in template_and_keys:
         if key is None:
-            key = PAGE_LABEL
+            key = PAGE_LABEL  # noqa: PLW2901
             default = template
         if key == querystring_key:
             return template

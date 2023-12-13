@@ -21,8 +21,8 @@ class CallbacksTest(SeleniumTestCase):
 
     def test_can_navigate_site(self):
         self.selenium.get(self.live_server_url)  # use the live server url
-        assert 'Testing project - Django Endless Pagination' in \
-            self.selenium.title
+        title = "Testing project - Django Endless Pagination"
+        assert title in self.selenium.title  # noqa: S101
 
     def test_on_click(self):
         # Ensure the onClick callback is correctly called.

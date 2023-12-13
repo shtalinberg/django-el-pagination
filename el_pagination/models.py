@@ -255,7 +255,7 @@ class PageList(object):
             )
         return ''
 
-    def next(self):
+    def next(self):  # noqa: A003
         """Return the next page.
 
         The page label is defined in ``settings.NEXT_LABEL``.

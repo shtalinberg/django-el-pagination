@@ -9,8 +9,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.utils.encoding import force_str
 
-from el_pagination import models as el_models
-from el_pagination import settings, utils
+from el_pagination import models as el_models, settings, utils
 from el_pagination.paginators import DefaultPaginator
 
 
@@ -55,7 +54,7 @@ class LocalSettingsTest(TestCase):
         # Check that local settings are restored after an exception.
         with self.assertRaises(RuntimeError):
             with local_settings(_LOCAL_SETTINGS_TEST='changed'):
-                raise RuntimeError()
+                raise RuntimeError
             self.assertEqual('original', settings._LOCAL_SETTINGS_TEST)
 
 
@@ -67,7 +66,7 @@ def page_list_callable_arrows(number, num_pages):
     return utils.get_page_numbers(number, num_pages, arrows=True)
 
 
-page_list_callable_dummy = lambda number, num_pages: [None]
+page_list_callable_dummy = lambda number, num_pages: [None]  # noqa: E731
 
 
 class PageListTest(TestCase):
@@ -285,7 +284,7 @@ class PageListTest(TestCase):
         # Ensure white spaces in paths are correctly handled.
         path = '/a path/containing spaces/'
         request = self.factory.get(path)
-        next = el_models.PageList(
+        next = el_models.PageList(  # noqa: A001
             request, self.paginator.page(self.current_number),
             self.page_label, context=Context()).next()
         self.assertEqual(path.replace(' ', '%20') + next.url, next.path)
