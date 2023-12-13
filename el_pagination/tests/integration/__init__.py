@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.http import QueryDict
 from selenium.common import exceptions
+
 # from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import WebDriver
@@ -22,7 +23,7 @@ except ImportError:
 
 # Disable selenium as default. Difficult to setup for local tests. Must be enabled
 # in CI environment.
-USE_SELENIUM = os.getenv('USE_SELENIUM', 0) in (1, True, '1')
+USE_SELENIUM = os.getenv('USE_SELENIUM', 0) in (1, True, '1')  # noqa: PLW1508
 
 
 def setup_package():
@@ -156,13 +157,12 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 
     def get_current_elements(self, class_name, driver=None):
         """Return the range of current elements as a list of numbers."""
-        elements = []
         selector = self.selector.format(class_name)
         if driver is None:
             driver = self.selenium
-        for element in driver.find_elements_by_css_selector(selector):
-            elements.append(int(element.text.split()[1]))
-        return elements
+        return [
+            int(element.text.split()[1]) for element in driver.find_elements_by_css_selector(selector)
+        ]
 
     def asserLinksEqual(self, count, text):
         """Assert the page contains *count* links with given *text*."""

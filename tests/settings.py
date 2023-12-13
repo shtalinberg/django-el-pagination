@@ -30,7 +30,7 @@ INSTALLED_APPS = (
     'el_pagination',
     PROJECT_NAME,
 )
-gettext = lambda s: s
+gettext = lambda s: s  # noqa: E731
 
 LANGUAGES = (('en', gettext('English')),)
 LANGUAGE_CODE = os.getenv('EL_PAGINATION_LANGUAGE_CODE', 'en')
@@ -70,9 +70,9 @@ TEMPLATES = [
 MIDDLEWARE = ('django.middleware.common.CommonMiddleware',)
 
 try:
-    from settings_local import *  # noqa
+    from settings_local import *  # noqa: F403
 
-    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL  # noqa
+    INSTALLED_APPS = INSTALLED_APPS + INSTALLED_APPS_LOCAL  # noqa: F405
 except ImportError:
     sys.stderr.write('settings_local.py not loaded\n')
 

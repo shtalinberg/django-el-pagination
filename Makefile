@@ -3,7 +3,7 @@
 # Define these variables based on the system Python versions.
 PYTHON3 = python3
 
-LINTER = flake8 --show-source el_pagination/ tests/
+LINTER = ruff .
 MANAGE = python ./tests/manage.py
 
 PYTHON = $(PYTHON3)

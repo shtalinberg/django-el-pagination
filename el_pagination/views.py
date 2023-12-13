@@ -52,7 +52,7 @@ class MultipleObjectMixin(object):
         """
         if self.context_object_name:
             return self.context_object_name
-        elif hasattr(object_list, 'model'):
+        elif hasattr(object_list, 'model'):  # noqa: RET505
             object_name = object_list.model._meta.object_name.lower()
             return smart_str(f'{object_name}_list')
         else:

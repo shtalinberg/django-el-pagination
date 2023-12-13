@@ -71,7 +71,7 @@ class LoadObjectTest(ImproperlyConfiguredTestMixin, TestCase):
 
     def test_valid_path(self):
         # Ensure the object is correctly loaded if the provided path is valid.
-        path = '.'.join((self.module, 'test_object'))
+        path = f'{self.module}.test_object'
         self.assertIs(test_object, loaders.load_object(path))
 
     def test_module_not_found(self):
@@ -86,6 +86,6 @@ class LoadObjectTest(ImproperlyConfiguredTestMixin, TestCase):
 
     def test_object_not_found(self):
         # An error is raised if the object cannot be found in the module.
-        path = '.'.join((self.module, '__does_not_exist__'))
+        path = f'{self.module}.__does_not_exist__'
         with self.assertImproperlyConfigured('object'):
             loaders.load_object(path)

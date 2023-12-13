@@ -1,8 +1,8 @@
 """Django EL Pagination object loaders."""
 
-from django.core.exceptions import ImproperlyConfigured
-
 from importlib import import_module
+
+from django.core.exceptions import ImproperlyConfigured
 
 
 def load_object(path):

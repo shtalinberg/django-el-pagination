@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from el_pagination.decorators import page_template, page_templates
 from project.views import generic
 
-# Avoid lint errors for the following Django idiom: flake8: noqa.
+# Avoid lint errors for the following Django idiom: ruff: noqa.
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="home.html"), name='home'),
     url(

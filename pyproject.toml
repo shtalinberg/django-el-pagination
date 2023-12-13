@@ -12,20 +12,83 @@ extend-exclude = '''
 )/
 '''
 
-[tool.isort]
-profile = "black"
-blocked_extensions = [
-    "rst","html","js","svg","txt","css","scss","png","snap","tsx"
+[tool.ruff]
+select = [
+  "A",      # flake8-builtins
+  "AIR",    # Airflow
+  "ASYNC",  # flake8-async
+  "B",      # flake8-bugbear
+  "BLE",    # flake8-blind-except
+  "C4",     # flake8-comprehensions
+  "C90",    # McCabe cyclomatic complexity
+  "DJ",     # flake8-django
+  "DTZ",    # flake8-datetimez
+  "E",      # pycodestyle
+  "EXE",    # flake8-executable
+  "F",      # Pyflakes
+  "FA",     # flake8-future-annotations
+  "FIX",    # flake8-fixme
+  "FLY",    # flynt
+  "G",      # flake8-logging-format
+  "I",      # isort
+  "ICN",    # flake8-import-conventions
+  "INT",    # flake8-gettext
+  "ISC",    # flake8-implicit-str-concat
+  "N",      # pep8-naming
+  "NPY",    # NumPy-specific rules
+  "PD",     # pandas-vet
+  "PERF",   # Perflint
+  "PGH",    # pygrep-hooks
+  "PIE",    # flake8-pie
+  "PL",     # Pylint
+  "PYI",    # flake8-pyi
+  "RET",    # flake8-return
+  "RSE",    # flake8-raise
+  "RUF",    # Ruff-specific rules
+  "S",      # flake8-bandit
+  "SLOT",   # flake8-slots
+  "T10",    # flake8-debugger
+  "T20",    # flake8-print
+  "TCH",    # flake8-type-checking
+  "TD",     # flake8-todos
+  "TID",    # flake8-tidy-imports
+  "W",      # pycodestyle
+  "YTT",    # flake8-2020
+  # "ANN",  # flake8-annotations
+  # "ARG",  # flake8-unused-arguments
+  # "COM",  # flake8-commas
+  # "CPY",  # flake8-copyright
+  # "D",    # pydocstyle
+  # "EM",   # flake8-errmsg
+  # "ERA",  # eradicate
+  # "FBT",  # flake8-boolean-trap
+  # "FURB", # refurb
+  # "INP",  # flake8-no-pep420
+  # "LOG",  # flake8-logging
+  # "PT",   # flake8-pytest-style
+  # "PTH",  # flake8-use-pathlib
+  # "Q",    # flake8-quotes
+  # "SIM",  # flake8-simplify
+  # "SLF",  # flake8-self
+  # "TRIO", # flake8-trio
+  # "TRY",  # tryceratops
+  # "UP",   # pyupgrade
 ]
-combine_as_imports = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-include_trailing_comma = true
-use_parentheses = true
-known_django = "django"
-sections=["FUTURE","STDLIB","DJANGO","THIRDPARTY","FIRSTPARTY","LOCALFOLDER"]
-skip = ["migrations",".git","__pycache__","LC_MESSAGES"]
-src_paths = ["el_pagination","tests"]
-line_length = 88
-multi_line_output = 5
-no_lines_before="LOCALFOLDER"
+ignore = ["B904", "N802", "RUF012"]
+line-length = 102
+target-version = "py38"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = ["project"]
+
+[tool.ruff.mccabe]
+max-complexity = 13
+
+[tool.ruff.per-file-ignores]
+"tests/manage.py" = ["EXE001"]
+
+[tool.ruff.pylint]
+allow-magic-value-types = ["int", "str"]
+max-branches = 16  # default is 12
+max-args = 10  # default is 5

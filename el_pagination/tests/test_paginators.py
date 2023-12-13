@@ -115,7 +115,7 @@ class LazyPaginatorTest(PaginatorTestMixin, TestCase):
     def test_items_count(self):
         # The lazy paginator does not implement items count.
         with self.assertRaises(NotImplementedError):
-            self.paginator.count
+            self.paginator.count  # noqa: B018
 
     def test_num_pages(self):
         # The number of pages depends on the current page.
@@ -125,7 +125,7 @@ class LazyPaginatorTest(PaginatorTestMixin, TestCase):
     def test_page_range(self):
         # The lazy paginator does not implement page range.
         with self.assertRaises(NotImplementedError):
-            self.paginator.page_range
+            self.paginator.page_range  # noqa: B018
 
 
 class DifferentFirstPageDefaultPaginatorTest(
