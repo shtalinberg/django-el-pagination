@@ -42,10 +42,10 @@ jobs:
       max-parallel: 5
       matrix:
         os: [ubuntu-latest]  # [macos-latest, ubuntu-latest, windows-latest]
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-        django-version: ["==3.2.*", "==4.1.*", "==4.2.*", "==5.0.*"]
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+        django-version: ["==3.2.*", "==4.1.*", "==4.2.*", "==5.0.*", "==5.1.*"]
         exclude:
-        # https://docs.djangoproject.com/en/5.0/faq/install/#what-python-version-can-i-use-with-django
+        # https://docs.djangoproject.com/en/stable/faq/install/#what-python-version-can-i-use-with-django
           - python-version: 3.11
             django-version: "==3.2.*"
           - python-version: 3.12
@@ -54,8 +54,12 @@ jobs:
             django-version: "==4.1.*"
           - python-version: 3.8
             django-version: "==5.0.*"
+          - python-version: 3.8
+            django-version: "==5.1.*"
           - python-version: 3.9
             django-version: "==5.0.*"
+          - python-version: 3.9
+            django-version: "==5.1.*"
         # # Django 4.0 no longer supports python 3.7
         #   - python-version: 3.7
         #     django-version: "==4.0.*"
