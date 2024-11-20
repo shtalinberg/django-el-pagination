@@ -7,6 +7,11 @@ flake8
 isort==5.12.0
 ipdb
 selenium<4.0
-sphinx==1.5.5
 #xvfbwrapper==0.2.9
 django-test-without-migrations==0.6
+# Docs
+sphinx>=5.0.0,<6.0.0
+sphinx-rtd-theme>=1.0.0
+jinja2>=3.0.0
+docutils>=0.17.1
+sphinxcontrib-applehelp>=1.0.4
