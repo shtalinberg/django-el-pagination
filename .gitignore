@@ -19,7 +19,12 @@ wheels/
 .installed.cfg
 *.egg
 
+# Sphinx documentation
+_static/TRACKME
+.doctrees/
 doc/_build
+doc/.doctrees
+
 *.sublime-*
 .idea*
 /help-man
