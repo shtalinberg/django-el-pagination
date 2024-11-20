@@ -1,3 +1,64 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-el-pagination"
+dynamic = ["version"]
+description = "Django pagination tools supporting Ajax, multiple and lazy pagination, Twitter-style and Digg-style pagination."
+readme = "README.rst"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Francesco Banconi"},
+    {name = "Oleksandr Shtalinberg", email = "O.Shtalinberg@gmail.com"}
+]
+dependencies = [
+    "django>=3.2.0",
+]
+keywords = ["django", "pagination", "ajax", "endless",]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "http://github.com/shtalinberg/django-el-pagination"
+Documentation = "http://django-el-pagination.readthedocs.org/"
+Repository = "https://github.com/shtalinberg/django-el-pagination.git"
+"Bug Tracker" = "https://github.com/shtalinberg/django-el-pagination/issues"
+
+[tool.setuptools]
+packages = ["el_pagination"]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {attr = "el_pagination.get_version"}
+
+[tool.setuptools.package-data]
+el_pagination = [
+    "templates/el_pagination/*.html",
+    "static/el-pagination/js/*.js",
+    "locale/*/LC_MESSAGES/*.mo",
+    "locale/*/LC_MESSAGES/*.po",
+]
+
 [tool.black]
 line_length = 88
 skip-string-normalization = true

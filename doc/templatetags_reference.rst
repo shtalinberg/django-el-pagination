@@ -158,6 +158,49 @@ You can override the loading text too:
 
 Must be called after `paginate`_ or `lazy_paginate`_.
 
+.. _templatetags-show-more-table:
+
+show_more_table
+~~~~~~~~~~~~~~~
+
+Same as the `show_more`_, but for table pagination. Usage:
+
+.. code-block:: html+django
+
+    {% show_more_table %}
+
+If use table in a :doc:`twitter_pagination`:
+
+.. code-block:: html+django
+
+    <table>
+      {% include page_template %}
+    </table>
+
+then page template:
+
+.. code-block:: html+django
+
+    {% load el_pagination_tags %}
+
+    {% paginate 5 objects %}
+    {% for object in objects %}
+        <tr>
+            <td>
+                {{ object.title }}
+            </td>
+        </tr>
+    {% endfor %}
+    {% show_more_table "More results" %}
+
+For :doc:`digg_pagination` use instead `show_more_table` in page template:
+
+.. code-block:: html+django
+
+    <tr>
+      <td>{% show_pages %}</td>
+    </td>
+
 .. _templatetags-get-pages:
 
 get_pages

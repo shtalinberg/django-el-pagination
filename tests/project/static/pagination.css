@@ -1,6 +1,7 @@
 /* Customized css for the pagination elements. */
 
 .pagination div,
+.pagination td,
 .endless_container {
   display: inline-block;
   *display: inline;
@@ -16,6 +17,7 @@
 }
 
 .pagination div > a,
+.pagination td > a,
 .pagination span,
 .endless_container a {
   float: left;
@@ -27,6 +29,7 @@
 }
 
 .pagination div > a:hover,
+.pagination td > a:hover,
 .pagination .endless_page_current,
  .endless_container a:hover {
   background-color: #eeeeee;
@@ -34,6 +37,8 @@
 
 .pagination div > a:first-child,
 .pagination div > span:first-child,
+.pagination td > a:first-child,
+.pagination td > span:first-child,
 .endless_container a {
   border-left-width: 1px;
   -webkit-border-radius: 3px 0 0 3px;
@@ -49,4 +54,8 @@
   text-align: center;
   width: inherit;
   text-decoration: none;
+}
+
+td {
+  padding: 20px;
 }

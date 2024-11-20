@@ -5,8 +5,26 @@ include LICENSE
 include Makefile
 include MANIFEST.in
 include README.rst
+
+# Documentation
 recursive-include doc *
+
+# Test files
 recursive-include tests *
+
+# Package resources
 recursive-include el_pagination/static *
 recursive-include el_pagination/locale *
 recursive-include el_pagination/templates *
+
+# Exclude cache files and compiled python files
+recursive-exclude * __pycache__
+recursive-exclude * *.py[cod]
+recursive-exclude * *.so
+recursive-exclude * .*.swp
+recursive-exclude * .DS_Store
+
+# Exclude version control
+prune .git
+prune .github
+prune .gitignore

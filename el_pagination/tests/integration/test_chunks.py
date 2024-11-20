@@ -41,8 +41,10 @@ class ChunksPaginationTest(SeleniumTestCase):
     def test_chunks(self):
         # Ensure new items are not loaded on scroll if the chunk is complete.
         self.get()
-        for i in range(5):
+        while len(self.get_current_elements('item')) < 20:
             self.scroll_down()
             self.wait_ajax()
+        self.scroll_down()
+        self.wait_ajax()
         self.assertElements('object', range(1, 16))
         self.assertElements('item', range(1, 21))

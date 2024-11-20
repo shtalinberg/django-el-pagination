@@ -1,71 +1,47 @@
 # Django Endless Pagination Makefile.
 
 # Define these variables based on the system Python versions.
-PYTHON3 = python3
+PYTHON ?= python3
 
+VENV = .venv
+WITH_VENV = ./tests/with_venv.sh $(VENV)
+MANAGE = $(PYTHON) ./tests/manage.py
 LINTER = flake8 --show-source el_pagination/ tests/
-MANAGE = python ./tests/manage.py
-
-PYTHON = $(PYTHON3)
-
 DOC_INDEX = doc/_build/html/index.html
-VENV_ACTIVATE = .venv/bin/activate
-WITH_VENV = ./tests/with_venv.sh .venv
+
+.PHONY: all clean cleanall check develop help install lint doc opendoc release server shell source test
 
 all: develop
 
+# Virtual environment
+$(VENV)/bin/activate: tests/develop.py tests/requirements.pip
+	@$(PYTHON) tests/develop.py
+	@touch $(VENV)/bin/activate
+	$(VENV)/bin/pip install --upgrade pip setuptools wheel
+	$(VENV)/bin/pip install -r tests/requirements.pip
+
+develop: $(VENV)/bin/activate
+	$(VENV)/bin/pip install -e .
+
+# Documentation
 $(DOC_INDEX): $(wildcard doc/*.rst)
 	@$(WITH_VENV) make -C doc html
 
 doc: develop $(DOC_INDEX)
 
 clean:
-	$(PYTHON) setup.py clean
-	rm -rfv .coverage build/ dist/ doc/_build MANIFEST
+	pip uninstall django-el-pagination -y || true
+	rm -rfv .coverage build/ dist/ doc/_build MANIFEST *.egg-info
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -type d -delete
 
 cleanall: clean
-	rm -rfv .venv
+	rm -rf $(VENV)
 
 check: test lint
 
-$(VENV_ACTIVATE): tests/develop.py tests/requirements.pip
-	@$(PYTHON) tests/develop.py
-	@touch $(VENV_ACTIVATE)
-
-develop: $(VENV_ACTIVATE)
-
-help:
-	@echo -e 'Django Endless Pagination - list of make targets:\n'
-	@echo 'make - Set up development and testing environment'
-	@echo 'make test - Run tests'
-	@echo 'make lint - Run linter and pep8'
-	@echo 'make check - Run tests, linter and pep8'
-	@echo 'make doc - Build Sphinx documentation'
-	@echo 'make opendoc - Build Sphinx documentation and open it in browser'
-	@echo 'make source - Create source package'
-	@echo 'make install - Install on local system'
-	@echo 'make shell - Enter Django interactive interpreter'
-	@echo 'make server - Run Django development server'
-	@echo 'make clean - Get rid of bytecode files, build dirs, dist files'
-	@echo 'make cleanall - Clean and also get rid of the venvs'
-	@echo -e '\nDefine the env var PY3 to work using Python 3.'
-	@echo 'E.g. to create a Python 3 development environment:'
-	@echo '  - make PY3=1'
-	@echo 'E.g. to run tests and linter under Python 3:'
-	@echo '  - make check PY3=1'
-	@echo -e '\nWhen testing the application, define the env var'
-	@echo 'SKIP_SELENIUM to exclude integration tests, e.g.:'
-	@echo '  - make check SKIP_SELENIUM=1'
-	@echo -e '\nWhen running integration tests, by default all graphical'
-	@echo 'operations are performed in memory where possible. However,'
-	@echo 'it is possible to run tests using a visible browser instance'
-	@echo 'by defining the env var SHOW_BROWSER, e.g.:'
-	@echo '  - make check SHOW_BROWSER=1'
-
 install:
-	python setup.py install
+	pip install --force-reinstall -e .
 
 lint: develop
 	@$(WITH_VENV) $(LINTER)
@@ -88,5 +64,33 @@ source:
 test: develop
 	@$(WITH_VENV) $(MANAGE) test
 
-.PHONY: all doc clean cleanall check develop install lint opendoc release \
-	server shell source test
+help:
+	@echo 'Django Endless Pagination - Available commands:'
+	@echo
+	@echo 'Development:'
+	@echo '  make          - Set up development environment'
+	@echo '  make install  - Install package locally'
+	@echo '  make server   - Run development server'
+	@echo '  make shell    - Enter Django shell'
+	@echo
+	@echo 'Testing:'
+	@echo '  make test     - Run tests'
+	@echo '  make lint     - Run code linting'
+	@echo '  make check    - Run tests and linting'
+	@echo
+	@echo 'Documentation:'
+	@echo '  make doc      - Build documentation'
+	@echo '  make opendoc  - Build and open documentation'
+	@echo
+	@echo 'Cleaning:'
+	@echo '  make clean    - Remove build artifacts'
+	@echo '  make cleanall - Remove all generated files including venv'
+	@echo
+	@echo 'Distribution:'
+	@echo '  make source   - Create source package'
+	@echo '  make release  - Upload to PyPI'
+	@echo
+	@echo 'Environment Variables:'
+	@echo '  USE_SELENIUM=1    - Include integration tests'
+	@echo '  SHOW_BROWSER=1    - Show browser during Selenium tests'
+	@echo

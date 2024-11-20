@@ -54,7 +54,7 @@ class MultipleObjectMixin(object):
             return self.context_object_name
         elif hasattr(object_list, 'model'):
             object_name = object_list.model._meta.object_name.lower()
-            return smart_str('{0}_list'.format(object_name))
+            return smart_str(f'{object_name}_list')
         else:
             return None
 

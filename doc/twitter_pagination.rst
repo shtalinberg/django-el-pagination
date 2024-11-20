@@ -248,7 +248,7 @@ just use the *paginateOnScrollChunkSize* option:
 Specifying where the content will be inserted
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are paginating a table, you may want to include the *show_more* link
+If you are paginating a table, you can use :ref:`templatetags-show-more-table` or you may want to include the *show_more* link
 after the table itself, but the loaded content should be placed inside the
 table.
 
