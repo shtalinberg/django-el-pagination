@@ -3,7 +3,6 @@ import sys
 
 """Settings file for the Django project used for tests."""
 
-
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 # Disable 1.9 arguments '--parallel' and try exclude  “Address already in use” at “setUpClass”

@@ -5,7 +5,7 @@ Summary: Django pagination tools supporting Ajax, multiple and lazy pagination, 
 Home-page: https://github.com/shtalinberg/django-el-pagination
 Author: Oleksandr Shtalinberg
 Author-email: O.Shtalinberg@gmail.com
-License: UNKNOWN
+License: MIT
 Description: Django EL(Endless) Pagination can be used to provide Twitter-style or
         Digg-style pagination, with optional Ajax support and other features
         like multiple or lazy pagination.

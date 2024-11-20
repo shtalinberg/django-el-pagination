@@ -1,3 +1,40 @@
 {
-    "python.formatting.provider": "black"
+    "editor.trimAutoWhitespace": true,
+    "editor.useTabStops": true,
+    "files.trimTrailingWhitespace": true,
+    "html.format.enable": false,
+    "html.format.templating": true,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "javascript.format.insertSpaceAfterCommaDelimiter": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    },
+    "emmet.includeLanguages": {
+        "django-html": "html",
+    },
+    "files.associations": {
+        "**/templates{/**,*}.html": "django-html",
+        "**/templates{/**,*}.htm": "django-html",
+        "**/templates{/**,*}.txt": "django-txt",
+        "**/requirements{/**,*}.{txt,pip}": "pip-requirements",
+        "**/*.html": "html"
+    },
+    "[python]": {
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.analysis.extraPaths": [
+        "./src/apps",
+        "./src/compat"
+    ],
+    "python.testing.pytestArgs": [
+        "src"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
 }

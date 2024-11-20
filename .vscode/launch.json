@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Demo: Django",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/tests/manage.py",
+            "console": "internalConsole",
+            "args": [
+                "runserver",
+                "127.0.0.1:8000",
+                "--noreload",
+                "--settings=project.settings"
+            ],
+            "django": true,
+            "autoStartBrowser": false
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "urlFilter": "http://127.0.0.1:8000/*",
+            "webRoot": "${workspaceFolder}"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Django",
+            "configurations": [
+                "Python Demo: Django",
+            ]
+        },
+    ]
+}
