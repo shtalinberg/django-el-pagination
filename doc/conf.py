@@ -1,5 +1,11 @@
 """Django EL(Endless) Pagination documentation build configuration file."""
 
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('..'))
+
+
 AUTHOR = 'Francesco Banconi, Oleksandr Shtalinberg'
 APP = 'Django EL(Endless) Pagination'
 TITLE = APP + ' Documentation'
@@ -21,7 +27,12 @@ extensions = [
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = [
+    '_build',
+    'Thumbs.db',
+    '.DS_Store',
+    '_static/TRACKME',  # Exclude the TRACKME file from processing
+]
 
 # The suffix of source filenames.
 source_suffix = '.rst'
@@ -42,11 +53,28 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme = 'sphinx_rtd_theme'
+html_theme_options = {
+    'navigation_depth': 4,
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'includehidden': True,
+    'titles_only': False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+epub_exclude_files = [
+    '_static/TRACKME',
+    'search.html',
+    '_static/websupport.js',
+]
+# -- Epub options ---------------------------------------------------------
+epub_show_urls = 'footnote'
+epub_tocdepth = 3
+epub_tocdup = True
+epub_guide = (('toc', 'index.html', 'Table of Contents'),)
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'DjangoELPaginationdoc'

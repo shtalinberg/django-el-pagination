@@ -31,7 +31,7 @@ doc: develop $(DOC_INDEX)
 
 clean:
 	pip uninstall django-el-pagination -y || true
-	rm -rfv .coverage build/ dist/ doc/_build MANIFEST *.egg-info
+	rm -rf .coverage build/ dist/ doc/_build MANIFEST *.egg-info
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -type d -delete
 
@@ -49,9 +49,6 @@ lint: develop
 opendoc: doc
 	@firefox $(DOC_INDEX)
 
-release: clean
-	python setup.py register sdist upload
-
 server: develop
 	@$(WITH_VENV) $(MANAGE) runserver 0.0.0.0:8000
 
@@ -63,6 +60,43 @@ source:
 
 test: develop
 	@$(WITH_VENV) $(MANAGE) test
+
+build-dist: clean develop
+	@echo "Installing build dependencies..."
+	$(VENV)/bin/pip install build twine
+	@echo "Building distribution..."
+	$(VENV)/bin/python -m build
+
+check-dist: build-dist
+	@echo "Checking distribution..."
+	$(VENV)/bin/twine check dist/*
+
+upload-dist: check-dist
+	@echo "Uploading to PyPI..."
+	$(VENV)/bin/twine upload dist/*
+
+release: clean develop
+	@echo "Starting release process..."
+	@if [ -z "$$SKIP_CONFIRMATION" ]; then \
+		read -p "Are you sure you want to release to PyPI? [y/N] " confirm; \
+		if [ "$$confirm" != "y" ]; then \
+			echo "Release cancelled."; \
+			exit 1; \
+		fi \
+	fi
+	$(MAKE) build-dist
+	$(MAKE) check-dist
+	@echo "Ready to upload to PyPI..."
+	@if [ -z "$$SKIP_CONFIRMATION" ]; then \
+		read -p "Proceed with upload? [y/N] " confirm; \
+		if [ "$$confirm" != "y" ]; then \
+			echo "Upload cancelled."; \
+			exit 1; \
+		fi \
+	fi
+	$(MAKE) upload-dist
+	@echo "Release completed successfully!"
+
 
 help:
 	@echo 'Django Endless Pagination - Available commands:'
