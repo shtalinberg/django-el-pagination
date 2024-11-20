@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 4.1.1
+~~~~~~~~~~~~~
+
+**Fix**:  fixed readthedocs documentation
+
 Version 4.1.0
 ~~~~~~~~~~~~~
 

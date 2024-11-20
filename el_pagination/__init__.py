@@ -2,7 +2,7 @@
 Twitter-style and Digg-style pagination.
 """
 
-VERSION = (4, 1, 0)
+VERSION = (4, 1, 1)
 __version__ = '.'.join(map(str, VERSION))
 
 def get_version():
