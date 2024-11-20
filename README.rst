@@ -3,7 +3,7 @@ Django EL(Endless) Pagination
 =============================
 
 |  |pypi-pkg-version| |python-versions| |django-versions|  |pypi-status| |docs|
-|  |build-ci-status| |build-ci-dev-status| |codecov|
+|  |build-ci-status| |tox-ci-status| |codecov|
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
@@ -32,11 +32,12 @@ https://github.com/shtalinberg/django-el-pagination.
 Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
-.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml/badge.svg?branch=master
-   :target: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml
-   :alt: Build status
-.. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest&style=flat
-    :target: https://django-el-pagination.readthedocs.io/
+.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tox.yml/badge.svg?branch=master
+   :target: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tox.yml
+   :alt: Build release status
+.. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest
+    :target: https://django-el-pagination.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 .. |pypi-pkg-version| image:: https://img.shields.io/pypi/v/django-el-pagination.svg
    :target:  https://pypi.python.org/pypi/django-el-pagination/
 .. |pypi-status| image:: https://img.shields.io/pypi/status/coverage.svg
@@ -46,6 +47,6 @@ Pull requests are welcome. See `Contributing Guide
 .. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/shtalinberg/django-el-pagination
   :alt: Code coverage
-.. |build-ci-dev-status| image:: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml/badge.svg?branch=develop
-   :target: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml
-   :alt: Build dev status
+.. |tox-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tox.yml/badge.svg?branch=develop
+   :target: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tox.yml
+   :alt: Tox develop status
