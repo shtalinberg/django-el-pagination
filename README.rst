@@ -3,7 +3,7 @@ Django EL(Endless) Pagination
 =============================
 
 |  |pypi-pkg-version| |python-versions| |django-versions|  |pypi-status| |docs|
-|  |build-ci-status| |codecov|
+|  |build-ci-status| |build-ci-dev-status| |codecov|
 
 Django EL(Endless) Pagination can be used to provide Twitter-style or
 Digg-style pagination, with optional Ajax support and other features
@@ -32,10 +32,9 @@ https://github.com/shtalinberg/django-el-pagination.
 Pull requests are welcome. See `Contributing Guide
 <http://django-el-pagination.readthedocs.io/en/latest/contributing.html>`_.
 
-
-.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/workflows/Test/badge.svg
-   :target: https://github.com/shtalinberg/django-el-pagination/actions
-   :alt: GitHub Actions
+.. |build-ci-status| image:: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml/badge.svg?branch=master
+   :target: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml
+   :alt: Build status
 .. |docs| image:: https://readthedocs.org/projects/django-el-pagination/badge/?version=latest&style=flat
     :target: https://django-el-pagination.readthedocs.io/
 .. |pypi-pkg-version| image:: https://img.shields.io/pypi/v/django-el-pagination.svg
@@ -47,4 +46,6 @@ Pull requests are welcome. See `Contributing Guide
 .. |codecov| image:: https://codecov.io/gh/shtalinberg/django-el-pagination/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/shtalinberg/django-el-pagination
   :alt: Code coverage
-
+.. |build-ci-dev-status| image:: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml/badge.svg?branch=develop
+   :target: https://github.com/shtalinberg/django-el-pagination/actions/workflows/tests.yml
+   :alt: Build dev status
