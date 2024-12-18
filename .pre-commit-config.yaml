@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        language: system
+        entry: sh -c 'make black_diff'
+        types: [python]
+        exclude: (migrations/|\.venv|\.git)
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        language: system
+        entry: sh -c 'make pylint'
+        types: [python]
+        exclude: (migrations/|\.venv|\.git)
