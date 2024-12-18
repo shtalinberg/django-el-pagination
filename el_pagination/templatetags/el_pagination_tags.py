@@ -1,4 +1,4 @@
-"""Django Endless Pagination template tags."""
+"""Django EL(Endless) Pagination template tags."""
 
 import re
 
@@ -10,6 +10,8 @@ from el_pagination import models, settings, utils
 from el_pagination.paginators import DefaultPaginator, EmptyPage, LazyPaginator
 
 register = template.Library()
+
+__all__ = ['register']
 
 PAGINATE_EXPRESSION = re.compile(
     r"""

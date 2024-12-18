@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Version 4.1.2
+~~~~~~~~~~~~~
+
+**Fix**:  in 4.1.1 problem with loading template_tag
+
+
+Version 4.1.1
+~~~~~~~~~~~~~
+
+**Fix**:  fixed readthedocs documentation
 
 Version 4.2.0
 ~~~~~~~~~~~~~
@@ -9,11 +19,6 @@ Version 4.2.0
     Django EL(Endless) Pagination now supports Django from 4.2.x to 5.1.x
     supports Python 3.8, 3.9, 3.10, 3.11, 3.12, 3.13
 
-
-Version 4.1.1
-~~~~~~~~~~~~~
-
-**Fix**:  fixed readthedocs documentation
 
 Version 4.1.0
 ~~~~~~~~~~~~~

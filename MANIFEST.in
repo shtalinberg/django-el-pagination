@@ -16,6 +16,7 @@ recursive-include tests *
 recursive-include el_pagination/static *
 recursive-include el_pagination/locale *
 recursive-include el_pagination/templates *
+recursive-include el_pagination/templatetags *.py
 
 # Exclude cache files and compiled python files
 recursive-exclude * __pycache__

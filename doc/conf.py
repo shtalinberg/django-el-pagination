@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath('..'))
 AUTHOR = 'Francesco Banconi, Oleksandr Shtalinberg'
 APP = 'Django EL(Endless) Pagination'
 TITLE = APP + ' Documentation'
-VERSION = '4.1.0'
+VERSION = '4.1.2'
 
 # General information about the project.
 project = APP
