@@ -1,8 +1,8 @@
 """Django EL Pagination object loaders."""
 
-from django.core.exceptions import ImproperlyConfigured
-
 from importlib import import_module
+
+from django.core.exceptions import ImproperlyConfigured
 
 
 def load_object(path):
@@ -12,13 +12,13 @@ def load_object(path):
     # Load module.
     try:
         module = import_module(module_name)
-    except ImportError:
-        raise ImproperlyConfigured('Module %r not found' % module_name)
-    except ValueError:
-        raise ImproperlyConfigured('Invalid module %r' % module_name)
+    except ImportError as exc:
+        raise ImproperlyConfigured(f'Module {module_name} not found') from exc
+    except ValueError as exc:
+        raise ImproperlyConfigured(f'Invalid module {module_name}') from exc
     # Load object.
     try:
         return getattr(module, object_name)
-    except AttributeError:
+    except AttributeError as exc:
         msg = 'Module %r does not define an object named %r'
-        raise ImproperlyConfigured(msg % (module_name, object_name))
+        raise ImproperlyConfigured(msg % (module_name, object_name)) from exc

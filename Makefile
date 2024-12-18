@@ -46,6 +46,21 @@ install:
 lint: develop
 	@$(WITH_VENV) $(LINTER)
 
+black: develop
+	@echo "***  Black - Reformat pycode ***"
+	@echo ""
+	@$(WITH_VENV) black el_pagination/ tests/
+
+black_diff: develop
+	@echo "*** Black - Show pycode diff ***"
+	@echo ""
+	black --diff --check --color el_pagination/ tests/
+
+pylint: develop
+	@echo "Running pylint"
+	pylint --rcfile=.pylintrc el_pagination/ tests/
+	@echo "Finish pylint"
+
 opendoc: doc
 	@firefox $(DOC_INDEX)
 

@@ -14,7 +14,7 @@ class CustomPage(Page):
         # Special case, return zero if no items.
         if paginator.count == 0:
             return 0
-        elif self.number == 1:
+        if self.number == 1:
             return 1
         return (self.number - 2) * paginator.per_page + paginator.first_page + 1
 
@@ -82,8 +82,7 @@ class LazyPaginatorCustomPage(Page):
         paginator = self.paginator
         if self.number == 1:
             return 1
-        return (
-            (self.number - 2) * paginator.per_page + paginator.first_page + 1)
+        return (self.number - 2) * paginator.per_page + paginator.first_page + 1
 
     def end_index(self):
         """Return the 1-based index of the last item on this page."""

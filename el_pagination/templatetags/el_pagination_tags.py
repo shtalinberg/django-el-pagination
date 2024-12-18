@@ -1,6 +1,5 @@
 """Django Endless Pagination template tags."""
 
-
 import re
 
 from django import template
@@ -385,7 +384,6 @@ def show_more(context, label=None, loading=settings.LOADING, class_name=None):
 
 @register.inclusion_tag('el_pagination/show_more_table.html', takes_context=True)
 def show_more_table(context, label=None, loading=settings.LOADING):
-
     """Show the link to get the next page in a Twitter-like pagination in a
     template for table.
     Usage::
@@ -521,7 +519,7 @@ def get_pages(parser, token):
         if len(args) == 2 and args[0] == 'as':
             var_name = args[1]
         else:
-            msg = 'Invalid arguments for %r tag' % tag_name
+            msg = f'Invalid arguments for {tag_name!r} tag'
             raise template.TemplateSyntaxError(msg)
     # Call the node.
     return GetPagesNode(var_name)
@@ -577,7 +575,7 @@ def show_pages(parser, token):
     """
     # Validate args.
     if len(token.contents.split()) != 1:
-        msg = '%r tag takes no arguments' % token.contents.split()[0]
+        msg = f'{token.contents.split()[0]!r} tag takes no arguments'
         raise template.TemplateSyntaxError(msg)
     # Call the node.
     return ShowPagesNode()
@@ -665,7 +663,7 @@ def show_current_number(parser, token):
         # Use a regexp to catch args.
         match = SHOW_CURRENT_NUMBER_EXPRESSION.match(args)
         if match is None:
-            msg = 'Invalid arguments for %r tag' % tag_name
+            msg = f'Invalid arguments for {tag_name!r} tag'
             raise template.TemplateSyntaxError(msg)
         # Retrieve objects.
         groupdict = match.groupdict()

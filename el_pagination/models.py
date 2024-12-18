@@ -1,6 +1,5 @@
 """Ephemeral models used to represent a page and a list of pages."""
 
-
 from django.template import loader
 from django.utils.encoding import force_str, iri_to_uri
 
@@ -10,7 +9,7 @@ from el_pagination import loaders, settings, utils
 _template_cache = {}
 
 
-class ELPage(object):
+class ELPage:
     """A page link representation.
 
     Interesting attributes:
@@ -56,7 +55,7 @@ class ELPage(object):
             request, number, self.querystring_key, default_number=default_number
         )
         path = iri_to_uri(override_path or request.path)
-        self.path = '{0}{1}'.format(path, self.url)
+        self.path = f"{path}{self.url}"
 
     def render_link(self):
         """Render the page as a link."""
@@ -81,7 +80,7 @@ class ELPage(object):
             return template.render(self.context.flatten())
 
 
-class PageList(object):
+class PageList:
     """A sequence of endless pages."""
 
     def __init__(
@@ -128,9 +127,9 @@ class PageList(object):
         # (when a dot is encountered).
         try:
             value = int(value)
-        except (TypeError, ValueError):
+        except (TypeError, ValueError) as exc:
             # A TypeError says to django to continue with an attribute lookup.
-            raise TypeError
+            raise TypeError from exc
         if 1 <= value <= len(self):
             return self._endless_page(value)
         raise IndexError('page list index out of range')

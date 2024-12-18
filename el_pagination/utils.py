@@ -17,8 +17,10 @@ def get_data_from_context(context):
     """
     try:
         return context['endless']
-    except KeyError:
-        raise exceptions.PaginationError('Cannot find endless data in context.')
+    except KeyError as exc:
+        raise exceptions.PaginationError(
+            'Cannot find endless data in context.'
+        ) from exc
 
 
 def get_page_number_from_request(request, querystring_key=PAGE_LABEL, default=1):
@@ -57,12 +59,8 @@ def get_page_numbers(
     last = page_range[-extremes:]
 
     # Get the current pages (arounds).
-    current_start = current_page - 1 - arounds
-    if current_start < 0:
-        current_start = 0
-    current_end = current_page + arounds
-    if current_end > num_pages:
-        current_end = num_pages
+    current_start = max(current_page - arounds - 1, 0)
+    current_end = min(current_page + arounds, num_pages)
     current = page_range[current_start:current_end]
 
     # Mix first with current pages.

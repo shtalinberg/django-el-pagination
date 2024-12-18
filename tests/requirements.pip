@@ -3,12 +3,16 @@
 django>=3.2.0
 codecov
 coverage==7.2.2
-flake8
-isort==5.12.0
+black==24.10.0
+isort==5.13.2
+flake8==7.1.1
+pylint==3.3.1
+pylint-django==2.6.1
 ipdb
 selenium<4.0
 #xvfbwrapper==0.2.9
 django-test-without-migrations==0.6
+
 # Docs
 sphinx>=5.0.0,<6.0.0
 sphinx-rtd-theme>=1.0.0
