@@ -13,7 +13,7 @@ This app **django-el-pagination** forked from django-endless-pagination==2.0 (ht
 
 From version 4.0.0 drop support Django<3.2. For support Django<3.2 use django-endless-pagination<4.0.x
 
-From version 4.1.0 added support Django 5.0 and python 3.12
+From version 4.1.2 added support Django 5.0 and python 3.12
 
 The initial idea, which has guided the development of this application,
 is to allow pagination of web contents in `very few steps
