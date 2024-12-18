@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 4.1.2
+~~~~~~~~~~~~~
+
+**Fix**:  in 4.1.1 problem with loading template_tag
+
 Version 4.1.0
 ~~~~~~~~~~~~~
 

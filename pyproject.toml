@@ -44,7 +44,7 @@ Repository = "https://github.com/shtalinberg/django-el-pagination.git"
 "Bug Tracker" = "https://github.com/shtalinberg/django-el-pagination/issues"
 
 [tool.setuptools]
-packages = ["el_pagination"]
+packages = ["el_pagination", "el_pagination.templatetags"]
 include-package-data = true
 zip-safe = false
 
@@ -57,6 +57,7 @@ el_pagination = [
     "static/el-pagination/js/*.js",
     "locale/*/LC_MESSAGES/*.mo",
     "locale/*/LC_MESSAGES/*.po",
+    "templatetags/*.py",
 ]
 
 [tool.black]
