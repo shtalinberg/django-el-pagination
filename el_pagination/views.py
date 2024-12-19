@@ -10,7 +10,7 @@ from django.views.generic.list import MultipleObjectTemplateResponseMixin
 from el_pagination.settings import PAGE_LABEL
 
 
-class MultipleObjectMixin(object):
+class MultipleObjectMixin:
     allow_empty = True
     context_object_name = None
     model = None
@@ -27,9 +27,11 @@ class MultipleObjectMixin(object):
         if self.queryset is not None:
             queryset = self.queryset
             if hasattr(queryset, '_clone'):
-                queryset = queryset._clone()
+                queryset = queryset._clone()  # pylint: disable=protected-access
         elif self.model is not None:
-            queryset = self.model._default_manager.all()
+            queryset = (
+                self.model._default_manager.all()  # pylint: disable=protected-access
+            )
         else:
             msg = '{0} must define ``queryset`` or ``model``'
             raise ImproperlyConfigured(msg.format(self.__class__.__name__))
@@ -51,11 +53,10 @@ class MultipleObjectMixin(object):
         """
         if self.context_object_name:
             return self.context_object_name
-        elif hasattr(object_list, 'model'):
+        if hasattr(object_list, 'model'):
             object_name = object_list.model._meta.object_name.lower()
             return smart_str(f'{object_name}_list')
-        else:
-            return None
+        return None
 
     def get_context_data(self, **kwargs):
         """Get the context for this view.
@@ -90,6 +91,8 @@ class MultipleObjectMixin(object):
 
 
 class BaseListView(MultipleObjectMixin, View):
+    object_list = None
+
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
         allow_empty = self.get_allow_empty()
@@ -97,9 +100,10 @@ class BaseListView(MultipleObjectMixin, View):
             msg = _('Empty list and ``%(class_name)s.allow_empty`` is False.')
             raise Http404(msg % {'class_name': self.__class__.__name__})
         context = self.get_context_data(
-            object_list=self.object_list, page_template=self.page_template
+            object_list=self.object_list,
+            page_template=self.page_template,
         )
-        return self.render_to_response(context)
+        return self.render_to_response(context)  # pylint: disable=no-member
 
 
 class InvalidPaginationListView:
@@ -107,13 +111,13 @@ class InvalidPaginationListView:
         """Wraps super().get(...) in order to return 404 status code if
         the page parameter is invalid
         """
-        response = super().get(request, args, kwargs)
+        response = super().get(request, args, kwargs)  # pylint: disable=no-member
         try:
             response.render()
         except Http404:
             request.GET = request.GET.copy()
             request.GET['page'] = '1'
-            response = super().get(request, args, kwargs)
+            response = super().get(request, args, kwargs)  # pylint: disable=no-member
             response.status_code = 404
 
         return response
@@ -132,11 +136,11 @@ class AjaxMultipleObjectTemplateResponseMixin(MultipleObjectTemplateResponseMixi
         *self.as_view*.
         """
         opts = self.object_list.model._meta
-        return '{0}/{1}{2}{3}.html'.format(
-            opts.app_label,
-            opts.object_name.lower(),
-            self.template_name_suffix,
-            self.page_template_suffix,
+        object_name = opts.object_name.lower()
+        t_name_suffix = self.template_name_suffix
+        page_template_suffix = self.page_template_suffix
+        return (
+            f'{opts.app_label}/{object_name}{t_name_suffix}{page_template_suffix}.html'
         )
 
     def get_template_names(self):

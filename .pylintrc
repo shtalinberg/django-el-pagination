@@ -42,21 +42,12 @@ fail-under=10
 #from-stdin=
 
 # Files or directories to be skipped. They should be base names, not paths.
-ignore=project_src
+ignore=tests
 
 # Add files or directories matching the regex patterns to the ignore-list. The
 # regex matches against paths and can be in Posix or Windows format.
-ignore-paths=src\\local_games.py|src/local_games.py,
-      src\\manage.py|src/manage.py,
-      src\\compat\\|src/compat/,
-      allstatic,
-      logs,
-      sbin,
-      cron,
-      docker,
+ignore-paths=logs,
       docs,
-      frontend,
-      jenkins,
       help-man
 
 
@@ -157,21 +148,13 @@ confidence=HIGH,
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
-disable=attribute-defined-outside-init,
-        broad-exception-caught,
-        keyword-arg-before-vararg,
-        logging-fstring-interpolation,
+disable=django-settings-module-not-found,
         missing-module-docstring,
         missing-class-docstring,
         missing-function-docstring,
-        protected-access,
-      ;   similarities,
         too-few-public-methods,
-        too-many-public-methods,
-        too-many-arguments,
-        too-many-ancestors,
-        too-many-return-statements,
         unused-argument,
+
 
 
 # Enable the message, report, category or checker with the given id(s). You can
@@ -355,7 +338,7 @@ exclude-too-few-public-methods=
 ignored-parents=
 
 # Maximum number of arguments for function / method.
-max-args=9
+max-args=10
 
 # Maximum number of attributes for a class (see R0902).
 max-attributes=13
@@ -364,16 +347,16 @@ max-attributes=13
 max-bool-expr=5
 
 # Maximum number of branch for function / method body.
-max-branches=13
+max-branches=15
 
 # Maximum number of locals for function / method body.
 max-locals=20
 
 # Maximum number of parents for a class (see R0901).
-max-parents=9
+max-parents=10
 
 # Maximum number of positional arguments for function / method.
-max-positional-arguments=9
+max-positional-arguments=10
 
 # Maximum number of public methods for a class (see R0904).
 max-public-methods=20

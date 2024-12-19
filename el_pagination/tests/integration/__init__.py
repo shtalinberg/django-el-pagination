@@ -1,24 +1,20 @@
 """Integration tests base objects definitions."""
 
 
-
 import os
 import unittest
 from contextlib import contextmanager
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.http import QueryDict
+from django.urls import reverse
+
 from selenium.common import exceptions
+
 # from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support import ui
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
 
 # Disable selenium as default. Difficult to setup for local tests. Must be enabled
 # in CI environment.
@@ -63,44 +59,44 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         # random errors if you hit it too soon
         # time.sleep(1)
 
-#     @classmethod
-#     def setUpClass(cls):
-#         if not SHOW_BROWSER:
-#             # start display
-#             cls.xvfb = Xvfb(width=1280, height=720)
-#             cls.xvfb.start()
+    #     @classmethod
+    #     def setUpClass(cls):
+    #         if not SHOW_BROWSER:
+    #             # start display
+    #             cls.xvfb = Xvfb(width=1280, height=720)
+    #             cls.xvfb.start()
 
-#         # Create a Selenium browser instance.
-#         cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
-#         # start browser
-#         if cls.browser == 'firefox':
-#             cls.selenium = webdriver.Firefox()
-#         elif cls.browser == 'htmlunit':
-#             cls.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
-#         elif cls.browser == 'iphone':
-#             command_executor = "http://127.0.0.1:3001/wd/hub"
-#             cls.selenium = webdriver.Remote(command_executor=command_executor,
-#                 desired_capabilities=DesiredCapabilities.IPHONE)
-#         elif cls.browser == 'safari':
-#             cls.selenium = webdriver.Remote(desired_capabilities={
-#                 "browserName": "safari", "version": "",
-#                 "platform": "MAC", "javascriptEnabled": True})
-#         else:
-#             cls.selenium = webdriver.Chrome()
-#         cls.selenium.maximize_window()
-#         cls.wait = ui.WebDriverWait(cls.selenium, 10)
-#         cls.selenium.implicitly_wait(3)
-#
-#         super(SeleniumTestCase, cls).setUpClass()
+    #         # Create a Selenium browser instance.
+    #         cls.browser = os.getenv('SELENIUM_BROWSER', 'firefox')
+    #         # start browser
+    #         if cls.browser == 'firefox':
+    #             cls.selenium = webdriver.Firefox()
+    #         elif cls.browser == 'htmlunit':
+    #             cls.selenium = webdriver.Remote(desired_capabilities=DesiredCapabilities.HTMLUNITWITHJS)
+    #         elif cls.browser == 'iphone':
+    #             command_executor = "http://127.0.0.1:3001/wd/hub"
+    #             cls.selenium = webdriver.Remote(command_executor=command_executor,
+    #                 desired_capabilities=DesiredCapabilities.IPHONE)
+    #         elif cls.browser == 'safari':
+    #             cls.selenium = webdriver.Remote(desired_capabilities={
+    #                 "browserName": "safari", "version": "",
+    #                 "platform": "MAC", "javascriptEnabled": True})
+    #         else:
+    #             cls.selenium = webdriver.Chrome()
+    #         cls.selenium.maximize_window()
+    #         cls.wait = ui.WebDriverWait(cls.selenium, 10)
+    #         cls.selenium.implicitly_wait(3)
+    #
+    #         super(SeleniumTestCase, cls).setUpClass()
 
-#     @classmethod
-#     def tearDownClass(cls):
-#         # stop browser
-#         cls.selenium.quit()
-#         super(SeleniumTestCase, cls).tearDownClass()
-#         if not SHOW_BROWSER:
-#             # stop display
-#             cls.xvfb.stop()
+    #     @classmethod
+    #     def tearDownClass(cls):
+    #         # stop browser
+    #         cls.selenium.quit()
+    #         super(SeleniumTestCase, cls).tearDownClass()
+    #         if not SHOW_BROWSER:
+    #             # stop display
+    #             cls.xvfb.stop()
 
     def get(self, url=None, data=None, **kwargs):
         """Load a web page in the current browser session.
@@ -115,7 +111,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         if data is not None:
             querydict.update(data)
         querydict.update(kwargs)
-        path = '{0}?{1}'.format(url, querydict.urlencode())
+        path = f'{url}?{querydict.urlencode()}'
 
         # the following javascript scrolls down the entire page body.  Since Twitter
         # uses "infinite scrolling", more content will be added to the bottom of the

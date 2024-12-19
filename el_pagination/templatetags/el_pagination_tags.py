@@ -153,14 +153,15 @@ def paginate(parser, token, paginator_class=None):
     # Validate arguments.
     try:
         tag_name, tag_args = token.contents.split(None, 1)
-    except ValueError:
-        msg = '%r tag requires arguments' % token.contents.split()[0]
-        raise template.TemplateSyntaxError(msg)
+    except ValueError as exc:
+        tag = token.contents.split()[0]
+        msg = f'{tag!r} tag requires arguments'
+        raise template.TemplateSyntaxError(msg) from exc
 
     # Use a regexp to catch args.
     match = PAGINATE_EXPRESSION.match(tag_args)
     if match is None:
-        msg = 'Invalid arguments for %r tag' % tag_name
+        msg = f'Invalid arguments for {tag_name!r} tag'
         raise template.TemplateSyntaxError(msg)
 
     # Retrieve objects.
@@ -323,7 +324,7 @@ class PaginateNode(template.Node):
         except EmptyPage:
             page = paginator.page(1)
             if settings.PAGE_OUT_OF_RANGE_404:
-                raise Http404('Page out of range')
+                raise Http404('Page out of range')  # pylint: disable=raise-missing-from
 
         # Populate the context with required data.
         data = {
@@ -577,8 +578,8 @@ def show_pages(parser, token):
     """
     # Validate args.
     if len(token.contents.split()) != 1:
-        msg = f'{token.contents.split()[0]!r} tag takes no arguments'
-        raise template.TemplateSyntaxError(msg)
+        tag = token.contents.split()[0]
+        raise template.TemplateSyntaxError(f'{tag!r} tag takes no arguments')
     # Call the node.
     return ShowPagesNode()
 

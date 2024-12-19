@@ -96,8 +96,8 @@ class LazyPaginator(BasePaginator):
     def validate_number(self, number):
         try:
             number = int(number)
-        except ValueError:
-            raise PageNotAnInteger('That page number is not an integer')
+        except ValueError as exc:
+            raise PageNotAnInteger('That page number is not an integer') from exc
         if number < 1:
             raise EmptyPage('That page number is less than 1')
         return number

@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Version 4.2.0
+~~~~~~~~~~~~~
+
+**New feature**: Django 5.1.x support.
+    Django EL(Endless) Pagination now supports Django from 4.2.x to 5.1.x
+    supports Python 3.8, 3.9, 3.10, 3.11, 3.12, 3.13 (only 5.1.x)
+
+**Source code validation**:
+    add black formatting rules
+    add pylint checks
+
+
 Version 4.1.2
 ~~~~~~~~~~~~~
 
@@ -11,13 +23,6 @@ Version 4.1.1
 ~~~~~~~~~~~~~
 
 **Fix**:  fixed readthedocs documentation
-
-Version 4.2.0
-~~~~~~~~~~~~~
-
-**New feature**: Django 5.1.x support.
-    Django EL(Endless) Pagination now supports Django from 4.2.x to 5.1.x
-    supports Python 3.8, 3.9, 3.10, 3.11, 3.12, 3.13
 
 
 Version 4.1.0
@@ -30,6 +35,7 @@ Version 4.1.0
     3.2	3.8, 3.9, 3.10 (added in 3.2.9)
     4.2	3.8, 3.9, 3.10, 3.11, 3.12 (added in 4.2.8)
     5.0	3.10, 3.11, 3.12
+
 
 Version 4.0.0
 ~~~~~~~~~~~~~
